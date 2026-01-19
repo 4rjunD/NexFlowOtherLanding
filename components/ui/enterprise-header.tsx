@@ -23,6 +23,11 @@ function EnterpriseHeader() {
             href: "/playbook",
             description: "",
         },
+        {
+            title: "Newsletter",
+            href: "/learn",
+            description: "",
+        },
     ];
 
     const [isOpen, setOpen] = useState(false);
