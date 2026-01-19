@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Header1 } from "@/components/ui/header";
+import { EnterpriseHeader } from "@/components/ui/enterprise-header";
 import { Footer7 } from "@/components/ui/footer-7";
 import { newsletterEntries } from "@/lib/newsletter-data";
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function LearnPage() {
   return (
     <main className="bg-[#F6F4EF] min-h-screen">
-      <Header1 />
+      <EnterpriseHeader />
       <div className="pt-36 pb-20">
         <div className="container mx-auto max-w-4xl px-6">
           <header className="text-center mb-16">

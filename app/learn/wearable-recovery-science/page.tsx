@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Header1 } from "@/components/ui/header";
+import { EnterpriseHeader } from "@/components/ui/enterprise-header";
 import { Footer7 } from "@/components/ui/footer-7";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function WearableRecoveryScience() {
   return (
     <main className="bg-[#F6F4EF] min-h-screen">
-      <Header1 />
+      <EnterpriseHeader />
       <article className="pt-36 pb-20">
         <div className="container mx-auto max-w-3xl px-6">
           <header className="mb-12">
