@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful - NexFlow</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0a0a0b 0%, #1a1a2e 50%, #16213e 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .checkmark-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+    }
+
+    .checkmark {
+      width: 48px;
+      height: 48px;
+      color: #22c55e;
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .tier-text {
+      color: #a1a1aa;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .tier-name {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      color: #71717a;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .redirect-text {
+      color: #71717a;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .tap-link {
+      display: inline-block;
+      background: #ffffff;
+      color: #0a0a0b;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: opacity 0.2s;
+    }
+
+    .tap-link:hover {
+      opacity: 0.9;
+    }
+
+    .help-text {
+      color: #52525b;
+      font-size: 12px;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="checkmark-circle">
+      <svg class="checkmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+    </div>
+
+    <h1>Payment Successful!</h1>
+
+    <p class="tier-text">Welcome to NexFlow <span class="tier-name" id="tierName">Pro</span></p>
+
+    <p class="subtitle">Your subscription is now active.</p>
+
+    <p class="redirect-text" id="redirectText">Redirecting to app...</p>
+
+    <a href="#" class="tap-link" id="openAppLink">Open NexFlow</a>
+
+    <p class="help-text">If the app doesn't open, make sure NexFlow is installed.</p>
+  </div>
+
+  <script>
+    (function() {
+      // Get tier from URL params
+      const urlParams = new URLSearchParams(window.location.search);
+      const tier = urlParams.get('tier') || 'Pro';
+
+      // Update tier name display
+      document.getElementById('tierName').textContent = tier;
+
+      // Build deep link
+      const deepLink = 'nexflow://payment-success?tier=' + encodeURIComponent(tier);
+
+      // Update manual link
+      document.getElementById('openAppLink').href = deepLink;
+
+      // Auto-redirect after 1 second
+      setTimeout(function() {
+        window.location.href = deepLink;
+      }, 1000);
+    })();
+  </script>
+</body>
+</html>
