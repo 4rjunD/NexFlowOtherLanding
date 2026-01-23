@@ -2,6 +2,36 @@
 
 import Link from 'next/link'
 import { useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
+
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.12,
+            delayChildren: 0.1,
+        }
+    },
+}
+
+const slideDownVariants = {
+    hidden: { opacity: 0, y: -30 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }
+    },
+}
+
+const videoVariants = {
+    hidden: { opacity: 0, y: -40, scale: 0.98 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.8, ease: [0.25, 0.4, 0.25, 1], delay: 0.5 }
+    },
+}
 
 export function EnterpriseHero() {
     const videoRef = useRef<HTMLVideoElement>(null)
@@ -50,14 +80,21 @@ export function EnterpriseHero() {
                 {/* Hero Section - perfectly.so style spacing */}
                 <div style={{ padding: '160px 64px 45px' }} className="px-6 md:px-16">
                     <div className="mx-auto max-w-[1200px]">
-                        <div className="flex flex-col items-center text-center" style={{ gap: '42px' }}>
+                        <motion.div
+                            className="flex flex-col items-center text-center"
+                            style={{ gap: '42px' }}
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
 
                             {/* Badge - "Backed by Character Capital" */}
-                            <div
+                            <motion.div
                                 className="inline-flex items-center px-5 py-2.5 rounded-full border border-[#e5e0d8]"
                                 style={{
                                     backgroundColor: 'rgba(255,255,255,0.6)',
                                 }}
+                                variants={slideDownVariants}
                             >
                                 <span
                                     className="text-[15px] text-[#000]"
@@ -68,10 +105,10 @@ export function EnterpriseHero() {
                                 >
                                     Backed by Character Capital
                                 </span>
-                            </div>
+                            </motion.div>
 
                             {/* Main Headline - Halant style */}
-                            <h1
+                            <motion.h1
                                 className="max-w-[900px] mx-auto text-[#000]"
                                 style={{
                                     fontFamily: 'var(--font-halant), Halant, Georgia, serif',
@@ -80,14 +117,15 @@ export function EnterpriseHero() {
                                     letterSpacing: '-0.05em',
                                     lineHeight: '110%',
                                 }}
+                                variants={slideDownVariants}
                             >
                                 The operating system for
                                 <br />
                                 <span style={{ fontStyle: 'italic' }}>Workforce Health</span>
-                            </h1>
+                            </motion.h1>
 
                             {/* Subtitle - Inter */}
-                            <p
+                            <motion.p
                                 className="max-w-[600px] mx-auto text-[#94877c]"
                                 style={{
                                     fontFamily: 'var(--font-inter), Inter, sans-serif',
@@ -95,29 +133,38 @@ export function EnterpriseHero() {
                                     fontWeight: 400,
                                     lineHeight: '1.6',
                                 }}
+                                variants={slideDownVariants}
                             >
                                 AI that learns your team&apos;s patterns, predicts peak performance windows, and catches burnout before it costs you. Data-driven. Human-centered.
-                            </p>
+                            </motion.p>
 
                             {/* CTA Button - Dark green */}
-                            <Link
-                                href="https://cal.com/arjun-dixit-0nwkzi/30min"
-                                target="_blank"
-                                className="inline-flex items-center justify-center px-8 py-4 text-[#fcf6ef] bg-[#1F4D3A] hover:bg-[#163D2E] transition-all duration-300 rounded-full"
-                                style={{
-                                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                                    fontSize: '16px',
-                                    fontWeight: 500,
-                                }}
-                            >
-                                Book a Meeting
-                            </Link>
-                        </div>
+                            <motion.div variants={slideDownVariants}>
+                                <Link
+                                    href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                                    target="_blank"
+                                    className="inline-flex items-center justify-center px-8 py-4 text-[#fcf6ef] bg-[#1F4D3A] hover:bg-[#163D2E] transition-all duration-300 rounded-full"
+                                    style={{
+                                        fontFamily: 'var(--font-inter), Inter, sans-serif',
+                                        fontSize: '16px',
+                                        fontWeight: 500,
+                                    }}
+                                >
+                                    Book a Meeting
+                                </Link>
+                            </motion.div>
+                        </motion.div>
                     </div>
                 </div>
 
                 {/* Video Section */}
-                <div className="relative px-6 md:px-16" style={{ paddingTop: '64px', paddingBottom: '64px' }}>
+                <motion.div
+                    className="relative px-6 md:px-16"
+                    style={{ paddingTop: '64px', paddingBottom: '64px' }}
+                    variants={videoVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
                     <div ref={videoContainerRef} className="mx-auto max-w-[1072px]">
                         <div
                             className="relative overflow-hidden rounded-lg"
@@ -138,7 +185,7 @@ export function EnterpriseHero() {
                             </video>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </section>
         </main>
     )
