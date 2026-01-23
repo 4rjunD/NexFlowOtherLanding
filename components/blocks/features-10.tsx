@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion'
-import { MessageSquareText, UserCog, ShieldCheck } from 'lucide-react'
+import { Zap, UserCog, ShieldCheck } from 'lucide-react'
 import { ReactNode } from 'react'
 
 const containerVariants = {
@@ -20,63 +20,62 @@ const itemVariants = {
 
 export function EnterpriseFeatures() {
     return (
-        <section className="py-[120px] bg-[#f6f0e9]">
-            <div className="mx-auto max-w-[1200px] px-8 md:px-16">
+        <section className="py-24 md:py-32 bg-[#fcf6ef]">
+            <div className="mx-auto max-w-[1200px] px-6 md:px-16">
                 <motion.div
-                    className="text-center mb-[64px]"
+                    className="text-center mb-16"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
                     <h2
-                        className="text-[32px] md:text-[40px] font-medium text-[#2b180a]"
+                        className="text-3xl md:text-[42px] text-[#000]"
                         style={{
-                            fontFamily: 'var(--font-halant), Halant, serif',
+                            fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                            fontWeight: 400,
+                            letterSpacing: '-0.05em',
                             lineHeight: '110%',
-                            letterSpacing: '-0.05em'
                         }}
                     >
-                        Managers get the playbook.
+                        Predictive intelligence for{' '}
+                        <span style={{ fontStyle: 'italic' }}>every manager</span>.
                     </h2>
                     <p
-                        className="mt-[16px] text-[16px] text-[#6b5d52] max-w-[555px] mx-auto"
-                        style={{
-                            fontFamily: 'var(--font-inter), Inter, sans-serif',
-                            lineHeight: '1.6'
-                        }}
+                        className="mt-5 text-[#94877c] max-w-2xl mx-auto text-lg"
+                        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                     >
-                        What to say. What not to say. Tailored for each person.
+                        Neural networks that model individual work patterns. Algorithmic optimization for schedules, workloads, and team dynamics.
                     </p>
                 </motion.div>
 
                 <motion.div
-                    className="grid gap-[24px] md:grid-cols-2 lg:grid-cols-3"
+                    className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.2 }}
                 >
                     <FeatureCard
-                        icon={MessageSquareText}
-                        title="Conversation Scripts"
-                        description="Talking points for every situation. No awkward guessing."
+                        icon={Zap}
+                        title="Adaptive Playbooks"
+                        description="Machine-generated intervention scripts calibrated to each employee's behavioral profile. Context-aware recommendations that evolve with your team."
                     >
-                        <InterventionVisual />
+                        <PlaybookVisual />
                     </FeatureCard>
 
                     <FeatureCard
                         icon={UserCog}
-                        title="Personal Profiles"
-                        description="What works for Sarah differs from Mike. AI learns each person."
+                        title="Behavioral Profiles"
+                        description="Individual neural models trained on 200+ signals per person. The system learns unique productivity rhythms, energy patterns, and collaboration preferences."
                     >
                         <ProfileVisual />
                     </FeatureCard>
 
                     <FeatureCard
                         icon={ShieldCheck}
-                        title="Privacy First"
-                        description="Employees own their data. Managers see what matters."
+                        title="Differential Privacy"
+                        description="Enterprise-grade data protection. Employees own their data. Managers see aggregated insights through privacy-preserving computation."
                     >
                         <PrivacyVisual />
                     </FeatureCard>
@@ -95,29 +94,26 @@ interface FeatureCardProps {
 
 const FeatureCard = ({ icon: Icon, title, description, children }: FeatureCardProps) => (
     <motion.div
-        className="bg-white rounded-[16px] border border-[#e8d3c0] p-[24px] flex flex-col"
+        className="bg-white rounded-2xl border border-[#e5e0d8] p-6 flex flex-col"
         variants={itemVariants}
     >
-        <div className="flex items-center gap-[12px] mb-[12px]">
-            <div className="w-[40px] h-[40px] rounded-[12px] bg-[#2b180a]/10 flex items-center justify-center">
-                <Icon className="w-[20px] h-[20px] text-[#2b180a]" />
+        <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-xl bg-[#1F4D3A]/10 flex items-center justify-center">
+                <Icon className="w-5 h-5 text-[#1F4D3A]" />
             </div>
             <h3
-                className="text-[18px] font-medium text-[#2b180a]"
+                className="text-lg text-[#000]"
                 style={{
-                    fontFamily: 'var(--font-halant), Halant, serif',
-                    letterSpacing: '-0.05em'
+                    fontFamily: 'var(--font-inter), Inter, sans-serif',
+                    fontWeight: 500,
                 }}
             >
                 {title}
             </h3>
         </div>
         <p
-            className="text-[14px] text-[#6b5d52] mb-[24px]"
-            style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                lineHeight: '1.5'
-            }}
+            className="text-[#94877c] text-sm mb-6"
+            style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
         >
             {description}
         </p>
@@ -127,48 +123,48 @@ const FeatureCard = ({ icon: Icon, title, description, children }: FeatureCardPr
     </motion.div>
 )
 
-const InterventionVisual = () => (
-    <div className="space-y-[12px]">
-        <div className="bg-[#c45c5c]/10 rounded-[8px] p-[12px] border border-[#c45c5c]/20">
-            <p className="text-[12px] font-medium text-[#c45c5c] mb-[4px]">Alert: Michael Torres</p>
-            <p className="text-[14px] text-[#2b180a]">Burnout risk increased to 78%</p>
+const PlaybookVisual = () => (
+    <div className="space-y-3">
+        <div className="bg-[#1F4D3A]/5 rounded-lg p-3 border border-[#1F4D3A]/20">
+            <p className="text-xs font-medium text-[#1F4D3A] mb-1" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Insight: Sarah Chen</p>
+            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Productivity peaks Tuesday-Thursday mornings</p>
         </div>
-        <div className="bg-[#2b180a]/5 rounded-[8px] p-[12px] border border-[#2b180a]/10">
-            <p className="text-[12px] font-medium text-[#2b180a] mb-[8px]">Suggested approach:</p>
-            <ul className="text-[14px] text-[#2b180a] space-y-[4px]">
-                <li className="flex gap-[8px]"><span className="text-[#2b180a]">✓</span> Ask about workload, not performance</li>
-                <li className="flex gap-[8px]"><span className="text-[#2b180a]">✓</span> Offer deadline flexibility</li>
-                <li className="flex gap-[8px]"><span className="text-[#c45c5c]">✗</span> Avoid mentioning recent mistakes</li>
+        <div className="bg-[#fcf6ef] rounded-lg p-3 border border-[#e5e0d8]">
+            <p className="text-xs font-medium text-[#94877c] mb-2" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Optimization tips:</p>
+            <ul className="text-sm text-[#000] space-y-1" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
+                <li className="flex gap-2"><span className="text-[#1F4D3A]">✓</span> Schedule deep work in AM blocks</li>
+                <li className="flex gap-2"><span className="text-[#1F4D3A]">✓</span> Meetings after 2pm preferred</li>
+                <li className="flex gap-2"><span className="text-[#1F4D3A]">✓</span> Energy dips Fridays—lighter tasks</li>
             </ul>
         </div>
     </div>
 )
 
 const ProfileVisual = () => (
-    <div className="space-y-[12px]">
+    <div className="space-y-3">
         {[
-            { label: 'Stress triggers', value: 'Back-to-back meetings, unclear deadlines' },
-            { label: 'Recovery pattern', value: 'Needs 7.5+ hrs sleep to function' },
-            { label: 'Best check-in time', value: 'Tuesday afternoons' },
+            { label: 'Peak hours', value: '9am-12pm, high focus capacity' },
+            { label: 'Energy drivers', value: 'Collaborative projects, clear goals' },
+            { label: 'Optimal 1:1 time', value: 'Wednesday afternoons' },
         ].map((item, i) => (
-            <div key={i} className="bg-[#f6f0e9] rounded-[8px] p-[12px] border border-[#e8d3c0]">
-                <p className="text-[12px] text-[#6b5d52] mb-[4px]">{item.label}</p>
-                <p className="text-[14px] text-[#2b180a]">{item.value}</p>
+            <div key={i} className="bg-[#fcf6ef] rounded-lg p-3 border border-[#e5e0d8]">
+                <p className="text-xs text-[#94877c] mb-1" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>{item.label}</p>
+                <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>{item.value}</p>
             </div>
         ))}
     </div>
 )
 
 const PrivacyVisual = () => (
-    <div className="space-y-[12px]">
+    <div className="space-y-3">
         {[
             { text: 'Employees control what data is shared' },
-            { text: 'Managers see team trends, not individual data' },
+            { text: 'Managers see team insights, not individual data' },
             { text: 'Delete all data anytime with one click' },
         ].map((item, i) => (
-            <div key={i} className="bg-[#f6f0e9] rounded-[8px] p-[12px] border border-[#e8d3c0] flex items-center gap-[12px]">
-                <div className="w-[8px] h-[8px] rounded-full bg-[#2b180a]"></div>
-                <p className="text-[14px] text-[#2b180a]">{item.text}</p>
+            <div key={i} className="bg-[#fcf6ef] rounded-lg p-3 border border-[#e5e0d8] flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-[#1F4D3A]"></div>
+                <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>{item.text}</p>
             </div>
         ))}
     </div>

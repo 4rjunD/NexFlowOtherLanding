@@ -1,86 +1,98 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
 
 function EnterpriseHeader() {
     const [isOpen, setOpen] = useState(false);
 
     return (
-        <header className="w-full z-40 fixed top-0 left-0 bg-[#f6f0e9]">
-            <div className="mx-auto max-w-[1200px] h-[80px] flex items-center justify-between px-8 md:px-16">
-                {/* Logo */}
-                <Link href="/enterprise">
-                    <span
-                        className="text-[20px] font-medium text-[#2b180a]"
-                        style={{
-                            fontFamily: 'var(--font-halant), Halant, serif',
-                            letterSpacing: '-0.05em'
-                        }}
-                    >
-                        NexFlow
-                    </span>
-                </Link>
+        <header className="w-full z-40 fixed top-0 left-0 bg-[#fcf6ef]">
+            <div className="w-full max-w-[1200px] mx-auto px-6 md:px-16">
+                <div className="flex items-center justify-between h-[80px]">
+                    {/* Logo - Halant style like perfectly.so */}
+                    <Link href="/" className="flex items-center">
+                        <span
+                            className="text-[#000]"
+                            style={{
+                                fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                                fontSize: '24px',
+                                fontWeight: 600,
+                                letterSpacing: '-0.02em',
+                            }}
+                        >
+                            NexFlow
+                        </span>
+                    </Link>
 
-                {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center gap-[16px]">
-                    <Link
-                        href="https://whop.com/nexflow-5714/"
-                        target="_blank"
-                        className="text-[14px] text-[#1F4D3A] hover:text-[#163D2E] transition-colors px-[16px] py-[8px] font-medium"
-                        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                    {/* Desktop Navigation */}
+                    <div className="hidden md:flex items-center gap-3">
+                        <Link
+                            href="#newsletter"
+                            className="px-4 py-2 text-[#000] hover:text-[#1F4D3A] transition-colors rounded-full border border-[#e5e0d8] bg-white/50 hover:bg-white/80"
+                            style={{
+                                fontFamily: 'var(--font-inter), Inter, sans-serif',
+                                fontSize: '14px',
+                                fontWeight: 500,
+                            }}
+                        >
+                            Get Updates
+                        </Link>
+                        <Link
+                            href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                            target="_blank"
+                            className="px-5 py-2 text-[#fcf6ef] bg-[#1F4D3A] hover:bg-[#163D2E] transition-colors rounded-full"
+                            style={{
+                                fontFamily: 'var(--font-inter), Inter, sans-serif',
+                                fontSize: '14px',
+                                fontWeight: 500,
+                            }}
+                        >
+                            Book a Meeting
+                        </Link>
+                    </div>
+
+                    {/* Mobile Menu Toggle */}
+                    <button
+                        className="md:hidden w-10 h-10 flex items-center justify-center text-[#000]"
+                        onClick={() => setOpen(!isOpen)}
                     >
-                        Get the Guide
-                    </Link>
-                    <Link
-                        href="https://cal.com/arjun-dixit-0nwkzi/30min"
-                        target="_blank"
-                        className="inline-flex items-center justify-center px-[16px] py-[8px] text-[14px] font-medium text-[#f6f0e9] bg-[#2b180a] rounded-[8px] hover:bg-[#3d2a1a] transition-colors"
-                        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-                    >
-                        Book a Demo
-                    </Link>
+                        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    </button>
                 </div>
 
-                {/* Mobile Menu Button */}
-                <button
-                    className="md:hidden p-2"
-                    onClick={() => setOpen(!isOpen)}
-                >
-                    {isOpen ? (
-                        <X className="w-5 h-5 text-[#2b180a]" />
-                    ) : (
-                        <Menu className="w-5 h-5 text-[#2b180a]" />
-                    )}
-                </button>
-            </div>
-
-            {/* Mobile Menu */}
-            {isOpen && (
-                <div className="md:hidden absolute top-[80px] left-0 w-full bg-[#f6f0e9] border-t border-[#e8d3c0] py-[24px] px-[32px]">
-                    <div className="flex flex-col gap-[16px]">
+                {/* Mobile Menu */}
+                {isOpen && (
+                    <div className="md:hidden absolute top-[80px] left-0 w-full bg-[#fcf6ef] border-t border-[#e5e0d8] py-6 px-6 flex flex-col gap-4">
                         <Link
-                            href="https://whop.com/nexflow-5714/"
-                            target="_blank"
+                            href="#newsletter"
                             onClick={() => setOpen(false)}
-                            className="text-[16px] text-[#1F4D3A] py-[8px] font-medium"
-                            style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                            className="px-5 py-3 text-[#000] text-center rounded-full border border-[#e5e0d8] bg-white/50"
+                            style={{
+                                fontFamily: 'var(--font-inter), Inter, sans-serif',
+                                fontSize: '14px',
+                                fontWeight: 500,
+                            }}
                         >
-                            Get the Guide
+                            Get Updates
                         </Link>
                         <Link
                             href="https://cal.com/arjun-dixit-0nwkzi/30min"
                             target="_blank"
                             onClick={() => setOpen(false)}
-                            className="inline-flex items-center justify-center px-[24px] py-[12px] text-[16px] font-medium text-[#f6f0e9] bg-[#2b180a] rounded-[8px]"
-                            style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                            className="px-6 py-3 text-[#fcf6ef] bg-[#1F4D3A] text-center rounded-full"
+                            style={{
+                                fontFamily: 'var(--font-inter), Inter, sans-serif',
+                                fontSize: '14px',
+                                fontWeight: 500,
+                            }}
                         >
-                            Book a Demo
+                            Book a Meeting
                         </Link>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </header>
     );
 }

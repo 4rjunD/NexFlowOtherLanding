@@ -1,105 +1,145 @@
 "use client"
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.15,
-            delayChildren: 0.1,
-        }
-    }
-}
-
-const itemVariants = {
-    hidden: {
-        opacity: 0,
-        y: 40,
-        filter: "blur(10px)"
-    },
-    visible: {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        transition: {
-            duration: 0.8,
-            ease: [0.25, 0.4, 0.25, 1]
-        }
-    }
-}
+import { useRef, useEffect } from 'react'
 
 export function EnterpriseHero() {
+    const videoRef = useRef<HTMLVideoElement>(null)
+    const videoContainerRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const video = videoRef.current
+        const container = videoContainerRef.current
+        if (!video || !container) return
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.7) {
+                        video.play()
+                    } else {
+                        video.pause()
+                    }
+                })
+            },
+            {
+                threshold: 0.7,
+            }
+        )
+
+        observer.observe(container)
+
+        return () => {
+            observer.disconnect()
+        }
+    }, [])
+
     return (
-        <section className="bg-[#f6f0e9]">
-            <motion.div
-                className="flex flex-col items-center justify-center px-8 md:px-16 pt-[160px] pb-[64px]"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-            >
-                {/* Badge */}
-                <motion.div
-                    variants={itemVariants}
-                    className="mb-[32px]"
-                >
-                    <span
-                        className="inline-block px-[24px] py-[12px] text-[16px] text-[#2b180a] bg-[#ebe4db] rounded-full font-normal"
-                        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-                    >
-                        Backed by Character Capital
-                    </span>
-                </motion.div>
-
-                {/* Headline */}
-                <motion.h1
-                    variants={itemVariants}
-                    className="text-center max-w-[900px] mx-auto text-[36px] md:text-[52px] lg:text-[72px] font-medium text-[#2b180a]"
+        <main className="overflow-hidden bg-[#fcf6ef] relative">
+            {/* Subtle warm aura effects */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div
+                    className="absolute top-[5%] left-1/2 -translate-x-1/2 w-[1000px] h-[800px] rounded-full opacity-40"
                     style={{
-                        fontFamily: 'var(--font-halant), Halant, serif',
-                        lineHeight: '105%',
-                        letterSpacing: '-0.04em'
+                        background: 'radial-gradient(ellipse at center, rgba(31, 77, 58, 0.03) 0%, transparent 70%)',
                     }}
-                >
-                    Predict burnout and turnover before it happens
-                </motion.h1>
+                />
+            </div>
 
-                {/* Subheading */}
-                <motion.p
-                    variants={itemVariants}
-                    className="mt-[32px] text-center max-w-[640px] mx-auto text-[18px] md:text-[20px] font-normal text-[#6b5d52]"
-                    style={{
-                        fontFamily: 'var(--font-inter), Inter, sans-serif',
-                        lineHeight: '1.6'
-                    }}
-                >
-                    NexFlow learns what makes each person tick. When patterns shift, managers get alerts three weeks early with scripts for exactly what to say and how to help.
-                </motion.p>
+            <section className="relative z-10">
+                {/* Hero Section - perfectly.so style spacing */}
+                <div style={{ padding: '160px 64px 45px' }} className="px-6 md:px-16">
+                    <div className="mx-auto max-w-[1200px]">
+                        <div className="flex flex-col items-center text-center" style={{ gap: '42px' }}>
 
-                {/* CTA Buttons */}
-                <motion.div
-                    variants={itemVariants}
-                    className="mt-[40px] flex flex-col sm:flex-row items-center gap-[16px]"
-                >
-                    <Link
-                        href="https://cal.com/arjun-dixit-0nwkzi/30min"
-                        target="_blank"
-                        className="inline-flex items-center justify-center px-[32px] py-[16px] text-[16px] font-medium text-white bg-[#1F4D3A] rounded-full hover:bg-[#163D2E] transition-colors duration-200"
-                        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-                    >
-                        Book a Demo
-                    </Link>
-                    <Link
-                        href="#how-it-works"
-                        className="inline-flex items-center justify-center px-[32px] py-[16px] text-[16px] font-medium text-[#1F4D3A] hover:text-[#163D2E] transition-colors duration-200"
-                        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-                    >
-                        See how it works
-                    </Link>
-                </motion.div>
+                            {/* Badge - "Backed by Character Capital" */}
+                            <div
+                                className="inline-flex items-center px-5 py-2.5 rounded-full border border-[#e5e0d8]"
+                                style={{
+                                    backgroundColor: 'rgba(255,255,255,0.6)',
+                                }}
+                            >
+                                <span
+                                    className="text-[15px] text-[#000]"
+                                    style={{
+                                        fontFamily: 'var(--font-inter), Inter, sans-serif',
+                                        fontWeight: 500,
+                                    }}
+                                >
+                                    Backed by Character Capital
+                                </span>
+                            </div>
 
-            </motion.div>
-        </section>
+                            {/* Main Headline - Halant style */}
+                            <h1
+                                className="max-w-[900px] mx-auto text-[#000]"
+                                style={{
+                                    fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                                    fontSize: 'clamp(32px, 6vw, 72px)',
+                                    fontWeight: 400,
+                                    letterSpacing: '-0.05em',
+                                    lineHeight: '110%',
+                                }}
+                            >
+                                The operating system for
+                                <br />
+                                <span style={{ fontStyle: 'italic' }}>Workforce Health</span>
+                            </h1>
+
+                            {/* Subtitle - Inter */}
+                            <p
+                                className="max-w-[600px] mx-auto text-[#94877c]"
+                                style={{
+                                    fontFamily: 'var(--font-inter), Inter, sans-serif',
+                                    fontSize: '18px',
+                                    fontWeight: 400,
+                                    lineHeight: '1.6',
+                                }}
+                            >
+                                AI that learns your team&apos;s patterns, predicts peak performance windows, and catches burnout before it costs you. Data-driven. Human-centered.
+                            </p>
+
+                            {/* CTA Button - Dark green */}
+                            <Link
+                                href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                                target="_blank"
+                                className="inline-flex items-center justify-center px-8 py-4 text-[#fcf6ef] bg-[#1F4D3A] hover:bg-[#163D2E] transition-all duration-300 rounded-full"
+                                style={{
+                                    fontFamily: 'var(--font-inter), Inter, sans-serif',
+                                    fontSize: '16px',
+                                    fontWeight: 500,
+                                }}
+                            >
+                                Book a Meeting
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Video Section */}
+                <div className="relative px-6 md:px-16" style={{ paddingTop: '64px', paddingBottom: '64px' }}>
+                    <div ref={videoContainerRef} className="mx-auto max-w-[1072px]">
+                        <div
+                            className="relative overflow-hidden rounded-lg"
+                            style={{
+                                aspectRatio: '16 / 9',
+                                boxShadow: '0 20px 60px -15px rgba(0, 0, 0, 0.15)',
+                            }}
+                        >
+                            <video
+                                ref={videoRef}
+                                className="w-full h-full object-cover"
+                                playsInline
+                                muted
+                                loop
+                            >
+                                <source src="/demonexflow.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     )
 }
