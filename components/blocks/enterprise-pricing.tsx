@@ -1,7 +1,6 @@
 "use client"
 
 import { Check } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 const tiers = [
@@ -11,7 +10,6 @@ const tiers = [
         price: "399",
         period: "/month flat",
         teamSize: "Up to 30 employees",
-        badge: "Self-Serve",
         features: [
             "Weekly check-ins",
             "Burnout risk indicators",
@@ -53,7 +51,7 @@ const tiers = [
             "Departure predictions",
             "4hr support response",
         ],
-        cta: "Book a Strategy Call",
+        cta: "Book a Demo",
         href: "https://cal.com/arjun-dixit-0nwkzi/30min",
         highlighted: true,
     },
@@ -78,122 +76,148 @@ const tiers = [
 
 export function EnterprisePricing() {
     return (
-        <section className="py-24 bg-[#EBE8E1]">
-            <div className="mx-auto max-w-7xl px-6">
-                <div className="text-center mb-16">
-                    <p className="text-sm font-medium text-[#1F4D3A] uppercase tracking-wider mb-4">
-                        Investment
-                    </p>
-                    <h2
-                        className="text-4xl md:text-5xl font-medium tracking-tight text-[#111111] mb-4"
-                        style={{ fontFamily: '"New York", Georgia, serif' }}
+        <section className="py-[120px] bg-[#f6f0e9]">
+            <div className="mx-auto max-w-[1200px] px-8 md:px-16">
+                <div className="text-center mb-[64px]">
+                    <span
+                        className="inline-block px-[24px] py-[12px] text-[16px] text-[#2b180a] bg-[#ebe4db] rounded-full mb-[32px]"
+                        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                     >
-                        Prevent one departure. NexFlow pays for itself.
+                        Investment
+                    </span>
+                    <h2
+                        className="text-[32px] md:text-[40px] font-medium text-[#2b180a] mb-[16px]"
+                        style={{
+                            fontFamily: 'var(--font-halant), Halant, serif',
+                            lineHeight: '110%',
+                            letterSpacing: '-0.05em'
+                        }}
+                    >
+                        One prevented departure pays for the year.
                     </h2>
-                    <p className="text-lg text-[#6B6B6B] max-w-2xl mx-auto">
-                        Average departure cost: $50,000+.
+                    <p
+                        className="text-[16px] text-[#6b5d52] max-w-[600px] mx-auto"
+                        style={{
+                            fontFamily: 'var(--font-inter), Inter, sans-serif',
+                            lineHeight: '1.6'
+                        }}
+                    >
+                        Average cost of losing someone: $50,000+
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[24px]">
                     {tiers.map((tier) => (
                         <div
                             key={tier.name}
-                            className={`relative rounded-2xl p-6 ${
+                            className={`relative rounded-[16px] p-[24px] ${
                                 tier.highlighted
-                                    ? "bg-[#1F4D3A] text-white ring-4 ring-[#1F4D3A]/20 lg:scale-105"
-                                    : "bg-white border border-[#E5E2DB]"
+                                    ? "bg-[#2b180a] text-[#f6f0e9] ring-4 ring-[#2b180a]/20 lg:scale-105"
+                                    : "bg-white border border-[#e8d3c0]"
                             }`}
                         >
                             {tier.badge && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                                    <span className="bg-[#F2C94C] text-[#111111] text-xs font-semibold px-4 py-1.5 rounded-full">
+                                <div className="absolute -top-[16px] left-1/2 -translate-x-1/2">
+                                    <span
+                                        className="bg-[#ebe4db] text-[#2b180a] text-[12px] font-medium px-[16px] py-[6px] rounded-full"
+                                        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                                    >
                                         {tier.badge}
                                     </span>
                                 </div>
                             )}
 
-                            <div className="mb-6">
+                            <div className="mb-[24px]">
                                 <h3
-                                    className={`text-xl font-semibold mb-2 ${
-                                        tier.highlighted ? "text-white" : "text-[#111111]"
+                                    className={`text-[20px] font-medium mb-[8px] ${
+                                        tier.highlighted ? "text-[#f6f0e9]" : "text-[#2b180a]"
                                     }`}
-                                    style={{ fontFamily: '"New York", Georgia, serif' }}
+                                    style={{
+                                        fontFamily: 'var(--font-halant), Halant, serif',
+                                        letterSpacing: '-0.05em'
+                                    }}
                                 >
                                     {tier.name}
                                 </h3>
-                                <p className={`text-sm ${
-                                    tier.highlighted ? "text-white/70" : "text-[#6B6B6B]"
-                                }`}>
+                                <p
+                                    className={`text-[14px] ${
+                                        tier.highlighted ? "text-[#f6f0e9]/70" : "text-[#6b5d52]"
+                                    }`}
+                                    style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                                >
                                     {tier.description}
                                 </p>
                             </div>
 
-                            <div className="mb-6">
-                                <div className="flex items-baseline gap-1">
+                            <div className="mb-[24px]">
+                                <div className="flex items-baseline gap-[4px]">
                                     {tier.price !== "Custom" && (
-                                        <span className={`text-lg ${
-                                            tier.highlighted ? "text-white/70" : "text-[#6B6B6B]"
+                                        <span className={`text-[18px] ${
+                                            tier.highlighted ? "text-[#f6f0e9]/70" : "text-[#6b5d52]"
                                         }`}>$</span>
                                     )}
                                     <span
-                                        className={`text-4xl font-medium tracking-tight ${
-                                            tier.highlighted ? "text-white" : "text-[#111111]"
+                                        className={`text-[36px] font-medium ${
+                                            tier.highlighted ? "text-[#f6f0e9]" : "text-[#2b180a]"
                                         }`}
-                                        style={{ fontFamily: '"New York", Georgia, serif' }}
+                                        style={{
+                                            fontFamily: 'var(--font-halant), Halant, serif',
+                                            letterSpacing: '-0.05em'
+                                        }}
                                     >
                                         {tier.price}
                                     </span>
                                 </div>
-                                <p className={`text-sm mt-1 ${
-                                    tier.highlighted ? "text-white/70" : "text-[#6B6B6B]"
-                                }`}>
+                                <p
+                                    className={`text-[14px] mt-[4px] ${
+                                        tier.highlighted ? "text-[#f6f0e9]/70" : "text-[#6b5d52]"
+                                    }`}
+                                    style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                                >
                                     {tier.period}
                                 </p>
-                                <p className={`text-sm font-medium mt-2 ${
-                                    tier.highlighted ? "text-white" : "text-[#1F4D3A]"
-                                }`}>
+                                <p
+                                    className={`text-[14px] font-medium mt-[8px] ${
+                                        tier.highlighted ? "text-[#f6f0e9]" : "text-[#2b180a]"
+                                    }`}
+                                    style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                                >
                                     {tier.teamSize}
                                 </p>
                             </div>
 
-                            <ul className="space-y-3 mb-8">
+                            <ul className="space-y-[12px] mb-[32px]">
                                 {tier.features.map((feature, index) => (
-                                    <li key={index} className="flex items-start gap-3">
-                                        <Check className={`w-5 h-5 shrink-0 mt-0.5 ${
-                                            tier.highlighted ? "text-[#F2C94C]" : "text-[#1F4D3A]"
+                                    <li key={index} className="flex items-start gap-[12px]">
+                                        <Check className={`w-[20px] h-[20px] shrink-0 mt-[2px] ${
+                                            tier.highlighted ? "text-[#d9c9b8]" : "text-[#2b180a]"
                                         }`} />
-                                        <span className={`text-sm ${
-                                            tier.highlighted ? "text-white/90" : "text-[#6B6B6B]"
-                                        }`}>
+                                        <span
+                                            className={`text-[14px] ${
+                                                tier.highlighted ? "text-[#f6f0e9]/90" : "text-[#6b5d52]"
+                                            }`}
+                                            style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                                        >
                                             {feature}
                                         </span>
                                     </li>
                                 ))}
                             </ul>
 
-                            <Button
-                                asChild
-                                className={`w-full ${
+                            <Link
+                                href={tier.href}
+                                target={tier.href.startsWith("http") ? "_blank" : undefined}
+                                className={`block w-full text-center py-[12px] px-[16px] rounded-[8px] text-[14px] font-medium transition-colors ${
                                     tier.highlighted
-                                        ? "bg-white text-[#1F4D3A] hover:bg-[#F6F4EF]"
-                                        : "bg-[#1F4D3A] text-white hover:bg-[#163D2E]"
+                                        ? "bg-[#f6f0e9] text-[#2b180a] hover:bg-white"
+                                        : "bg-[#2b180a] text-[#f6f0e9] hover:bg-[#3d2a1a]"
                                 }`}
-                                size="lg"
+                                style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                             >
-                                <Link href={tier.href} target={tier.href.startsWith("http") ? "_blank" : undefined}>
-                                    {tier.cta}
-                                </Link>
-                            </Button>
+                                {tier.cta}
+                            </Link>
                         </div>
                     ))}
-                </div>
-
-                <div className="mt-16 text-center">
-                    <p className="text-[#6B6B6B] text-sm">
-                        90-day guarantee.
-                        <span className="text-[#1F4D3A] font-medium"> No results? Full refund.</span>
-                    </p>
                 </div>
             </div>
         </section>
