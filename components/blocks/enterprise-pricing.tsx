@@ -59,15 +59,6 @@ const tiers = [
     },
 ]
 
-const bonusStack = [
-    { name: "Behavioral AI Engine", value: "$15,000/year value" },
-    { name: "Manager Playbook Library", value: "$5,000 value" },
-    { name: "3-Week Burnout Early Warning", value: "$10,000/year value" },
-    { name: "Real-time Team Dashboard", value: "$3,000/year value" },
-    { name: "Slack & Teams Integration", value: "$2,000 value" },
-    { name: "Priority Support", value: "$5,000/year value" },
-]
-
 export function EnterprisePricing() {
     return (
         <section className="py-24 md:py-32 bg-[#f6f0e9]">
@@ -224,66 +215,6 @@ export function EnterprisePricing() {
                             </Link>
                         </div>
                     ))}
-                </div>
-
-                {/* Bonus Stack Section */}
-                <div className="mt-16 bg-white rounded-2xl p-8 md:p-10 border border-[#e5e0d8]">
-                    <div className="text-center mb-8">
-                        <h3
-                            className="text-2xl md:text-3xl text-[#000] mb-3"
-                            style={{
-                                fontFamily: 'var(--font-halant), Halant, Georgia, serif',
-                                fontWeight: 400,
-                                letterSpacing: '-0.03em',
-                            }}
-                        >
-                            What's Included
-                        </h3>
-                        <p
-                            className="text-[#94877c]"
-                            style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-                        >
-                            Everything you get with NexFlow
-                        </p>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {bonusStack.map((bonus, index) => (
-                            <div
-                                key={index}
-                                className="flex items-center justify-between p-4 bg-[#f6f0e9] rounded-xl"
-                            >
-                                <span
-                                    className="text-[#000] text-sm"
-                                    style={{
-                                        fontFamily: 'var(--font-inter), Inter, sans-serif',
-                                        fontWeight: 500,
-                                    }}
-                                >
-                                    {bonus.name}
-                                </span>
-                                <span
-                                    className="text-[#1F4D3A] text-sm"
-                                    style={{
-                                        fontFamily: 'var(--font-inter), Inter, sans-serif',
-                                        fontWeight: 600,
-                                    }}
-                                >
-                                    {bonus.value}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="mt-8 text-center">
-                        <p
-                            className="text-2xl md:text-3xl text-[#1F4D3A]"
-                            style={{
-                                fontFamily: 'var(--font-halant), Halant, Georgia, serif',
-                                fontWeight: 500,
-                            }}
-                        >
-                            Total Value: $40,000+/year
-                        </p>
-                    </div>
                 </div>
 
                 {/* Anti-Guarantee Section */}
