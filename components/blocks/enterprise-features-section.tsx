@@ -12,9 +12,14 @@ const containerVariants = {
     },
 };
 
-const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+const leftItemVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
+
+const rightItemVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
 export function EnterpriseFeaturesSection() {
@@ -31,7 +36,7 @@ export function EnterpriseFeaturesSection() {
                     {/* Text Content */}
                     <motion.div
                         className="flex flex-col items-start gap-4 mt-10 md:mt-0 max-w-[546px] mx-auto md:mx-0"
-                        variants={itemVariants}
+                        variants={leftItemVariants}
                     >
                         <div className="space-y-2 md:space-y-1">
                             <h2
@@ -88,7 +93,7 @@ export function EnterpriseFeaturesSection() {
                     {/* Dashboard Mockup */}
                     <motion.div
                         className="relative mt-10 md:mt-0 mx-auto w-full"
-                        variants={itemVariants}
+                        variants={rightItemVariants}
                     >
                         <div className="relative w-full bg-white rounded-2xl border border-[#e5e0d8] p-6 shadow-lg">
                             <AnalyticsDashboard />
