@@ -80,7 +80,7 @@ export default function WearableStressDetection() {
               Building Your Stress Profile
             </h2>
             <p className="text-[#6B6B6B] leading-relaxed mb-6">
-              AI can combine these signals to create a personalized stress profile. Over time, the algorithm learns your baseline and can identify when you're deviating from it—sometimes before you consciously register the stress.
+              AI can combine these signals to create a personalized stress profile. Over time, the algorithm learns your baseline and can identify when you're deviating from it, sometimes before you consciously register the stress.
             </p>
           </div>
 

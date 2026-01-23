@@ -80,7 +80,7 @@ export default function AfternoonEnergyCrashFix() {
               Strategic Interventions
             </h2>
             <p className="text-[#6B6B6B] leading-relaxed mb-6">
-              If you know the crash is coming, schedule low-cognitive tasks for that window. A 10-minute walk can reset your alertness. Some find strategic caffeine timing helps, but timing matters—too late and you'll impact tonight's sleep.
+              If you know the crash is coming, schedule low-cognitive tasks for that window. A 10-minute walk can reset your alertness. Some find strategic caffeine timing helps, but timing matters. Too late and you'll impact tonight's sleep.
             </p>
           </div>
 

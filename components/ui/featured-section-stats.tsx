@@ -24,7 +24,7 @@ export default function FeaturedSectionStats() {
         <h3 className="text-xl sm:text-2xl lg:text-3xl font-medium text-[#111111] mb-16" style={{ fontFamily: 'Inter, -apple-system, sans-serif' }}>
           What you get for $1.{" "}
           <span className="text-[#6B6B6B]">
-            The same frameworks used by biohackers, longevity enthusiasts, and quantified-self pioneers—distilled into actionable steps anyone can follow.
+            The same frameworks used by biohackers, longevity enthusiasts, and quantified-self pioneers. Distilled into actionable steps anyone can follow.
           </span>
         </h3>
 

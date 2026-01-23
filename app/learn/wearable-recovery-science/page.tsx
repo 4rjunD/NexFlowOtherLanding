@@ -50,7 +50,7 @@ export default function WearableRecoveryScience() {
               HRV as a Recovery Indicator
             </h2>
             <p className="text-[#6B6B6B] leading-relaxed mb-6">
-              Heart rate variability is one of the best indicators of recovery status. When you're well-recovered, your nervous system is flexible and HRV is higher. Accumulated stress—physical or mental—suppresses HRV. Tracking morning HRV shows whether you're ready for intensity.
+              Heart rate variability is one of the best indicators of recovery status. When you're well-recovered, your nervous system is flexible and HRV is higher. Accumulated stress, whether physical or mental, suppresses HRV. Tracking morning HRV shows whether you're ready for intensity.
             </p>
 
             <h2

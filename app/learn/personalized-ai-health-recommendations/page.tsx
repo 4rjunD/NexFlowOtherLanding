@@ -50,7 +50,7 @@ export default function PersonalizedAIHealth() {
               The Problem with Averages
             </h2>
             <p className="text-[#6B6B6B] leading-relaxed mb-6">
-              Most health recommendations come from population studies. They tell you what works for the average person. But you're not average—no one is. Your genetics, lifestyle, environment, and history create a unique profile that generic advice can't address.
+              Most health recommendations come from population studies. They tell you what works for the average person. But you're not average. No one is. Your genetics, lifestyle, environment, and history create a unique profile that generic advice can't address.
             </p>
 
             <h2
@@ -80,7 +80,7 @@ export default function PersonalizedAIHealth() {
               From Data to Action
             </h2>
             <p className="text-[#6B6B6B] leading-relaxed mb-6">
-              Personalized AI doesn't just observe—it suggests experiments tailored to your patterns. When the data shows a correlation, it proposes testing causation. This scientific approach, applied to your individual body, is the future of preventive health.
+              Personalized AI doesn't just observe. It suggests experiments tailored to your patterns. When the data shows a correlation, it proposes testing causation. This scientific approach, applied to your individual body, is the future of preventive health.
             </p>
           </div>
 
