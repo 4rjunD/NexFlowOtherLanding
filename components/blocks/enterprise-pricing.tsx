@@ -5,6 +5,22 @@ import Link from "next/link"
 
 const tiers = [
     {
+        name: "Startup",
+        description: "For small, fast-moving teams",
+        price: "Custom",
+        period: "tailored to you",
+        teamSize: "Under 25 employees",
+        features: [
+            "Core behavioral monitoring",
+            "Team pulse checks",
+            "Basic analytics dashboard",
+            "Email support",
+        ],
+        cta: "Get in Touch",
+        href: "https://cal.com/arjun-dixit-0nwkzi/30min",
+        highlighted: false,
+    },
+    {
         name: "Teams",
         description: "For teams ready to optimize",
         price: "999",
@@ -93,7 +109,7 @@ export function EnterprisePricing() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {tiers.map((tier) => (
                         <div
                             key={tier.name}
