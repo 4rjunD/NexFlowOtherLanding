@@ -16,7 +16,7 @@ const tiers = [
             "Basic analytics dashboard",
             "Email support",
         ],
-        cta: "Get in Touch",
+        cta: "Get Started →",
         href: "https://cal.com/arjun-dixit-0nwkzi/30min",
         highlighted: false,
     },
@@ -32,7 +32,7 @@ const tiers = [
             "Burnout risk indicators",
             "Monthly performance reports",
         ],
-        cta: "Apply Now",
+        cta: "Deploy Now →",
         href: "https://cal.com/arjun-dixit-0nwkzi/30min",
         highlighted: false,
     },
@@ -51,7 +51,7 @@ const tiers = [
             "Slack & Teams integration",
             "4-hour support response",
         ],
-        cta: "Apply Now",
+        cta: "Deploy Now →",
         href: "https://cal.com/arjun-dixit-0nwkzi/30min",
         highlighted: true,
     },
@@ -69,7 +69,7 @@ const tiers = [
             "24/7 priority support",
             "Quarterly executive briefings",
         ],
-        cta: "Inquire",
+        cta: "Talk to Sales →",
         href: "https://cal.com/arjun-dixit-0nwkzi/30min",
         highlighted: false,
     },
@@ -98,14 +98,14 @@ export function EnterprisePricing() {
                             lineHeight: '110%',
                         }}
                     >
-                        The companies that get in,{' '}
-                        <span style={{ fontStyle: 'italic' }}>don't leave.</span>
+                        Invest in{' '}
+                        <span style={{ fontStyle: 'italic' }}>workforce health</span>
                     </h2>
                     <p
                         className="text-lg text-[#94877c] max-w-2xl mx-auto"
                         style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                     >
-                        97% client retention. Premium workforce intelligence for organizations that demand results.
+                        Burnout costs $125K per departure. Prevention costs a fraction. The ROI is measurable.
                     </p>
                 </div>
 
@@ -244,14 +244,13 @@ export function EnterprisePricing() {
                                 letterSpacing: '-0.03em',
                             }}
                         >
-                            This isn't for everyone.
+                            We build for the serious.
                         </h3>
                         <p
                             className="text-white/80 mb-6 leading-relaxed"
                             style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                         >
-                            NexFlow is built for serious organizations ready to invest in their workforce.
-                            We don't offer refunds. We don't offer trials. If you need convincing, we're not the right fit.
+                            No trials. No refunds. Results only. Our platform is built for organizations ready to transform their workforce operations.
                         </p>
                         <p
                             className="text-white/80 mb-8 leading-relaxed"

@@ -70,7 +70,7 @@ export function TestimonialSection() {
                                 letterSpacing: '-0.02em'
                             }}
                         >
-                            NexFlow Enterprise has revolutionized our HR operations. The technology is incredibly advanced and perfectly suited for complex organizational needs, streamlining everything with remarkable efficiency.
+                            The ability to monitor workforce health at this resolution is unprecedented. Behavioral AI that captures what surveys miss. The physiological signals that predict performance.
                         </blockquote>
 
                         {/* Attribution */}

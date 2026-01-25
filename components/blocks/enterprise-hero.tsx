@@ -103,7 +103,7 @@ export function EnterpriseHero() {
                                         fontWeight: 500,
                                     }}
                                 >
-                                    Backed by Character Capital
+                                    Workforce Health Intelligence
                                 </span>
                             </motion.div>
 
@@ -119,9 +119,9 @@ export function EnterpriseHero() {
                                 }}
                                 variants={slideDownVariants}
                             >
-                                The operating system for
+                                The Command Center
                                 <br />
-                                <span style={{ fontStyle: 'italic' }}>Workforce Health</span>
+                                <span style={{ fontStyle: 'italic' }}>for Workforce Health</span>
                             </motion.h1>
 
                             {/* Subtitle - Inter */}
@@ -135,7 +135,7 @@ export function EnterpriseHero() {
                                 }}
                                 variants={slideDownVariants}
                             >
-                                The all-seeing layer for workforce performance.
+                                See everything before it surfaces.
                             </motion.p>
 
                             {/* CTA Button - Dark green */}
@@ -150,7 +150,7 @@ export function EnterpriseHero() {
                                         fontWeight: 500,
                                     }}
                                 >
-                                    Book a Meeting
+                                    Request a Demo →
                                 </Link>
                             </motion.div>
                         </motion.div>

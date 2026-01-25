@@ -47,8 +47,8 @@ export function EnterpriseFeaturesSection() {
                                     letterSpacing: '-0.05em',
                                 }}
                             >
-                                See everything.{' '}
-                                <span style={{ fontStyle: 'italic' }}>Predict anything</span>.
+                                See workforce health.{' '}
+                                <span style={{ fontStyle: 'italic' }}>In real time</span>.
                             </h2>
                         </div>
 
@@ -56,7 +56,7 @@ export function EnterpriseFeaturesSection() {
                             className="text-[#94877c] text-base md:text-[17px] leading-relaxed mt-2"
                             style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                         >
-                            Real-time dashboards powered by behavioral AI. Track productivity, spot burnout early, and know exactly where to optimize.
+                            Stress levels. Recovery patterns. Energy trends. Surfaced before burnout hits.
                         </p>
 
                         <ul className="mt-6 space-y-5">
@@ -65,8 +65,8 @@ export function EnterpriseFeaturesSection() {
                                     <div className="w-2 h-2 rounded-full bg-[#1F4D3A]"></div>
                                 </div>
                                 <div>
-                                    <p className="text-[#000] font-medium" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>200+ data points per employee</p>
-                                    <p className="text-[#94877c] text-sm" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>From pulse checks & wearables.</p>
+                                    <p className="text-[#000] font-medium" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Physiological signals</p>
+                                    <p className="text-[#94877c] text-sm" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>HRV, sleep quality, recovery scores from wearables.</p>
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">
@@ -74,8 +74,8 @@ export function EnterpriseFeaturesSection() {
                                     <div className="w-2 h-2 rounded-full bg-[#1F4D3A]"></div>
                                 </div>
                                 <div>
-                                    <p className="text-[#000] font-medium" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Predictive burnout scores</p>
-                                    <p className="text-[#94877c] text-sm" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>3-week early warning system.</p>
+                                    <p className="text-[#000] font-medium" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Burnout prediction</p>
+                                    <p className="text-[#94877c] text-sm" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Identify risk 3 weeks before breakdown.</p>
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">
@@ -83,8 +83,8 @@ export function EnterpriseFeaturesSection() {
                                     <div className="w-2 h-2 rounded-full bg-[#1F4D3A]"></div>
                                 </div>
                                 <div>
-                                    <p className="text-[#000] font-medium" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Output optimization engine</p>
-                                    <p className="text-[#94877c] text-sm" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>AI-powered scheduling & workload balancing.</p>
+                                    <p className="text-[#000] font-medium" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Recovery protocols</p>
+                                    <p className="text-[#94877c] text-sm" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>AI-generated interventions for at-risk employees.</p>
                                 </div>
                             </li>
                         </ul>

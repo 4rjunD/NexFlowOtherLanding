@@ -22,13 +22,13 @@ export function EnterpriseContact() {
                             lineHeight: '110%',
                         }}
                     >
-                        Ready to <span style={{ fontStyle: 'italic' }}>apply?</span>
+                        Build a <span style={{ fontStyle: 'italic' }}>healthier workforce</span>
                     </h2>
                     <p
                         className="text-[#94877c] text-lg mb-10 max-w-2xl mx-auto"
                         style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                     >
-                        Premium workforce intelligence for organizations that demand results. We review every application.
+                        Total health visibility. Predictive burnout detection. Measurable wellness ROI. See it in 90 days.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -42,10 +42,10 @@ export function EnterpriseContact() {
                                 fontWeight: 500,
                             }}
                         >
-                            Apply Now
+                            Request a Demo →
                         </Link>
                         <Link
-                            href="mailto:arjundixit@nexflowinc.com?subject=NexFlow%20Application%20Question"
+                            href="mailto:arjundixit@nexflowinc.com?subject=NexFlow%20Enterprise%20Inquiry"
                             className="inline-flex items-center justify-center px-8 py-4 text-[#000] border border-[#e5e0d8] hover:bg-white transition-all duration-300 rounded-full"
                             style={{
                                 fontFamily: 'var(--font-inter), Inter, sans-serif',
@@ -53,7 +53,7 @@ export function EnterpriseContact() {
                                 fontWeight: 500,
                             }}
                         >
-                            Have Questions?
+                            Talk to Sales →
                         </Link>
                     </div>
                 </motion.div>
