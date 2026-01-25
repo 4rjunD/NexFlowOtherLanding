@@ -135,7 +135,7 @@ export function EnterpriseHero() {
                                 }}
                                 variants={slideDownVariants}
                             >
-                                Continuous behavioral monitoring that tracks every pattern, flags every risk, and tells you exactly who needs attention and when. Total visibility. Zero guesswork.
+                                The all-seeing layer for workforce performance.
                             </motion.p>
 
                             {/* CTA Button - Dark green */}
