@@ -135,7 +135,7 @@ export function EnterpriseHero() {
                                 }}
                                 variants={slideDownVariants}
                             >
-                                AI that learns your team&apos;s patterns, predicts peak performance windows, and catches burnout before it costs you. Data-driven. Human-centered.
+                                Continuous behavioral monitoring that tracks every pattern, flags every risk, and tells you exactly who needs attention and when. Total visibility. Zero guesswork.
                             </motion.p>
 
                             {/* CTA Button - Dark green */}
