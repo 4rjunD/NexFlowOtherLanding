@@ -69,7 +69,7 @@ const tiers = [
             "24/7 priority support",
             "Quarterly executive briefings",
         ],
-        cta: "Apply for Access",
+        cta: "Inquire",
         href: "https://cal.com/arjun-dixit-0nwkzi/30min",
         highlighted: false,
     },
