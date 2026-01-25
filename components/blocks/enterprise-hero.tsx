@@ -103,7 +103,7 @@ export function EnterpriseHero() {
                                         fontWeight: 500,
                                     }}
                                 >
-                                    Workforce Health Intelligence
+                                    Backed by Character Capital
                                 </span>
                             </motion.div>
 
