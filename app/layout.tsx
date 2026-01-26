@@ -30,8 +30,8 @@ const halant = Halant({
 });
 
 export const metadata: Metadata = {
-  title: "NexFlow Enterprise - Predict Burnout Before It Happens",
-  description: "AI-powered workforce wellness platform that predicts burnout 3 weeks early. $50K+ saved per prevented departure.",
+  title: "NexFlow Enterprise - The Command Center for Workforce Health",
+  description: "See everything before it surfaces. Total visibility into workforce health, burnout risk, and team performance.",
   icons: {
     icon: "/favicon.png",
   },
