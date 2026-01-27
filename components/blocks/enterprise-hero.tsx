@@ -1,8 +1,9 @@
 "use client"
 
 import Link from 'next/link'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { Volume2, VolumeX } from 'lucide-react'
 
 const containerVariants = {
     hidden: {},
@@ -36,6 +37,14 @@ const videoVariants = {
 export function EnterpriseHero() {
     const videoRef = useRef<HTMLVideoElement>(null)
     const videoContainerRef = useRef<HTMLDivElement>(null)
+    const [isMuted, setIsMuted] = useState(true)
+
+    const toggleMute = () => {
+        if (videoRef.current) {
+            videoRef.current.muted = !videoRef.current.muted
+            setIsMuted(!isMuted)
+        }
+    }
 
     useEffect(() => {
         const video = videoRef.current
@@ -183,6 +192,17 @@ export function EnterpriseHero() {
                                 <source src="/demonexflow.mp4" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
+                            <button
+                                onClick={toggleMute}
+                                className="absolute bottom-4 right-4 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-colors"
+                                aria-label={isMuted ? "Unmute" : "Mute"}
+                            >
+                                {isMuted ? (
+                                    <VolumeX className="w-5 h-5 text-white" />
+                                ) : (
+                                    <Volume2 className="w-5 h-5 text-white" />
+                                )}
+                            </button>
                         </div>
                     </div>
                 </motion.div>
