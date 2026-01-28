@@ -6,6 +6,12 @@ import { Menu, X } from "lucide-react";
 
 function EnterpriseHeader() {
     const [isOpen, setOpen] = useState(false);
+    const [showComingSoon, setShowComingSoon] = useState(false);
+
+    const handleGetStarted = () => {
+        setShowComingSoon(true);
+        setTimeout(() => setShowComingSoon(false), 2000);
+    };
 
     return (
         <header className="w-full z-40 fixed top-0 left-0 bg-[#fcf6ef]">
@@ -28,8 +34,8 @@ function EnterpriseHeader() {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-3">
-                        <Link
-                            href="#newsletter"
+                        <button
+                            onClick={handleGetStarted}
                             className="px-4 py-2 text-[#000] hover:text-[#1F4D3A] transition-colors rounded-full border border-[#e5e0d8] bg-white/50 hover:bg-white/80"
                             style={{
                                 fontFamily: 'var(--font-inter), Inter, sans-serif',
@@ -37,8 +43,8 @@ function EnterpriseHeader() {
                                 fontWeight: 500,
                             }}
                         >
-                            Get Updates
-                        </Link>
+                            {showComingSoon ? "Coming Soon!" : "Get Started"}
+                        </button>
                         <Link
                             href="https://cal.com/arjun-dixit-0nwkzi/30min"
                             target="_blank"
@@ -65,9 +71,8 @@ function EnterpriseHeader() {
                 {/* Mobile Menu */}
                 {isOpen && (
                     <div className="md:hidden absolute top-[80px] left-0 w-full bg-[#fcf6ef] border-t border-[#e5e0d8] py-6 px-6 flex flex-col gap-4">
-                        <Link
-                            href="#newsletter"
-                            onClick={() => setOpen(false)}
+                        <button
+                            onClick={handleGetStarted}
                             className="px-5 py-3 text-[#000] text-center rounded-full border border-[#e5e0d8] bg-white/50"
                             style={{
                                 fontFamily: 'var(--font-inter), Inter, sans-serif',
@@ -75,8 +80,8 @@ function EnterpriseHeader() {
                                 fontWeight: 500,
                             }}
                         >
-                            Get Updates
-                        </Link>
+                            {showComingSoon ? "Coming Soon!" : "Get Started"}
+                        </button>
                         <Link
                             href="https://cal.com/arjun-dixit-0nwkzi/30min"
                             target="_blank"
