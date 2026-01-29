@@ -33,7 +33,12 @@ export const metadata: Metadata = {
   title: "NexFlow Enterprise - The Command Center for Workforce Health",
   description: "See everything before it surfaces. Total visibility into workforce health, burnout risk, and team performance.",
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/favicon.png", type: "image/png" },
+    ],
   },
 };
 
