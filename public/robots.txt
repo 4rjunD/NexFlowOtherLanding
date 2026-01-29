@@ -1,0 +1,49 @@
+# robots.txt for NexFlow Enterprise
+# https://nexflowinc.com
+
+# Default rule - allow all crawlers
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Google crawlers - Explicitly Allowed
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# AI Search Engine Crawlers - Explicitly Allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Cohere-AI
+Allow: /
+
+# Sitemap location
+Sitemap: https://nexflowinc.com/sitemap.xml
