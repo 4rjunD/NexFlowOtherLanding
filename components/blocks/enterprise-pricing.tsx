@@ -77,7 +77,7 @@ const tiers = [
 
 export function EnterprisePricing() {
     return (
-        <section className="py-24 md:py-32 bg-[#f6f0e9]">
+        <section className="py-24 md:py-32 bg-[#fcf6ef]">
             <div className="mx-auto max-w-[1200px] px-6 md:px-16">
                 <div className="text-center mb-16">
                     <p

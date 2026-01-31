@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export function EnterpriseFeaturesSection() {
     return (
-        <section className="relative py-24 md:py-32 bg-[#f5f5f7] overflow-hidden">
+        <section className="relative py-24 md:py-32 bg-[#fcf6ef] overflow-hidden">
             <div className="container max-w-[1200px] w-full px-6 md:px-16 relative z-10 mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                     {/* Left - Product Mockup */}

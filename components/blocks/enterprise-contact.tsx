@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export function EnterpriseContact() {
     return (
-        <section id="contact" className="py-24 md:py-32 bg-[#f6f0e9]">
+        <section id="contact" className="py-24 md:py-32 bg-[#fcf6ef]">
             <div className="mx-auto max-w-4xl px-6 md:px-16 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
