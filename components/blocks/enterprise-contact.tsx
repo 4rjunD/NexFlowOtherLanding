@@ -22,13 +22,13 @@ export function EnterpriseContact() {
                             lineHeight: '110%',
                         }}
                     >
-                        Build a <span style={{ fontStyle: 'italic' }}>healthier workforce</span>
+                        See <span style={{ fontStyle: 'italic' }}>everything</span>
                     </h2>
                     <p
                         className="text-[#94877c] text-lg mb-10 max-w-2xl mx-auto"
                         style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                     >
-                        Total health visibility. Predictive burnout detection. Measurable wellness ROI. See it in 90 days.
+                        One command center. Total visibility. Autonomous control. Deploy in weeks.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

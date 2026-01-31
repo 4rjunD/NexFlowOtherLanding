@@ -11,9 +11,9 @@ const tiers = [
         period: "tailored to you",
         teamSize: "Under 25 employees",
         features: [
-            "Core behavioral monitoring",
-            "Team pulse checks",
-            "Basic analytics dashboard",
+            "Core monitoring & alerts",
+            "5 integrations included",
+            "Weekly signal reports",
             "Email support",
         ],
         cta: "Get Started →",
@@ -22,15 +22,15 @@ const tiers = [
     },
     {
         name: "Teams",
-        description: "For teams ready to optimize",
+        description: "For teams ready to scale",
         price: "999",
         period: "/month flat",
         teamSize: "Up to 50 employees",
         features: [
-            "Weekly AI pulse checks",
-            "Team trends dashboard",
-            "Burnout risk indicators",
-            "Monthly performance reports",
+            "15 integrations",
+            "Real-time pattern detection",
+            "Basic autonomous actions",
+            "Slack & Teams alerts",
         ],
         cta: "Deploy Now →",
         href: "https://cal.com/arjun-dixit-0nwkzi/30min",
@@ -45,10 +45,10 @@ const tiers = [
         badge: "Most Popular",
         features: [
             "Everything in Teams +",
-            "Individual behavioral profiles",
-            "Manager intervention playbooks",
-            "Predictive departure alerts",
-            "Slack & Teams integration",
+            "Unlimited integrations",
+            "Full autonomous actions",
+            "Cross-system correlations",
+            "Custom workflows & triggers",
             "4-hour support response",
         ],
         cta: "Deploy Now →",
@@ -64,10 +64,10 @@ const tiers = [
         features: [
             "Everything in Growth +",
             "Dedicated success manager",
-            "Custom HRIS integrations",
-            "On-site training & workshops",
+            "Custom model training",
+            "On-premise deployment option",
             "24/7 priority support",
-            "Quarterly executive briefings",
+            "Quarterly strategy sessions",
         ],
         cta: "Talk to Sales →",
         href: "https://cal.com/arjun-dixit-0nwkzi/30min",
@@ -99,13 +99,13 @@ export function EnterprisePricing() {
                         }}
                     >
                         Invest in{' '}
-                        <span style={{ fontStyle: 'italic' }}>workforce health</span>
+                        <span style={{ fontStyle: 'italic' }}>operational intelligence</span>
                     </h2>
                     <p
                         className="text-lg text-[#94877c] max-w-2xl mx-auto"
                         style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                     >
-                        Burnout costs $125K per departure. Prevention costs a fraction. The ROI is measurable.
+                        Stop paying for scattered tools. One system. Total visibility. Autonomous control.
                     </p>
                 </div>
 
@@ -250,7 +250,7 @@ export function EnterprisePricing() {
                             className="text-white/80 mb-6 leading-relaxed"
                             style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                         >
-                            No trials. No refunds. Results only. Our platform is built for organizations ready to transform their workforce operations.
+                            No trials. No refunds. Results only. Our platform is built for organizations ready to transform how they operate.
                         </p>
                         <p
                             className="text-white/80 mb-8 leading-relaxed"

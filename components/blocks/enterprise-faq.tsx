@@ -6,39 +6,39 @@ import { cn } from "@/lib/utils";
 
 const faqs = [
   {
-    question: "What health data do you track?",
+    question: "What systems does NexFlow connect to?",
     answer:
-      "HRV, sleep quality, recovery scores, stress markers, energy levels. Data flows from wearables and weekly pulse checks. We build a complete physiological profile for every employee.",
+      "Everything. Slack, Teams, Gmail. GitHub, GitLab, CI/CD. Notion, Linear, Jira, Asana. Meta Ads, Google Ads, HubSpot, Salesforce. N8N, Zapier, Make. Oura, Whoop, Apple Health. 50+ integrations and growing.",
   },
   {
-    question: "How does burnout prediction work?",
+    question: "How does pattern detection work?",
     answer:
-      "The model detects declining recovery patterns, elevated stress markers, and sleep degradation. It flags risk 3 weeks before symptoms become visible. Early intervention prevents breakdown.",
+      "Our models continuously analyze signals across all connected systems. When marketing spend drops while engineering velocity slows, we see it. When Slack noise spikes alongside calendar overload, we flag it. Cross-system correlations that humans miss.",
   },
   {
-    question: "What do managers see?",
+    question: "What autonomous actions can NexFlow take?",
     answer:
-      "Team health scores. Burnout risk levels. Recovery recommendations. Workload rebalancing suggestions. Never individual health data. Privacy-preserving aggregation only.",
+      "Pause underperforming ad campaigns. Block calendar time when overload is detected. Reassign stuck tasks. Trigger N8N or Zapier workflows. Escalate to managers. All configurable with thresholds you control.",
   },
   {
-    question: "How is employee health data protected?",
+    question: "How do I stay in control?",
     answer:
-      "Enterprise-grade encryption. Employees own their data. Managers see wellness trends, not raw health metrics. One-click deletion anytime. No data sold. Ever.",
+      "Every action is logged with full context. One-click override on anything. Configure thresholds and rules. Approve actions before they execute or let them run autonomously. You decide the level of automation.",
   },
   {
-    question: "What's the ROI on workforce health?",
+    question: "What makes NexFlow different from dashboards?",
     answer:
-      "Burnout costs $125K-$190K per departure. Prevention costs a fraction. Our clients see 40% reduction in burnout-related turnover. Lower healthcare costs. Higher output.",
+      "Dashboards show you what happened. NexFlow predicts what's about to happen and acts on it. It's not another tool to check—it's an intelligence layer that watches 24/7 and handles the noise so you don't have to.",
   },
   {
-    question: "Do employees benefit directly?",
+    question: "How is data protected?",
     answer:
-      "Yes. Personal health insights. Recovery recommendations. Energy optimization tips. 94% voluntary participation because employees see value.",
+      "Enterprise-grade encryption at rest and in transit. SOC 2 compliance. Data never sold. On-premise deployment available for Enterprise tier. Full audit logs. You own your data.",
   },
   {
-    question: "How fast do health improvements show?",
+    question: "How fast is deployment?",
     answer:
-      "Baseline health profiles in 2 weeks. Team wellness trends visible in 30 days. Measurable health improvements within 90 days.",
+      "Connect your first integrations in minutes. Baseline patterns established in 1-2 weeks. Autonomous actions configured within 30 days. Full operational intelligence within 90 days.",
   },
 ];
 

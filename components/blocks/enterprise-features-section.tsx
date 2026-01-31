@@ -3,206 +3,209 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.2,
-        }
-    },
-};
-
-const leftItemVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
-};
-
-const rightItemVariants = {
-    hidden: { opacity: 0, x: 50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
-};
-
 export function EnterpriseFeaturesSection() {
     return (
-        <section className="relative py-24 md:py-32 bg-[#f6f0e9] overflow-hidden">
+        <section className="relative py-24 md:py-32 bg-[#f5f5f7] overflow-hidden">
             <div className="container max-w-[1200px] w-full px-6 md:px-16 relative z-10 mx-auto">
-                <motion.div
-                    className="grid grid-cols-1 gap-16 md:gap-12 w-full items-center md:grid-cols-2"
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                >
-                    {/* Text Content */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    {/* Left - Product Mockup */}
                     <motion.div
-                        className="flex flex-col items-start gap-4 mt-10 md:mt-0 max-w-[546px] mx-auto md:mx-0"
-                        variants={leftItemVariants}
+                        className="relative"
+                        initial={{ opacity: 0, x: -40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7, ease: "easeOut" }}
                     >
-                        <div className="space-y-2 md:space-y-1">
-                            <h2
-                                className="text-[#000] text-3xl md:text-[42px] leading-tight md:leading-[1.15]"
+                        <div
+                            className="rounded-3xl p-6 shadow-xl"
+                            style={{
+                                background: 'linear-gradient(145deg, #e8e8ec 0%, #d4d4d8 100%)',
+                            }}
+                        >
+                            <div className="bg-white rounded-2xl p-6 shadow-sm">
+                                {/* Header */}
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center gap-2">
+                                        <span
+                                            className="text-sm text-[#94877c]"
+                                            style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                                        >
+                                            Today, 2:45 PM
+                                        </span>
+                                        <span className="text-[#94877c]">•</span>
+                                        <div className="flex -space-x-2">
+                                            <div className="w-6 h-6 rounded-full bg-[#1F4D3A] flex items-center justify-center text-white text-xs">S</div>
+                                            <div className="w-6 h-6 rounded-full bg-[#5BA88B] flex items-center justify-center text-white text-xs">M</div>
+                                            <div className="w-6 h-6 rounded-full bg-[#94877c] flex items-center justify-center text-white text-xs">+4</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Title */}
+                                <h3
+                                    className="text-xl text-[#000] mb-4"
+                                    style={{
+                                        fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                                        fontWeight: 500,
+                                    }}
+                                >
+                                    Q4 Sprint Velocity & Team Health
+                                </h3>
+
+                                {/* Tabs */}
+                                <div className="flex gap-2 mb-6">
+                                    <span className="px-3 py-1.5 text-xs rounded-full bg-[#f5f5f7] text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Overview</span>
+                                    <span className="px-3 py-1.5 text-xs rounded-full bg-[#1F4D3A] text-white" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Signals</span>
+                                    <span className="px-3 py-1.5 text-xs rounded-full bg-[#f5f5f7] text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Actions</span>
+                                </div>
+
+                                {/* Activity Feed */}
+                                <div className="space-y-4">
+                                    <div className="flex gap-3">
+                                        <div className="w-2 h-2 rounded-full bg-amber-500 mt-2 shrink-0"></div>
+                                        <div>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>Slack activity spike</p>
+                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Engineering channel up 240% vs. baseline</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3">
+                                        <div className="w-2 h-2 rounded-full bg-[#1F4D3A] mt-2 shrink-0"></div>
+                                        <div>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>PR velocity normal</p>
+                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>14 merged this week. On track.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3">
+                                        <div className="w-2 h-2 rounded-full bg-red-500 mt-2 shrink-0"></div>
+                                        <div>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>Calendar overload detected</p>
+                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>3 team members &gt;6hrs meetings/day</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3">
+                                        <div className="w-2 h-2 rounded-full bg-[#1F4D3A] mt-2 shrink-0"></div>
+                                        <div>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>Ad spend optimized</p>
+                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Paused 2 underperforming campaigns</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Right - Stats */}
+                    <motion.div
+                        className="space-y-2"
+                        initial={{ opacity: 0, x: 40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+                    >
+                        <h2
+                            className="text-3xl md:text-[42px] text-[#000] mb-12"
+                            style={{
+                                fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                                fontWeight: 400,
+                                letterSpacing: '-0.03em',
+                                lineHeight: '1.1',
+                            }}
+                        >
+                            The system that never sleeps
+                        </h2>
+
+                        {/* Stat 1 */}
+                        <div className="flex items-start gap-8 py-6 border-b border-[#e5e0d8]">
+                            <span
+                                className="text-5xl md:text-6xl text-[#000] shrink-0 w-28"
                                 style={{
                                     fontFamily: 'var(--font-halant), Halant, Georgia, serif',
                                     fontWeight: 400,
-                                    letterSpacing: '-0.05em',
                                 }}
                             >
-                                See workforce health.{' '}
-                                <span style={{ fontStyle: 'italic' }}>In real time</span>.
-                            </h2>
+                                12
+                            </span>
+                            <div>
+                                <p
+                                    className="text-xl md:text-2xl text-[#000] mb-1"
+                                    style={{
+                                        fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                                        fontWeight: 500,
+                                    }}
+                                >
+                                    Trained models
+                                </p>
+                                <p
+                                    className="text-[#94877c]"
+                                    style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                                >
+                                    Purpose-built AI for ops, engineering, marketing, and team health signals.
+                                </p>
+                            </div>
                         </div>
 
-                        <p
-                            className="text-[#94877c] text-base md:text-[17px] leading-relaxed mt-2"
-                            style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-                        >
-                            Stress levels. Recovery patterns. Energy trends. Surfaced before burnout hits.
-                        </p>
+                        {/* Stat 2 */}
+                        <div className="flex items-start gap-8 py-6 border-b border-[#e5e0d8]">
+                            <span
+                                className="text-5xl md:text-6xl text-[#000] shrink-0 w-28"
+                                style={{
+                                    fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                                    fontWeight: 400,
+                                }}
+                            >
+                                24<span className="text-3xl">/7</span>
+                            </span>
+                            <div>
+                                <p
+                                    className="text-xl md:text-2xl text-[#000] mb-1"
+                                    style={{
+                                        fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                                        fontWeight: 500,
+                                    }}
+                                >
+                                    Monitoring
+                                </p>
+                                <p
+                                    className="text-[#94877c]"
+                                    style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                                >
+                                    Patterns detected while you sleep. Anomalies surfaced before morning standup.
+                                </p>
+                            </div>
+                        </div>
 
-                        <ul className="mt-6 space-y-5">
-                            <li className="flex items-start gap-3">
-                                <div className="w-5 h-5 rounded-full bg-[#1F4D3A]/10 flex items-center justify-center mt-0.5">
-                                    <div className="w-2 h-2 rounded-full bg-[#1F4D3A]"></div>
-                                </div>
-                                <div>
-                                    <p className="text-[#000] font-medium" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Physiological signals</p>
-                                    <p className="text-[#94877c] text-sm" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>HRV, sleep quality, recovery scores from wearables.</p>
-                                </div>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <div className="w-5 h-5 rounded-full bg-[#1F4D3A]/10 flex items-center justify-center mt-0.5">
-                                    <div className="w-2 h-2 rounded-full bg-[#1F4D3A]"></div>
-                                </div>
-                                <div>
-                                    <p className="text-[#000] font-medium" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Burnout prediction</p>
-                                    <p className="text-[#94877c] text-sm" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Identify risk 3 weeks before breakdown.</p>
-                                </div>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <div className="w-5 h-5 rounded-full bg-[#1F4D3A]/10 flex items-center justify-center mt-0.5">
-                                    <div className="w-2 h-2 rounded-full bg-[#1F4D3A]"></div>
-                                </div>
-                                <div>
-                                    <p className="text-[#000] font-medium" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Recovery protocols</p>
-                                    <p className="text-[#94877c] text-sm" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>AI-generated interventions for at-risk employees.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </motion.div>
-
-                    {/* Dashboard Mockup */}
-                    <motion.div
-                        className="relative mt-10 md:mt-0 mx-auto w-full"
-                        variants={rightItemVariants}
-                    >
-                        <div className="relative w-full bg-white rounded-2xl border border-[#e5e0d8] p-6 shadow-lg">
-                            <AnalyticsDashboard />
+                        {/* Stat 3 */}
+                        <div className="flex items-start gap-8 py-6">
+                            <span
+                                className="text-5xl md:text-6xl text-[#000] shrink-0 w-28"
+                                style={{
+                                    fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                                    fontWeight: 400,
+                                }}
+                            >
+                                3<span className="text-3xl">wk</span>
+                            </span>
+                            <div>
+                                <p
+                                    className="text-xl md:text-2xl text-[#000] mb-1"
+                                    style={{
+                                        fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                                        fontWeight: 500,
+                                    }}
+                                >
+                                    Early warning
+                                </p>
+                                <p
+                                    className="text-[#94877c]"
+                                    style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                                >
+                                    Predict burnout, churn, and bottlenecks weeks before they surface.
+                                </p>
+                            </div>
                         </div>
                     </motion.div>
-                </motion.div>
+                </div>
             </div>
         </section>
-    );
-}
-
-function AnalyticsDashboard() {
-    const weeklyData = [
-        { week: "W1", productivity: 72, energy: 75, focus: 68 },
-        { week: "W2", productivity: 78, energy: 78, focus: 74 },
-        { week: "W3", productivity: 75, energy: 72, focus: 70 },
-        { week: "W4", productivity: 82, energy: 82, focus: 78 },
-        { week: "W5", productivity: 85, energy: 85, focus: 82 },
-        { week: "W6", productivity: 88, energy: 88, focus: 86 },
-    ];
-
-    return (
-        <div className="space-y-6" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
-            <div className="flex items-center justify-between">
-                <div>
-                    <h3
-                        className="text-lg text-[#000]"
-                        style={{
-                            fontFamily: 'var(--font-halant), Halant, Georgia, serif',
-                            fontWeight: 500,
-                        }}
-                    >
-                        Performance Trends (6 weeks)
-                    </h3>
-                    <p className="text-xs text-[#94877c]">Team-wide metrics</p>
-                </div>
-                <div className="flex gap-4 text-xs">
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-[#1F4D3A]"></div>
-                        <span className="text-[#94877c]">Productivity</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-[#5BA88B]"></div>
-                        <span className="text-[#94877c]">Energy</span>
-                    </div>
-                </div>
-            </div>
-
-            {/* Chart */}
-            <div className="h-48 flex items-end justify-between gap-2 bg-[#fcf6ef] rounded-xl p-4">
-                {weeklyData.map((week, i) => (
-                    <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                        <div className="w-full flex gap-1 items-end justify-center h-36">
-                            <div
-                                className="w-3 bg-[#1F4D3A] rounded-t"
-                                style={{ height: `${week.productivity}%` }}
-                            ></div>
-                            <div
-                                className="w-3 bg-[#5BA88B] rounded-t"
-                                style={{ height: `${week.energy}%` }}
-                            ></div>
-                        </div>
-                        <span className="text-xs text-[#94877c]">{week.week}</span>
-                    </div>
-                ))}
-            </div>
-
-            {/* Stats Row */}
-            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[#e5e0d8]">
-                <div>
-                    <p className="text-xs text-[#94877c] uppercase tracking-wider">Productivity</p>
-                    <p
-                        className="text-2xl text-[#000]"
-                        style={{
-                            fontFamily: 'var(--font-halant), Halant, Georgia, serif',
-                            fontWeight: 400,
-                        }}
-                    >
-                        88<span className="text-sm text-[#94877c]">%</span>
-                    </p>
-                    <p className="text-xs text-[#1F4D3A]">+16% vs 6 weeks ago</p>
-                </div>
-                <div>
-                    <p className="text-xs text-[#94877c] uppercase tracking-wider">Energy</p>
-                    <p
-                        className="text-2xl text-[#000]"
-                        style={{
-                            fontFamily: 'var(--font-halant), Halant, Georgia, serif',
-                            fontWeight: 400,
-                        }}
-                    >
-                        88<span className="text-sm text-[#94877c]">%</span>
-                    </p>
-                    <p className="text-xs text-[#1F4D3A]">+13% vs 6 weeks ago</p>
-                </div>
-                <div>
-                    <p className="text-xs text-[#94877c] uppercase tracking-wider">Output</p>
-                    <p
-                        className="text-2xl text-[#000]"
-                        style={{
-                            fontFamily: 'var(--font-halant), Halant, Georgia, serif',
-                            fontWeight: 400,
-                        }}
-                    >
-                        +22%
-                    </p>
-                    <p className="text-xs text-[#1F4D3A]">Team efficiency gain</p>
-                </div>
-            </div>
-        </div>
     );
 }

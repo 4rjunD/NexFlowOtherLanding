@@ -86,12 +86,12 @@ export function EnterpriseHero() {
             </div>
 
             <section className="relative z-10">
-                {/* Hero Section - perfectly.so style spacing */}
-                <div style={{ padding: '160px 64px 45px' }} className="px-6 md:px-16">
+                {/* Hero Section - compact spacing */}
+                <div style={{ padding: '120px 64px 32px' }} className="px-6 md:px-16">
                     <div className="mx-auto max-w-[1200px]">
                         <motion.div
                             className="flex flex-col items-center text-center"
-                            style={{ gap: '42px' }}
+                            style={{ gap: '24px' }}
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
@@ -130,12 +130,12 @@ export function EnterpriseHero() {
                             >
                                 The Command Center
                                 <br />
-                                <span style={{ fontStyle: 'italic' }}>for Workforce Health</span>
+                                <span style={{ fontStyle: 'italic' }}>for Your Entire Operation</span>
                             </motion.h1>
 
                             {/* Subtitle - Inter */}
                             <motion.p
-                                className="max-w-[600px] mx-auto text-[#94877c]"
+                                className="max-w-[700px] mx-auto text-[#94877c]"
                                 style={{
                                     fontFamily: 'var(--font-inter), Inter, sans-serif',
                                     fontSize: '18px',
@@ -144,7 +144,7 @@ export function EnterpriseHero() {
                                 }}
                                 variants={slideDownVariants}
                             >
-                                See everything before it surfaces.
+                                Connects to your entire workflow. One AI watching it all.
                             </motion.p>
 
                             {/* CTA Button - Dark green */}
@@ -152,10 +152,10 @@ export function EnterpriseHero() {
                                 <Link
                                     href="https://cal.com/arjun-dixit-0nwkzi/30min"
                                     target="_blank"
-                                    className="inline-flex items-center justify-center px-8 py-4 text-[#fcf6ef] bg-[#1F4D3A] hover:bg-[#163D2E] transition-all duration-300 rounded-full"
+                                    className="inline-flex items-center justify-center px-6 py-3 text-[#fcf6ef] bg-[#1F4D3A] hover:bg-[#163D2E] transition-all duration-300 rounded-full"
                                     style={{
                                         fontFamily: 'var(--font-inter), Inter, sans-serif',
-                                        fontSize: '16px',
+                                        fontSize: '15px',
                                         fontWeight: 500,
                                     }}
                                 >
@@ -169,7 +169,7 @@ export function EnterpriseHero() {
                 {/* Video Section */}
                 <motion.div
                     className="relative px-6 md:px-16"
-                    style={{ paddingTop: '64px', paddingBottom: '64px' }}
+                    style={{ paddingTop: '40px', paddingBottom: '48px' }}
                     variants={videoVariants}
                     initial="hidden"
                     animate="visible"

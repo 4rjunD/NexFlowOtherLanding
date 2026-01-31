@@ -70,7 +70,7 @@ export function TestimonialSection() {
                                 letterSpacing: '-0.02em'
                             }}
                         >
-                            The ability to monitor workforce health at this resolution is unprecedented. Behavioral AI that captures what surveys miss. The physiological signals that predict performance.
+                            The signal processing here is remarkable. Cross-system pattern recognition at a level that surpasses human capacity. This is what operational intelligence should look like.
                         </blockquote>
 
                         {/* Attribution */}

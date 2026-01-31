@@ -1,171 +1,137 @@
-'use client';
-
-import { motion } from 'framer-motion'
-import { Zap, UserCog, ShieldCheck } from 'lucide-react'
-import { ReactNode } from 'react'
-
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.15,
-        }
-    },
-}
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-}
+'use client'
 
 export function EnterpriseFeatures() {
     return (
-        <section className="py-24 md:py-32 bg-[#fcf6ef]">
-            <div className="mx-auto max-w-[1200px] px-6 md:px-16">
-                <motion.div
-                    className="text-center mb-16"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <h2
-                        className="text-3xl md:text-[42px] text-[#000]"
-                        style={{
-                            fontFamily: 'var(--font-halant), Halant, Georgia, serif',
-                            fontWeight: 400,
-                            letterSpacing: '-0.05em',
-                            lineHeight: '110%',
-                        }}
-                    >
-                        Predict burnout.{' '}
-                        <span style={{ fontStyle: 'italic' }}>Prevent it</span>.
-                    </h2>
-                    <p
-                        className="mt-5 text-[#94877c] max-w-2xl mx-auto text-lg"
-                        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-                    >
-                        The system detects health risk. Generates recovery protocols. Deploys them to managers. Autonomously.
-                    </p>
-                </motion.div>
+        <section className="py-16 md:py-32 bg-[#fcf6ef]">
+            <div className="mx-auto max-w-xl md:max-w-6xl px-6">
+                <div className="grid items-center gap-12 md:grid-cols-2 md:gap-12 lg:grid-cols-5 lg:gap-24">
+                    <div className="lg:col-span-2">
+                        <div className="md:pr-6 lg:pr-0">
+                            <p
+                                className="text-sm text-[#1F4D3A] uppercase tracking-wider mb-4"
+                                style={{
+                                    fontFamily: 'var(--font-inter), Inter, sans-serif',
+                                    fontWeight: 500,
+                                }}
+                            >
+                                Built for Growth
+                            </p>
+                            <h2
+                                className="text-3xl md:text-4xl lg:text-5xl text-[#000]"
+                                style={{
+                                    fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                                    fontWeight: 400,
+                                    letterSpacing: '-0.03em',
+                                    lineHeight: '1.1',
+                                }}
+                            >
+                                Works for teams{' '}
+                                <span style={{ fontStyle: 'italic' }}>of any size</span>
+                            </h2>
+                            <p
+                                className="mt-6 text-[#94877c] text-lg"
+                                style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                            >
+                                Whether you run a small agency, a growing company, or a large organization, NexFlow adapts to how you operate.
+                            </p>
+                        </div>
+                        <ul
+                            className="mt-8 divide-y divide-[#e5e0d8] border-y border-[#e5e0d8] *:py-4"
+                            style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                        >
+                            <li className="text-[#000]">
+                                Connect 5 tools or 50. Same simplicity.
+                            </li>
+                            <li className="text-[#000]">
+                                ROI visible within 30 days
+                            </li>
+                            <li className="text-[#000]">
+                                Deploy in days, not months
+                            </li>
+                            <li className="text-[#000]">
+                                No engineering lift required
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="border border-[#e5e0d8] relative rounded-3xl p-3 lg:col-span-3 bg-white shadow-sm">
+                        <div className="relative rounded-2xl overflow-hidden">
+                            {/* Dashboard Mockup */}
+                            <div className="bg-[#f5f5f7] p-6 rounded-2xl">
+                                {/* Header */}
+                                <div className="flex items-center justify-between mb-6">
+                                    <div>
+                                        <p
+                                            className="text-xs text-[#94877c] uppercase tracking-wider"
+                                            style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                                        >
+                                            Command Center
+                                        </p>
+                                        <p
+                                            className="text-lg text-[#000]"
+                                            style={{
+                                                fontFamily: 'var(--font-halant), Halant, Georgia, serif',
+                                                fontWeight: 500,
+                                            }}
+                                        >
+                                            Your Organization
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-[#1F4D3A] animate-pulse"></div>
+                                        <span className="text-xs text-[#1F4D3A]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Live</span>
+                                    </div>
+                                </div>
 
-                <motion.div
-                    className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                >
-                    <FeatureCard
-                        icon={Zap}
-                        title="Recovery Playbooks"
-                        description="Personalized intervention protocols. Workload adjustments. Schedule optimization. Generated from each employee's health data."
-                    >
-                        <PlaybookVisual />
-                    </FeatureCard>
+                                {/* Stats Grid */}
+                                <div className="grid grid-cols-3 gap-3 mb-6">
+                                    <div className="bg-white rounded-xl p-4 border border-[#e5e0d8]">
+                                        <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Team members</p>
+                                        <p className="text-2xl text-[#000]" style={{ fontFamily: 'var(--font-halant), Halant, serif', fontWeight: 500 }}>34</p>
+                                        <p className="text-xs text-[#1F4D3A]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>All tracked</p>
+                                    </div>
+                                    <div className="bg-white rounded-xl p-4 border border-[#e5e0d8]">
+                                        <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Issues flagged</p>
+                                        <p className="text-2xl text-[#000]" style={{ fontFamily: 'var(--font-halant), Halant, serif', fontWeight: 500 }}>7</p>
+                                        <p className="text-xs text-amber-600" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>3 need review</p>
+                                    </div>
+                                    <div className="bg-white rounded-xl p-4 border border-[#e5e0d8]">
+                                        <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Tasks overdue</p>
+                                        <p className="text-2xl text-[#000]" style={{ fontFamily: 'var(--font-halant), Halant, serif', fontWeight: 500 }}>4</p>
+                                        <p className="text-xs text-red-500" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Escalated</p>
+                                    </div>
+                                </div>
 
-                    <FeatureCard
-                        icon={UserCog}
-                        title="Wellness Profiles"
-                        description="Stress tolerance. Recovery patterns. Energy cycles. A complete physiological model for every team member."
-                    >
-                        <ProfileVisual />
-                    </FeatureCard>
-
-                    <FeatureCard
-                        icon={ShieldCheck}
-                        title="Health Data Privacy"
-                        description="Employees control their health data. Managers see team wellness trends. Individual records stay protected."
-                    >
-                        <PrivacyVisual />
-                    </FeatureCard>
-                </motion.div>
+                                {/* Recent Activity */}
+                                <div className="bg-white rounded-xl p-4 border border-[#e5e0d8]">
+                                    <p className="text-xs text-[#94877c] mb-3" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Recent signals</p>
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-2 h-2 rounded-full bg-amber-500"></div>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Sent wrong file to client</p>
+                                            <span className="text-xs text-[#94877c] ml-auto">Jake M.</span>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Response rate dropped 40%</p>
+                                            <span className="text-xs text-[#94877c] ml-auto">Sarah K.</span>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-2 h-2 rounded-full bg-amber-500"></div>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Skipped approval workflow</p>
+                                            <span className="text-xs text-[#94877c] ml-auto">Operations</span>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-2 h-2 rounded-full bg-[#1F4D3A]"></div>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Exceeded quarterly targets</p>
+                                            <span className="text-xs text-[#94877c] ml-auto">Anna L.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     )
 }
-
-interface FeatureCardProps {
-    icon: React.ElementType
-    title: string
-    description: string
-    children: ReactNode
-}
-
-const FeatureCard = ({ icon: Icon, title, description, children }: FeatureCardProps) => (
-    <motion.div
-        className="bg-white rounded-2xl border border-[#e5e0d8] p-6 flex flex-col"
-        variants={itemVariants}
-    >
-        <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-[#1F4D3A]/10 flex items-center justify-center">
-                <Icon className="w-5 h-5 text-[#1F4D3A]" />
-            </div>
-            <h3
-                className="text-lg text-[#000]"
-                style={{
-                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                    fontWeight: 500,
-                }}
-            >
-                {title}
-            </h3>
-        </div>
-        <p
-            className="text-[#94877c] text-sm mb-6"
-            style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-        >
-            {description}
-        </p>
-        <div className="mt-auto">
-            {children}
-        </div>
-    </motion.div>
-)
-
-const PlaybookVisual = () => (
-    <div className="space-y-3">
-        <div className="bg-[#1F4D3A]/5 rounded-lg p-3 border border-[#1F4D3A]/20">
-            <p className="text-xs font-medium text-[#1F4D3A] mb-1" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Alert: Sarah Chen</p>
-            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Recovery score dropped 23% this week</p>
-        </div>
-        <div className="bg-[#fcf6ef] rounded-lg p-3 border border-[#e5e0d8]">
-            <p className="text-xs font-medium text-[#94877c] mb-2" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Recommended actions:</p>
-            <ul className="text-sm text-[#000] space-y-1" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
-                <li className="flex gap-2"><span className="text-[#1F4D3A]">✓</span> Reduce meeting load by 30%</li>
-                <li className="flex gap-2"><span className="text-[#1F4D3A]">✓</span> Block recovery time Thursday PM</li>
-                <li className="flex gap-2"><span className="text-[#1F4D3A]">✓</span> Reassign Q4 deadline to backup</li>
-            </ul>
-        </div>
-    </div>
-)
-
-const ProfileVisual = () => (
-    <div className="space-y-3">
-        {[
-            { label: 'Stress tolerance', value: 'High capacity, 72hr recovery needed' },
-            { label: 'Sleep quality', value: '6.2hr avg, below optimal threshold' },
-            { label: 'HRV trend', value: 'Declining 12% over 2 weeks' },
-        ].map((item, i) => (
-            <div key={i} className="bg-[#fcf6ef] rounded-lg p-3 border border-[#e5e0d8]">
-                <p className="text-xs text-[#94877c] mb-1" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>{item.label}</p>
-                <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>{item.value}</p>
-            </div>
-        ))}
-    </div>
-)
-
-const PrivacyVisual = () => (
-    <div className="space-y-3">
-        {[
-            { text: 'Health data stays with the employee' },
-            { text: 'Managers see wellness scores, not raw data' },
-            { text: 'Enterprise-grade encryption at rest and in transit' },
-        ].map((item, i) => (
-            <div key={i} className="bg-[#fcf6ef] rounded-lg p-3 border border-[#e5e0d8] flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-[#1F4D3A]"></div>
-                <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>{item.text}</p>
-            </div>
-        ))}
-    </div>
-)
