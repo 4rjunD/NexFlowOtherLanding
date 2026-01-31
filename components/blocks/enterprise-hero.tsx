@@ -234,9 +234,9 @@ export function EnterpriseHero() {
                                 }}
                                 variants={slideDownVariants}
                             >
-                                The Command Center
+                                Ship faster.
                                 <br />
-                                <span style={{ fontStyle: 'italic' }}>for Your Entire Operation</span>
+                                <span style={{ fontStyle: 'italic' }}>Catch blockers before they stall.</span>
                             </motion.h1>
 
                             {/* Subtitle - Inter */}
@@ -250,7 +250,7 @@ export function EnterpriseHero() {
                                 }}
                                 variants={slideDownVariants}
                             >
-                                Connects to your entire workflow. One AI watching it all.
+                                NexFlow monitors GitHub, Slack, Linear, and calendars to surface what's slowing your team down in real time.
                             </motion.p>
 
                             {/* CTA Button - Dark green */}
