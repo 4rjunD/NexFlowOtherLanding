@@ -34,6 +34,107 @@ const videoVariants = {
     },
 }
 
+const floatingLogos = [
+    // Left side logos
+    {
+        name: 'Slack',
+        icon: '/logos/slack.svg',
+        color: '#E01E5A',
+        position: 'left-[2%] top-[25%]',
+        delay: 0.2,
+        duration: 4,
+    },
+    {
+        name: 'Notion',
+        icon: '/logos/notion.svg',
+        color: '#000000',
+        position: 'left-[8%] top-[55%]',
+        delay: 0.5,
+        duration: 4.5,
+    },
+    {
+        name: 'Linear',
+        icon: '/logos/linear.svg',
+        color: '#5E6AD2',
+        position: 'left-[3%] top-[75%]',
+        delay: 0.8,
+        duration: 3.8,
+    },
+    // Right side logos
+    {
+        name: 'GitHub',
+        icon: '/logos/github.svg',
+        color: '#24292F',
+        position: 'right-[2%] top-[25%]',
+        delay: 0.3,
+        duration: 4.2,
+    },
+    {
+        name: 'Google Calendar',
+        icon: '/logos/gcal.svg',
+        color: '#4285F4',
+        position: 'right-[7%] top-[50%]',
+        delay: 0.6,
+        duration: 3.5,
+    },
+    {
+        name: 'Figma',
+        icon: '/logos/figma.svg',
+        color: '#F24E1E',
+        position: 'right-[4%] top-[75%]',
+        delay: 0.9,
+        duration: 4.8,
+    },
+]
+
+function FloatingLogo({ name, icon, color, position, delay, duration }: {
+    name: string
+    icon: string
+    color: string
+    position: string
+    delay: number
+    duration: number
+}) {
+    return (
+        <motion.div
+            className={`absolute ${position} hidden lg:block z-20`}
+            initial={{ opacity: 0, scale: 0, rotate: -10 }}
+            animate={{
+                opacity: 1,
+                scale: 1,
+                rotate: 0,
+            }}
+            transition={{
+                duration: 0.6,
+                delay: delay + 0.8,
+                ease: [0.25, 0.4, 0.25, 1]
+            }}
+        >
+            <motion.div
+                className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-white shadow-lg flex items-center justify-center"
+                style={{
+                    boxShadow: `0 8px 32px -4px ${color}25, 0 4px 16px -2px rgba(0,0,0,0.08)`,
+                }}
+                animate={{
+                    y: [0, -12, 0],
+                    rotate: [0, 2, 0, -2, 0],
+                }}
+                transition={{
+                    duration: duration,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
+            >
+                <img
+                    src={icon}
+                    alt={name}
+                    className="w-8 h-8 md:w-9 md:h-9"
+                />
+            </motion.div>
+        </motion.div>
+    )
+}
+
 export function EnterpriseHero() {
     const videoRef = useRef<HTMLVideoElement>(null)
     const videoContainerRef = useRef<HTMLDivElement>(null)
@@ -84,6 +185,11 @@ export function EnterpriseHero() {
                     }}
                 />
             </div>
+
+            {/* Floating Integration Logos */}
+            {floatingLogos.map((logo) => (
+                <FloatingLogo key={logo.name} {...logo} />
+            ))}
 
             <section className="relative z-10">
                 {/* Hero Section - compact spacing */}
@@ -159,7 +265,7 @@ export function EnterpriseHero() {
                                         fontWeight: 500,
                                     }}
                                 >
-                                    Request a Demo →
+                                    Request a Demo
                                 </Link>
                             </motion.div>
                         </motion.div>
