@@ -22,13 +22,13 @@ export function EnterpriseContact() {
                             lineHeight: '110%',
                         }}
                     >
-                        See <span style={{ fontStyle: 'italic' }}>everything</span>
+                        See what's <span style={{ fontStyle: 'italic' }}>stuck</span>
                     </h2>
                     <p
                         className="text-[#94877c] text-lg mb-10 max-w-2xl mx-auto"
                         style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                     >
-                        One command center. Total visibility. Autonomous control. Deploy in weeks.
+                        Fix it before it spreads. Deploy in days.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

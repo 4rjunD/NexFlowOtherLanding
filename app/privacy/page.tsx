@@ -205,7 +205,7 @@ export default function PrivacyPolicy() {
               <ul className="list-disc pl-6 text-[#94877c] space-y-2 mb-4">
                 <li><strong>Encryption:</strong> All data is encrypted at rest (AES-256) and in transit (TLS 1.3)</li>
                 <li><strong>Access Controls:</strong> Strict role-based access controls and authentication mechanisms</li>
-                <li><strong>Infrastructure:</strong> Hosted on secure, SOC 2 compliant cloud infrastructure</li>
+                <li><strong>Infrastructure:</strong> Hosted on secure cloud infrastructure</li>
                 <li><strong>Monitoring:</strong> Continuous security monitoring and vulnerability assessments</li>
                 <li><strong>Incident Response:</strong> Established procedures for responding to security incidents</li>
               </ul>

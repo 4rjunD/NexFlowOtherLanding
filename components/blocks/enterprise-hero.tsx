@@ -118,9 +118,9 @@ export function EnterpriseHero() {
                                 }}
                                 variants={slideDownVariants}
                             >
-                                Ship faster.
+                                See what's stuck
                                 <br />
-                                <span style={{ fontStyle: 'italic' }}>Catch blockers before they stall.</span>
+                                <span style={{ fontStyle: 'italic' }}>before it stalls.</span>
                             </motion.h1>
 
                             {/* Subtitle - Inter */}
@@ -134,7 +134,7 @@ export function EnterpriseHero() {
                                 }}
                                 variants={slideDownVariants}
                             >
-                                NexFlow monitors GitHub, Slack, Linear, and calendars to surface what's slowing your team down in real time.
+                                NexFlow monitors your tools and surfaces slowdowns, bottlenecks, and overload in real time.
                             </motion.p>
 
                             {/* CTA Button - Dark green */}

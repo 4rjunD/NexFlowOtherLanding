@@ -86,7 +86,7 @@ export function TrustBanner() {
                                 lineHeight: '1.5'
                             }}
                         >
-                            256-bit AES encryption at rest and in transit. SOC 2 Type II compliant.
+                            256-bit AES encryption at rest and in transit.
                         </p>
                     </div>
 

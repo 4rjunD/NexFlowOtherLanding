@@ -87,16 +87,16 @@ export function Features() {
                                 <div className="overflow-hidden rounded-r-lg border border-[#e5e0d8] bg-[#1F4D3A] p-4">
                                     <div className="space-y-2 text-sm text-white/90" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-white/50">→</span> Pause underperforming ads
+                                            <span className="text-white/50">→</span> Reassign stuck tasks automatically
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-white/50">→</span> Block calendars on overload
+                                            <span className="text-white/50">→</span> Flag overloaded team members
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-white/50">→</span> Reassign stuck tasks
+                                            <span className="text-white/50">→</span> Alert when deadlines are at risk
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-white/50">→</span> Trigger N8N workflows
+                                            <span className="text-white/50">→</span> Trigger workflows when patterns break
                                         </div>
                                     </div>
                                 </div>

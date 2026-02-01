@@ -62,31 +62,31 @@ export function EnterpriseFeaturesSection() {
                                 {/* Activity Feed */}
                                 <div className="space-y-4">
                                     <div className="flex gap-3">
-                                        <div className="w-2 h-2 rounded-full bg-amber-500 mt-2 shrink-0"></div>
+                                        <div className="w-2 h-2 rounded-full bg-red-500 mt-2 shrink-0"></div>
                                         <div>
-                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>Slack activity spike</p>
-                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Engineering channel up 240% vs. baseline</p>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>Project X blocked for 4 days</p>
+                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Awaiting API spec from backend team</p>
                                         </div>
                                     </div>
                                     <div className="flex gap-3">
-                                        <div className="w-2 h-2 rounded-full bg-[#1F4D3A] mt-2 shrink-0"></div>
+                                        <div className="w-2 h-2 rounded-full bg-amber-500 mt-2 shrink-0"></div>
                                         <div>
-                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>PR velocity normal</p>
-                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>14 merged this week. On track.</p>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>3 team members over capacity</p>
+                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Assigned tasks exceed bandwidth</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3">
+                                        <div className="w-2 h-2 rounded-full bg-amber-500 mt-2 shrink-0"></div>
+                                        <div>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>Deliverable deadline at risk</p>
+                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Sprint velocity 30% below target</p>
                                         </div>
                                     </div>
                                     <div className="flex gap-3">
                                         <div className="w-2 h-2 rounded-full bg-red-500 mt-2 shrink-0"></div>
                                         <div>
-                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>Calendar overload detected</p>
-                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>3 team members &gt;6hrs meetings/day</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-3">
-                                        <div className="w-2 h-2 rounded-full bg-[#1F4D3A] mt-2 shrink-0"></div>
-                                        <div>
-                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>Ad spend optimized</p>
-                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Paused 2 underperforming campaigns</p>
+                                            <p className="text-sm text-[#000]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 500 }}>Response time dropped 40%</p>
+                                            <p className="text-xs text-[#94877c]" style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}>Support queue growing since Tuesday</p>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +199,7 @@ export function EnterpriseFeaturesSection() {
                                     className="text-[#94877c]"
                                     style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                                 >
-                                    Predict burnout, churn, and bottlenecks weeks before they surface.
+                                    Predict bottlenecks, slowdowns, and capacity issues weeks before they cost you.
                                 </p>
                             </div>
                         </div>

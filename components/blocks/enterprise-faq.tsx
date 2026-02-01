@@ -33,7 +33,7 @@ const faqs = [
   {
     question: "How is data protected?",
     answer:
-      "Enterprise-grade encryption at rest and in transit. SOC 2 compliance. Data never sold. On-premise deployment available for Enterprise tier. Full audit logs. You own your data.",
+      "Enterprise-grade encryption at rest and in transit. Data never sold. On-premise deployment available for Enterprise tier. Full audit logs. You own your data.",
   },
   {
     question: "How fast is deployment?",
