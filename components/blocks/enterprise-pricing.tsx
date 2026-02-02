@@ -6,70 +6,68 @@ import Link from "next/link"
 const tiers = [
     {
         name: "Startup",
-        description: "For small, fast-moving teams",
-        price: "Custom",
-        period: "tailored to you",
-        teamSize: "Under 25 employees",
+        description: "≤25 people",
+        price: "497",
+        period: "/mo",
         features: [
-            "Core monitoring & alerts",
-            "5 integrations included",
-            "Weekly signal reports",
+            "Basic stuck alerts",
+            "3 integrations",
+            "Weekly reports",
             "Email support",
         ],
-        cta: "Get Started →",
-        href: "https://cal.com/arjun-dixit-0nwkzi/30min",
-        highlighted: false,
-    },
-    {
-        name: "Teams",
-        description: "For teams ready to scale",
-        price: "999",
-        period: "/month flat",
-        teamSize: "Up to 50 employees",
-        features: [
-            "15 integrations",
-            "Real-time pattern detection",
-            "Basic autonomous actions",
-            "Slack & Teams alerts",
+        bonusValue: "$8K",
+        bonuses: [
+            "Founder call",
+            "Setup checklist",
+            "Team playbook export",
         ],
-        cta: "Deploy Now →",
+        cta: "Talk to Founders",
         href: "https://cal.com/arjun-dixit-0nwkzi/30min",
         highlighted: false,
     },
     {
         name: "Growth",
-        description: "For scaling organizations",
-        price: "4,999",
-        period: "/month flat",
-        teamSize: "50-250 employees",
+        description: "25-100 people",
+        price: "1,497",
+        period: "/mo",
         badge: "Most Popular",
         features: [
-            "Everything in Teams +",
-            "Unlimited integrations",
-            "Full autonomous actions",
-            "Cross-system correlations",
-            "Custom workflows & triggers",
-            "4-hour support response",
+            "Everything in Startup",
+            "Real-time detection",
+            "AI Impact Tracker",
+            "Burnout Radar",
+            "Slack/Teams alerts",
+            "Decision Playbook",
         ],
-        cta: "Deploy Now →",
+        bonusValue: "$15K",
+        bonuses: [
+            "2x Founder sessions",
+            "Custom alert tuning",
+            "Priority Slack support",
+        ],
+        cta: "Start 14-Day Pilot",
         href: "https://cal.com/arjun-dixit-0nwkzi/30min",
         highlighted: true,
     },
     {
-        name: "Enterprise",
-        description: "For industry leaders",
-        price: "15,000",
-        period: "+/month",
-        teamSize: "250+ employees",
+        name: "Scale",
+        description: "100-250 people",
+        price: "3,997",
+        period: "/mo",
         features: [
-            "Everything in Growth +",
-            "Dedicated success manager",
-            "Custom model training",
-            "On-premise deployment option",
-            "24/7 priority support",
-            "Quarterly strategy sessions",
+            "Everything in Growth",
+            "Unlimited integrations",
+            "Custom workflows",
+            "Priority onboarding",
+            "Quarterly reviews",
+            "4-hour support",
         ],
-        cta: "Talk to Sales →",
+        bonusValue: "$25K",
+        bonuses: [
+            "Dedicated success mgr",
+            "Custom model training",
+        ],
+        cta: "Talk to Sales",
         href: "https://cal.com/arjun-dixit-0nwkzi/30min",
         highlighted: false,
     },
@@ -77,9 +75,9 @@ const tiers = [
 
 export function EnterprisePricing() {
     return (
-        <section className="py-24 md:py-32 bg-[#fcf6ef]">
-            <div className="mx-auto max-w-[1200px] px-6 md:px-16">
-                <div className="text-center mb-16">
+        <section className="py-16 sm:py-24 md:py-32 bg-[#fcf6ef]">
+            <div className="mx-auto max-w-[1100px] px-4 sm:px-6 md:px-16">
+                <div className="text-center mb-10 sm:mb-16">
                     <p
                         className="text-sm text-[#1F4D3A] uppercase tracking-wider mb-4"
                         style={{
@@ -109,20 +107,20 @@ export function EnterprisePricing() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-6">
                     {tiers.map((tier) => (
                         <div
                             key={tier.name}
-                            className={`relative rounded-2xl p-6 ${
+                            className={`relative rounded-2xl p-6 flex flex-col ${
                                 tier.highlighted
-                                    ? "bg-[#1F4D3A] text-white ring-4 ring-[#1F4D3A]/20 lg:scale-105"
+                                    ? "bg-[#1F4D3A] text-white ring-4 ring-[#1F4D3A]/20 md:scale-105"
                                     : "bg-white border border-[#e5e0d8]"
                             }`}
                         >
                             {tier.badge && (
                                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                                     <span
-                                        className="bg-[#1F4D3A] text-white text-xs px-4 py-1.5 rounded-full"
+                                        className="bg-[#1F4D3A] text-white text-xs px-4 py-1.5 rounded-full border-2 border-white"
                                         style={{
                                             fontFamily: 'var(--font-inter), Inter, sans-serif',
                                             fontWeight: 500,
@@ -133,9 +131,10 @@ export function EnterprisePricing() {
                                 </div>
                             )}
 
-                            <div className="mb-6">
+                            {/* Header */}
+                            <div className="mb-5">
                                 <h3
-                                    className={`text-xl mb-2 ${
+                                    className={`text-xl mb-1 ${
                                         tier.highlighted ? "text-white" : "text-[#000]"
                                     }`}
                                     style={{
@@ -155,13 +154,12 @@ export function EnterprisePricing() {
                                 </p>
                             </div>
 
+                            {/* Price */}
                             <div className="mb-6">
-                                <div className="flex items-baseline gap-1">
-                                    {tier.price !== "Custom" && (
-                                        <span className={`text-lg ${
-                                            tier.highlighted ? "text-white/70" : "text-[#94877c]"
-                                        }`}>$</span>
-                                    )}
+                                <div className="flex items-baseline gap-0.5">
+                                    <span className={`text-lg ${
+                                        tier.highlighted ? "text-white/70" : "text-[#94877c]"
+                                    }`}>$</span>
                                     <span
                                         className={`text-4xl tracking-tight ${
                                             tier.highlighted ? "text-white" : "text-[#000]"
@@ -173,29 +171,14 @@ export function EnterprisePricing() {
                                     >
                                         {tier.price}
                                     </span>
-                                </div>
-                                <p
-                                    className={`text-sm mt-1 ${
+                                    <span className={`text-lg ${
                                         tier.highlighted ? "text-white/70" : "text-[#94877c]"
-                                    }`}
-                                    style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-                                >
-                                    {tier.period}
-                                </p>
-                                <p
-                                    className={`text-sm mt-2 ${
-                                        tier.highlighted ? "text-white" : "text-[#1F4D3A]"
-                                    }`}
-                                    style={{
-                                        fontFamily: 'var(--font-inter), Inter, sans-serif',
-                                        fontWeight: 500,
-                                    }}
-                                >
-                                    {tier.teamSize}
-                                </p>
+                                    }`}>{tier.period}</span>
+                                </div>
                             </div>
 
-                            <ul className="space-y-3 mb-8">
+                            {/* Features */}
+                            <ul className="space-y-3 mb-6">
                                 {tier.features.map((feature, index) => (
                                     <li key={index} className="flex items-start gap-3">
                                         <Check className={`w-5 h-5 shrink-0 mt-0.5 ${
@@ -213,31 +196,65 @@ export function EnterprisePricing() {
                                 ))}
                             </ul>
 
-                            <Link
-                                href={tier.href}
-                                target={tier.href.startsWith("http") ? "_blank" : undefined}
-                                className={`block w-full py-3 px-4 text-center rounded-full transition-colors ${
-                                    tier.highlighted
-                                        ? "bg-white text-[#1F4D3A] hover:bg-[#fcf6ef]"
-                                        : "bg-[#1F4D3A] text-white hover:bg-[#163D2E]"
-                                }`}
-                                style={{
-                                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                                    fontWeight: 500,
-                                    fontSize: '14px',
-                                }}
-                            >
-                                {tier.cta}
-                            </Link>
+                            {/* Bonuses */}
+                            <div className={`mb-6 p-4 rounded-xl ${
+                                tier.highlighted ? "bg-white/10" : "bg-[#f6f0e9]"
+                            }`}>
+                                <p
+                                    className={`text-xs uppercase tracking-wider mb-3 ${
+                                        tier.highlighted ? "text-white/70" : "text-[#94877c]"
+                                    }`}
+                                    style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontWeight: 600 }}
+                                >
+                                    Bonuses ({tier.bonusValue} value):
+                                </p>
+                                <ul className="space-y-2">
+                                    {tier.bonuses.map((bonus, index) => (
+                                        <li key={index} className="flex items-start gap-2">
+                                            <span className={`${
+                                                tier.highlighted ? "text-white/50" : "text-[#1F4D3A]"
+                                            }`}>•</span>
+                                            <span
+                                                className={`text-sm ${
+                                                    tier.highlighted ? "text-white/90" : "text-[#000]"
+                                                }`}
+                                                style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                                            >
+                                                {bonus}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            {/* CTA */}
+                            <div className="mt-auto">
+                                <Link
+                                    href={tier.href}
+                                    target="_blank"
+                                    className={`block w-full py-3 px-4 text-center rounded-full transition-colors ${
+                                        tier.highlighted
+                                            ? "bg-white text-[#1F4D3A] hover:bg-[#fcf6ef]"
+                                            : "bg-[#1F4D3A] text-white hover:bg-[#163D2E]"
+                                    }`}
+                                    style={{
+                                        fontFamily: 'var(--font-inter), Inter, sans-serif',
+                                        fontWeight: 500,
+                                        fontSize: '14px',
+                                    }}
+                                >
+                                    {tier.cta}
+                                </Link>
+                            </div>
                         </div>
                     ))}
                 </div>
 
                 {/* Anti-Guarantee Section */}
-                <div className="mt-16 max-w-3xl mx-auto text-center">
-                    <div className="bg-[#1F4D3A] rounded-2xl p-8 md:p-12">
+                <div className="mt-12 sm:mt-16 max-w-3xl mx-auto text-center">
+                    <div className="bg-[#1F4D3A] rounded-2xl p-6 sm:p-8 md:p-12">
                         <h3
-                            className="text-2xl md:text-3xl text-white mb-6"
+                            className="text-xl sm:text-2xl md:text-3xl text-white mb-4 sm:mb-6"
                             style={{
                                 fontFamily: 'var(--font-halant), Halant, Georgia, serif',
                                 fontWeight: 400,
@@ -247,13 +264,13 @@ export function EnterprisePricing() {
                             We build for the serious.
                         </h3>
                         <p
-                            className="text-white/80 mb-6 leading-relaxed"
+                            className="text-sm sm:text-base text-white/80 mb-4 sm:mb-6 leading-relaxed"
                             style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                         >
                             No trials. No refunds. Results only. Our platform is built for organizations ready to transform how they operate.
                         </p>
                         <p
-                            className="text-white/80 mb-8 leading-relaxed"
+                            className="text-sm sm:text-base text-white/80 mb-6 sm:mb-8 leading-relaxed"
                             style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                         >
                             Our clients see results because they commit fully. If that's you, apply below.

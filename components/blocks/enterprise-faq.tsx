@@ -57,10 +57,10 @@ function FAQItem({
     <div className="border-b border-[#e5e0d8]">
       <button
         onClick={onToggle}
-        className="flex w-full items-center justify-between py-5 text-left gap-4"
+        className="flex w-full items-center justify-between py-4 sm:py-5 text-left gap-3 sm:gap-4"
       >
         <span
-          className="text-left text-[#000]"
+          className="text-left text-[#000] text-sm sm:text-base"
           style={{
             fontFamily: 'var(--font-inter), Inter, sans-serif',
             fontWeight: 500,
@@ -82,7 +82,7 @@ function FAQItem({
         )}
       >
         <p
-          className="text-[#94877c]"
+          className="text-[#94877c] text-sm sm:text-base"
           style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
         >
           {answer}
@@ -96,11 +96,11 @@ export function EnterpriseFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-16 md:py-24 bg-[#fcf6ef]">
-      <div className="container mx-auto max-w-3xl px-6 md:px-16">
-        <div className="text-center mb-12">
+    <section className="py-16 sm:py-20 md:py-24 bg-[#fcf6ef]">
+      <div className="container mx-auto max-w-3xl px-4 sm:px-6 md:px-16">
+        <div className="text-center mb-8 sm:mb-12">
           <p
-            className="text-sm text-[#1F4D3A] uppercase tracking-wider mb-4"
+            className="text-xs sm:text-sm text-[#1F4D3A] uppercase tracking-wider mb-3 sm:mb-4"
             style={{
               fontFamily: 'var(--font-inter), Inter, sans-serif',
               fontWeight: 500,
@@ -109,7 +109,7 @@ export function EnterpriseFAQ() {
             FAQ
           </p>
           <h2
-            className="text-3xl md:text-[42px] text-[#000]"
+            className="text-2xl sm:text-3xl md:text-[42px] text-[#000]"
             style={{
               fontFamily: 'var(--font-halant), Halant, Georgia, serif',
               fontWeight: 400,

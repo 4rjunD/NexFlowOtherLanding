@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 
 export function EnterpriseFeaturesSection() {
     return (
-        <section className="relative py-24 md:py-32 bg-[#fcf6ef] overflow-hidden">
-            <div className="container max-w-[1200px] w-full px-6 md:px-16 relative z-10 mx-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <section className="relative py-16 sm:py-24 md:py-32 bg-[#fcf6ef] overflow-hidden">
+            <div className="container max-w-[1200px] w-full px-4 sm:px-6 md:px-16 relative z-10 mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
                     {/* Left - Product Mockup */}
                     <motion.div
                         className="relative"
@@ -103,7 +103,7 @@ export function EnterpriseFeaturesSection() {
                         transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
                     >
                         <h2
-                            className="text-3xl md:text-[42px] text-[#000] mb-12"
+                            className="text-2xl sm:text-3xl md:text-[42px] text-[#000] mb-8 sm:mb-12"
                             style={{
                                 fontFamily: 'var(--font-halant), Halant, Georgia, serif',
                                 fontWeight: 400,
@@ -115,9 +115,9 @@ export function EnterpriseFeaturesSection() {
                         </h2>
 
                         {/* Stat 1 */}
-                        <div className="flex items-start gap-8 py-6 border-b border-[#e5e0d8]">
+                        <div className="flex items-start gap-4 sm:gap-8 py-5 sm:py-6 border-b border-[#e5e0d8]">
                             <span
-                                className="text-5xl md:text-6xl text-[#000] shrink-0 w-28"
+                                className="text-4xl sm:text-5xl md:text-6xl text-[#000] shrink-0 w-16 sm:w-28"
                                 style={{
                                     fontFamily: 'var(--font-halant), Halant, Georgia, serif',
                                     fontWeight: 400,
@@ -127,7 +127,7 @@ export function EnterpriseFeaturesSection() {
                             </span>
                             <div>
                                 <p
-                                    className="text-xl md:text-2xl text-[#000] mb-1"
+                                    className="text-lg sm:text-xl md:text-2xl text-[#000] mb-1"
                                     style={{
                                         fontFamily: 'var(--font-halant), Halant, Georgia, serif',
                                         fontWeight: 500,
@@ -136,7 +136,7 @@ export function EnterpriseFeaturesSection() {
                                     Trained models
                                 </p>
                                 <p
-                                    className="text-[#94877c]"
+                                    className="text-sm sm:text-base text-[#94877c]"
                                     style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                                 >
                                     Purpose-built AI for ops, engineering, marketing, and team health signals.
@@ -145,19 +145,19 @@ export function EnterpriseFeaturesSection() {
                         </div>
 
                         {/* Stat 2 */}
-                        <div className="flex items-start gap-8 py-6 border-b border-[#e5e0d8]">
+                        <div className="flex items-start gap-4 sm:gap-8 py-5 sm:py-6 border-b border-[#e5e0d8]">
                             <span
-                                className="text-5xl md:text-6xl text-[#000] shrink-0 w-28"
+                                className="text-4xl sm:text-5xl md:text-6xl text-[#000] shrink-0 w-16 sm:w-28"
                                 style={{
                                     fontFamily: 'var(--font-halant), Halant, Georgia, serif',
                                     fontWeight: 400,
                                 }}
                             >
-                                24<span className="text-3xl">/7</span>
+                                24<span className="text-2xl sm:text-3xl">/7</span>
                             </span>
                             <div>
                                 <p
-                                    className="text-xl md:text-2xl text-[#000] mb-1"
+                                    className="text-lg sm:text-xl md:text-2xl text-[#000] mb-1"
                                     style={{
                                         fontFamily: 'var(--font-halant), Halant, Georgia, serif',
                                         fontWeight: 500,
@@ -166,7 +166,7 @@ export function EnterpriseFeaturesSection() {
                                     Monitoring
                                 </p>
                                 <p
-                                    className="text-[#94877c]"
+                                    className="text-sm sm:text-base text-[#94877c]"
                                     style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                                 >
                                     Patterns detected while you sleep. Anomalies surfaced before morning standup.
@@ -175,19 +175,19 @@ export function EnterpriseFeaturesSection() {
                         </div>
 
                         {/* Stat 3 */}
-                        <div className="flex items-start gap-8 py-6">
+                        <div className="flex items-start gap-4 sm:gap-8 py-5 sm:py-6">
                             <span
-                                className="text-5xl md:text-6xl text-[#000] shrink-0 w-28"
+                                className="text-4xl sm:text-5xl md:text-6xl text-[#000] shrink-0 w-16 sm:w-28"
                                 style={{
                                     fontFamily: 'var(--font-halant), Halant, Georgia, serif',
                                     fontWeight: 400,
                                 }}
                             >
-                                3<span className="text-3xl">wk</span>
+                                3<span className="text-2xl sm:text-3xl">wk</span>
                             </span>
                             <div>
                                 <p
-                                    className="text-xl md:text-2xl text-[#000] mb-1"
+                                    className="text-lg sm:text-xl md:text-2xl text-[#000] mb-1"
                                     style={{
                                         fontFamily: 'var(--font-halant), Halant, Georgia, serif',
                                         fontWeight: 500,
@@ -196,7 +196,7 @@ export function EnterpriseFeaturesSection() {
                                     Early warning
                                 </p>
                                 <p
-                                    className="text-[#94877c]"
+                                    className="text-sm sm:text-base text-[#94877c]"
                                     style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
                                 >
                                     Predict bottlenecks, slowdowns, and capacity issues weeks before they cost you.
