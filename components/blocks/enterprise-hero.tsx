@@ -1,199 +1,144 @@
 "use client"
 
 import Link from 'next/link'
-import { useRef, useEffect, useState } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Volume2, VolumeX } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 const containerVariants = {
     hidden: {},
     visible: {
         transition: {
-            staggerChildren: 0.12,
-            delayChildren: 0.1,
+            staggerChildren: 0.1,
+            delayChildren: 0.3,
         }
     },
 }
 
-const slideDownVariants = {
-    hidden: { opacity: 0, y: -30 },
+const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }
+        transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
     },
 }
 
-const videoVariants = {
-    hidden: { opacity: 0, y: -40, scale: 0.98 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: { duration: 0.8, ease: [0.25, 0.4, 0.25, 1], delay: 0.5 }
-    },
-}
+const integrations = [
+    { src: '/logos/slack.svg', alt: 'Slack' },
+    { src: '/logos/github.svg', alt: 'GitHub' },
+    { src: '/logos/linear.svg', alt: 'Linear' },
+    { src: '/logos/notion.svg', alt: 'Notion' },
+]
 
 export function EnterpriseHero() {
-    const videoRef = useRef<HTMLVideoElement>(null)
-    const videoContainerRef = useRef<HTMLDivElement>(null)
-    const [isMuted, setIsMuted] = useState(true)
-
-    const toggleMute = () => {
-        if (videoRef.current) {
-            videoRef.current.muted = !videoRef.current.muted
-            setIsMuted(!isMuted)
-        }
-    }
-
-    useEffect(() => {
-        const video = videoRef.current
-        const container = videoContainerRef.current
-        if (!video || !container) return
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting && entry.intersectionRatio >= 0.7) {
-                        video.play()
-                    } else {
-                        video.pause()
-                    }
-                })
-            },
-            {
-                threshold: 0.7,
-            }
-        )
-
-        observer.observe(container)
-
-        return () => {
-            observer.disconnect()
-        }
-    }, [])
-
     return (
-        <main className="overflow-hidden bg-[#fcf6ef] relative">
-            <section className="relative z-10">
-                {/* Hero Section */}
-                <div className="px-4 sm:px-6 md:px-16 pt-24 sm:pt-28 md:pt-32 pb-6 md:pb-8 relative">
-                    <div className="mx-auto max-w-[1200px] relative z-10">
+        <section style={{ background: '#111111' }}>
+            <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-10 pb-3 sm:pb-4">
+                {/* Hero container — rounded rectangle like o11 */}
+                <div
+                    className="relative w-full overflow-hidden"
+                    style={{
+                        borderRadius: 'clamp(10px, 2vw, 16px)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        minHeight: 'min(calc(100vh - 72px), 900px)',
+                    }}
+                >
+                    {/* Background video */}
+                    <video
+                        className="absolute inset-0 w-full h-full object-cover z-0"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        style={{ opacity: 0.85 }}
+                    >
+                        <source src="/landingpagevid.mp4" type="video/mp4" />
+                    </video>
+
+                    {/* Gradient overlay for text readability */}
+                    <div
+                        className="absolute inset-0 z-[1]"
+                        style={{
+                            background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 70%, transparent 100%)',
+                        }}
+                    />
+
+                    {/* Content — left-aligned, anchored to bottom */}
+                    <div
+                        className="relative z-10 flex items-end px-4 sm:px-8 md:px-10 pb-6 sm:pb-10 md:pb-12 pt-20"
+                        style={{ minHeight: 'min(calc(100vh - 72px), 900px)' }}
+                    >
+                        {/* Frosted panel behind text */}
                         <motion.div
-                            className="flex flex-col items-center text-center"
-                            style={{ gap: '24px' }}
+                            className="relative overflow-hidden px-5 py-6 sm:px-10 sm:py-10 md:px-12 md:py-12 w-full sm:w-auto"
+                            style={{
+                                background: 'rgba(0, 0, 0, 0.55)',
+                                backdropFilter: 'blur(24px) saturate(1.1)',
+                                WebkitBackdropFilter: 'blur(24px) saturate(1.1)',
+                                border: '1px solid rgba(255, 255, 255, 0.08)',
+                                borderRadius: 'clamp(8px, 1.5vw, 12px)',
+                                maxWidth: '720px',
+                            }}
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
                         >
-
-                            {/* Badge - "Backed by Character Capital" */}
-                            <motion.div
-                                className="inline-flex items-center px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-[#e5e0d8]"
-                                style={{
-                                    backgroundColor: 'rgba(255,255,255,0.6)',
-                                }}
-                                variants={slideDownVariants}
-                            >
-                                <span
-                                    className="text-[13px] sm:text-[15px] text-[#000]"
-                                    style={{
-                                        fontFamily: 'var(--font-inter), Inter, sans-serif',
-                                        fontWeight: 500,
-                                    }}
-                                >
-                                    Backed by Character Capital
-                                </span>
-                            </motion.div>
-
-                            {/* Main Headline - Halant style */}
+                            {/* Headline */}
                             <motion.h1
-                                className="max-w-[900px] mx-auto text-[#000]"
+                                className="text-white mb-4 sm:mb-5"
                                 style={{
-                                    fontFamily: 'var(--font-halant), Halant, Georgia, serif',
-                                    fontSize: 'clamp(32px, 5.5vw, 68px)',
-                                    fontWeight: 400,
-                                    letterSpacing: '-0.04em',
-                                    lineHeight: '115%',
+                                    fontSize: 'clamp(28px, 5.5vw, 72px)',
+                                    fontWeight: 500,
+                                    letterSpacing: '-0.03em',
+                                    lineHeight: '1.08',
                                 }}
-                                variants={slideDownVariants}
+                                variants={fadeUp}
                             >
-                                See what's stuck before it stalls{' '}
-                                <span style={{ fontStyle: 'italic' }}>your entire team.</span>
+                                The AI Chief of Staff{' '}
+                                <span style={{ fontFamily: 'var(--font-instrument-serif), "Instrument Serif", Georgia, serif', fontStyle: 'italic' }}>
+                                    that sees around corners.
+                                </span>
                             </motion.h1>
 
-                            {/* Subtitle - Inter */}
+                            {/* Subtitle */}
                             <motion.p
-                                className="max-w-[680px] mx-auto text-[#94877c] text-base sm:text-lg px-2 sm:px-0"
+                                className="text-[14px] sm:text-[16px] md:text-[17px] mb-5 sm:mb-7"
                                 style={{
-                                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                                    fontWeight: 400,
-                                    lineHeight: '1.7',
+                                    color: 'rgba(255,255,255,0.55)',
+                                    lineHeight: '1.55',
                                 }}
-                                variants={slideDownVariants}
+                                variants={fadeUp}
                             >
-                                NexFlow connects to your stack and surfaces slowdowns, overloaded teammates, and at-risk deadlines before they derail your sprint.
+                                Predicts bottlenecks, burnout, and project risks days before they surface. Your team stays ahead of what&apos;s coming.
                             </motion.p>
 
-                            {/* CTA Button - Dark green */}
-                            <motion.div variants={slideDownVariants}>
+                            {/* CTA buttons */}
+                            <motion.div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5" variants={fadeUp}>
                                 <Link
                                     href="https://cal.com/arjun-dixit-0nwkzi/30min"
                                     target="_blank"
-                                    className="inline-flex items-center justify-center px-6 py-3 text-[#fcf6ef] bg-[#1F4D3A] hover:bg-[#163D2E] transition-all duration-300 rounded-full"
+                                    className="inline-flex items-center justify-center gap-2 px-6 py-3 text-black bg-white text-[14px] font-medium hover:bg-white/90 transition-colors"
+                                    style={{ borderRadius: '8px' }}
+                                >
+                                    Book a Demo
+                                </Link>
+                                <Link
+                                    href="mailto:arjundixit@nexflowinc.com"
+                                    className="inline-flex items-center justify-center gap-2 px-6 py-3 text-[14px] font-medium transition-colors"
                                     style={{
-                                        fontFamily: 'var(--font-inter), Inter, sans-serif',
-                                        fontSize: '15px',
-                                        fontWeight: 500,
+                                        color: 'rgba(255,255,255,0.55)',
+                                        border: '1px solid rgba(255,255,255,0.15)',
+                                        borderRadius: '8px',
                                     }}
                                 >
-                                    Request a Demo
+                                    Try NexFlow <ArrowRight className="w-3.5 h-3.5" />
                                 </Link>
                             </motion.div>
                         </motion.div>
                     </div>
                 </div>
-
-                {/* Video Section */}
-                <motion.div
-                    className="relative px-4 sm:px-6 md:px-16 pt-8 sm:pt-10 pb-8 sm:pb-12"
-                    variants={videoVariants}
-                    initial="hidden"
-                    animate="visible"
-                >
-                    <div ref={videoContainerRef} className="mx-auto max-w-[1072px]">
-                        <div
-                            className="relative overflow-hidden rounded-lg"
-                            style={{
-                                aspectRatio: '16 / 9',
-                                boxShadow: '0 20px 60px -15px rgba(0, 0, 0, 0.15)',
-                            }}
-                        >
-                            <video
-                                ref={videoRef}
-                                className="w-full h-full object-cover"
-                                playsInline
-                                muted
-                                loop
-                            >
-                                <source src="/demonexflow.mp4" type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video>
-                            <button
-                                onClick={toggleMute}
-                                className="absolute bottom-4 right-4 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-colors"
-                                aria-label={isMuted ? "Unmute" : "Mute"}
-                            >
-                                {isMuted ? (
-                                    <VolumeX className="w-5 h-5 text-white" />
-                                ) : (
-                                    <Volume2 className="w-5 h-5 text-white" />
-                                )}
-                            </button>
-                        </div>
-                    </div>
-                </motion.div>
-            </section>
-        </main>
+            </div>
+        </section>
     )
 }
