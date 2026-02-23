@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    formats: ['image/webp'],
+  },
+  compress: true,
   async rewrites() {
     return [
       {

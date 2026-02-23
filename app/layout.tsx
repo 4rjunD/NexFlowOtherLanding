@@ -39,8 +39,34 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "NexFlow - Engineering Intelligence That Ships Results",
-  description: "Weekly engineering health reports with early warning signals for bottlenecks, burnout, and delivery risk. Built for VP Eng and Engineering Managers at mid-market tech companies.",
+  title: "NexFlow — Engineering Intelligence for Scaling Teams",
+  description: "NexFlow connects your GitHub, Slack, and Linear to surface sprint risks, PR bottlenecks, and team capacity signals before they become problems. Free engineering health audit.",
+  keywords: ["engineering intelligence", "PR review bottleneck", "sprint risk", "engineering metrics", "developer productivity", "async standup", "engineering health"],
+  metadataBase: new URL("https://nexflowinc.com"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "NexFlow — Engineering Intelligence for Scaling Teams",
+    description: "Stop losing $50K/dev/year to invisible bottlenecks. NexFlow shows you what's about to break before it does.",
+    type: "website",
+    url: "https://nexflowinc.com",
+    siteName: "NexFlow",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "NexFlow - Engineering Intelligence Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NexFlow — Engineering Intelligence for Scaling Teams",
+    description: "Stop losing $50K/dev/year to invisible bottlenecks.",
+    images: ["/og-image.png"],
+  },
   icons: {
     icon: [
       { url: "/favicon.png", type: "image/png" },
@@ -76,6 +102,26 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${instrumentSerif.variable} ${playfairDisplay.variable} ${dmSans.variable} antialiased`}
       >
         {children}
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "NexFlow",
+              "description": "Engineering intelligence platform that connects GitHub, Slack, and Linear to surface sprint risks, PR bottlenecks, and team capacity signals.",
+              "url": "https://nexflowinc.com",
+              "applicationCategory": "BusinessApplication",
+              "offers": {
+                "@type": "Offer",
+                "price": "149",
+                "priceCurrency": "USD",
+                "priceValidUntil": "2027-12-31"
+              }
+            }),
+          }}
+        />
       </body>
     </html>
   );

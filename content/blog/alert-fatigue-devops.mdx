@@ -1,0 +1,75 @@
+---
+title: "Why 97% of Engineering Alerts Are Noise (And How to Fix It)"
+slug: "alert-fatigue-devops"
+excerpt: "Your team gets hundreds of alerts per week. Most are meaningless. Here's how to cut the noise and surface only the signals that matter."
+date: "2026-02-22"
+category: "DevOps"
+keywords: ["alert fatigue devops", "engineering alerts noise", "on-call burnout", "monitoring best practices"]
+readingTime: "8 min"
+---
+
+A 2023 study by Dynatrace found that the average enterprise operations team receives over 2,000 alerts per day. Of those, roughly 97% require no action. Your engineers know this. They've learned to ignore the noise. And that habit is exactly how the 3% that actually matter slip through.
+
+Alert fatigue is not a tooling problem. It is not fixed by buying a better observability platform. It is a discipline problem, a process problem, and in many organizations, a culture problem. The alerts themselves are symptoms. The root cause is that nobody ever cleaned house.
+
+## Why Alert Fatigue Happens in the First Place
+
+Most monitoring setups grow organically. A new service gets deployed, someone copies the alert configuration from the last service, and suddenly you have two hundred CPU threshold alerts firing at 80% utilization. Those thresholds were chosen because 80% felt like a reasonable number, not because 80% CPU actually correlates with any user-facing degradation on your specific workload.
+
+This copy-paste pattern compounds over time. Acquisitions bring in different monitoring stacks. New engineers onboard and add alerts to cover edge cases they encountered at previous companies. Nobody deletes old alerts because deleting feels risky. What if something breaks and that alert was the only thing watching it? So the alert count grows quarter over quarter, and the on-call engineer learns to wake up at 2 AM, acknowledge the alert, confirm nothing is actually wrong, and go back to sleep.
+
+The third cause is tool sprawl. A mid-sized engineering organization might be running Datadog, PagerDuty, CloudWatch, and a Grafana stack simultaneously, each with partially overlapping alert coverage. When an incident occurs, three different systems fire. The on-call engineer receives five pages for a single underlying event. After enough of those nights, they start routing everything to low-priority Slack channels where alerts go to die.
+
+## What the Research Actually Shows
+
+On-call burnout is not a soft concern. A 2022 survey by PagerDuty found that 68% of on-call engineers had considered leaving their jobs specifically because of poor incident management and excessive alerting. The same survey found that organizations with alert-to-action ratios above 30:1 (meaning fewer than one in thirty alerts required any response) had incident response times three times longer than organizations that kept the ratio below 10:1. Engineers who expect noise stop reading carefully.
+
+Honeycomb's State of Observability report found similar results. Teams that had undergone formal alert reduction programs reported a 40% decrease in mean time to detect (MTTD) and a 35% decrease in mean time to resolve (MTTR). That improvement came not from adding more visibility, but from reducing the cognitive load on the people doing the looking. There is a direct line between alert fatigue and the quality of incident response, and it runs through human attention.
+
+## Fix 1: Audit and Delete Unused Alerts
+
+The first step is ruthless and uncomfortable: pull a report of every alert that fired in the last 90 days and look at the action rate. For each alert, ask one question: how many times did this alert fire, and how many times did a human take an action as a result?
+
+An alert with a 0% action rate over 90 days should be deleted, not silenced, not moved to a lower priority channel, deleted. If it fires and nobody ever does anything about it, it is not an alert. It is noise with a label. An alert with a less than 5% action rate needs to have its threshold renegotiated or its routing changed before it can stay. This audit will feel like destroying work. It is not. It is engineering discipline.
+
+Run this audit as a team exercise. Have each on-call rotation member come to a one-hour working session with their list of the five alerts they trust least. Build consensus around what goes. The social process matters because the engineers who are on-call are the ones who know which alerts actually predict problems. Documentation and intent rarely survive the distance between the engineer who wrote the alert and the engineer receiving it at midnight six months later.
+
+## Fix 2: Set Thresholds Based on Actual Baselines, Not Intuition
+
+The correct CPU threshold for your billing service is not 80%. It might be 95%, or it might be 60% depending on how your application behaves under load. The only way to find the right number is to look at your historical data and identify the threshold above which user-facing error rates or latency actually increase.
+
+This is the core principle behind Service Level Objectives (SLOs). Rather than alerting on infrastructure metrics directly, you define the user experience you want to guarantee (99.9% of requests complete in under 500ms, for example) and alert when that SLO is at risk of being violated within a defined burn rate window. A 1% error rate at 2 AM during a batch processing window might be perfectly acceptable. The same rate during peak traffic is a P1. Infrastructure metrics alone cannot tell you which situation you are in.
+
+For teams that are not yet running SLO-based alerting, a simpler starting point is to establish baselines using rolling 30-day averages and set thresholds at two standard deviations above normal. This is not perfect, but it is far better than static thresholds chosen by intuition. The threshold review should happen every quarter as your traffic patterns evolve.
+
+## Fix 3: Create Alert Tiers with Real Definitions
+
+P1, P2, P3 only mean something if everyone agrees on what they mean before an incident starts. Most teams have tier labels but no documented criteria, so the person creating the alert picks a severity based on how serious the condition feels to them in the moment. The result is P1 alerts firing for conditions that have never caused a user-facing impact.
+
+Write down the criteria. P1 means: customer-facing service is degraded or down, revenue impact is occurring or imminent, requires immediate human response regardless of time of day. P2 means: a leading indicator is showing elevated risk, no current user impact, requires response within two hours during business hours. P3 means: something anomalous is happening that should be investigated during the next business day. These definitions should live in your runbooks, not just in someone's memory.
+
+Enforce the definitions during alert creation. Before a new alert is merged, require the author to specify which tier it belongs to and why, using the documented criteria. Peer review for alert configurations sounds like overhead, but it takes five minutes and prevents years of noise. Treat your monitoring configuration as production code. It affects your engineers' sleep the same way a bug in production does.
+
+## Fix 4: Implement Alert Correlation and Grouping
+
+When a database goes down, your alerting system might independently fire alerts for elevated error rates on twelve different services, memory pressure on the database host, replication lag, failed health checks, and connection pool exhaustion. That is potentially twenty or more pages for a single incident. The on-call engineer spends the first ten minutes just triaging which alerts represent the same underlying problem.
+
+Alert correlation is the practice of grouping related alerts into a single incident. Most modern alerting platforms support this natively. PagerDuty's Event Intelligence, Datadog's Watchdog, and OpsGenie's alert grouping all provide some form of topological or temporal correlation. If you are not using these features, turn them on. Configure them conservatively at first: a grouping window of five minutes will catch most cascading failures without accidentally merging unrelated incidents.
+
+For teams with mature observability stacks, dependency mapping adds another layer. If you know that Service A depends on Service B, and Service B goes down, you can automatically suppress or downgrade alerts from Service A during an active incident on Service B. The root cause is already being addressed. Firing additional alerts from dependent services adds nothing except noise. This is one area where investing in your observability platform pays direct dividends in reduced on-call burnout.
+
+## Fix 5: Review Alert Health on a Monthly Cadence
+
+Alert audits done once are not enough. Your traffic patterns change, your architecture changes, and the alerts that were well-calibrated six months ago may be generating noise today. Build a monthly alert health review into your [engineering cadence the same way you approach sprint predictability](/blog/sprint-predictability). It needs to be a recurring ritual, not a one-time project.
+
+The monthly review should take no more than an hour. Pull the same action rate report from the last 30 days. Look for new alerts with low action rates that have crept in since the last review. Check whether the P1 page volume has increased. If your P1 alert count is growing month over month, something is wrong either with your infrastructure or with your classification criteria. Track mean time to acknowledge (MTTA) as a leading indicator of fatigue. If acknowledgment times are climbing, your team has already started to tune out.
+
+Pair this review with your retrospectives. If a post-incident review reveals that the relevant alert was buried under noise and the on-call engineer almost missed it, that is a direct action item for the alert health review. The same disciplines that make [async standups](/blog/async-standups) and structured team communication effective apply here: consistency and accountability over time produce results that one-time efforts do not.
+
+## How to Know If It Is Working
+
+The metrics that tell you whether your alert reduction program is working are straightforward: P1 page volume per week, MTTA, MTTR, and the percentage of alerts that result in a human action. Baseline all four before you start. Set a 90-day target. A well-executed alert reduction program should cut total weekly alert volume by at least 60%, reduce MTTA by 30% or more, and bring your alert action rate above 30%. If you are not tracking these numbers, you are operating on intuition rather than monitoring best practices, which is the same problem that created your alert fatigue in the first place.
+
+---
+
+Alert fatigue is a solvable problem. It requires time, discipline, and the organizational willingness to delete things that feel safe to keep. The teams that do this work get their engineers' sleep back, their incident response sharpens, and their on-call rotations stop being the role everyone dreads. If you want an outside perspective on where your engineering alerts and on-call setup stand today, [NexFlow](/enterprise) analyzes your actual incident and alerting data and delivers a concrete report within 48 hours. Most teams find the audit surfaces problems they suspected but could not quantify. Start there.

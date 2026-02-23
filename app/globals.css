@@ -144,6 +144,15 @@ html {
   font-style: italic;
 }
 
+/* ── Blog card hover ── */
+.nf-blog-card {
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.nf-blog-card:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  border-color: #d0d0dd;
+}
+
 /* ── Mobile responsive utilities ── */
 @media (max-width: 768px) {
   .nf-footer-responsive {

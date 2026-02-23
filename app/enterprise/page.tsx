@@ -1211,6 +1211,7 @@ export default function Enterprise() {
         }}>
           <Image src="/logo.png" alt="NexFlow" width={437} height={387} style={{ height: 20, width: 'auto', objectFit: 'contain' }} />
           <div style={{ display: 'flex', gap: 24 }}>
+            <Link href="/blog" style={{ fontFamily: dmSans, fontSize: 13, color: '#999', textDecoration: 'none' }}>Blog</Link>
             <Link href="/privacy" style={{ fontFamily: dmSans, fontSize: 13, color: '#999', textDecoration: 'none' }}>Privacy</Link>
             <Link href="/terms" style={{ fontFamily: dmSans, fontSize: 13, color: '#999', textDecoration: 'none' }}>Terms</Link>
             <Link href="mailto:arjundixit@nexflowinc.com" style={{ fontFamily: dmSans, fontSize: 13, color: '#999', textDecoration: 'none' }}>Contact</Link>
