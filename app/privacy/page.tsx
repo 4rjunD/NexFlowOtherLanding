@@ -13,7 +13,7 @@ export default function PrivacyPolicy() {
     <main style={{ background: '#f9f8f6', minHeight: '100vh' }}>
       {/* Header */}
       <header style={{ padding: '20px 24px', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
-        <div style={{ maxWidth: 720, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="nf-legal-header" style={{ maxWidth: 720, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Link href="/enterprise">
             <Image src="/logo.png" alt="NexFlow" width={437} height={387} style={{ height: 24, width: 'auto', objectFit: 'contain' }} />
           </Link>
@@ -21,8 +21,8 @@ export default function PrivacyPolicy() {
         </div>
       </header>
 
-      <div style={{ maxWidth: 720, margin: '0 auto', padding: '64px 24px 96px' }}>
-        <h1 style={{ fontFamily: dmSans, fontSize: 36, fontWeight: 700, color: '#1a1a2e', letterSpacing: '-0.03em', marginBottom: 8 }}>
+      <div className="nf-legal-content" style={{ maxWidth: 720, margin: '0 auto', padding: '64px 24px 96px' }}>
+        <h1 className="nf-legal-title" style={{ fontFamily: dmSans, fontSize: 36, fontWeight: 700, color: '#1a1a2e', letterSpacing: '-0.03em', marginBottom: 8 }}>
           Privacy Policy
         </h1>
         <p style={{ fontFamily: dmSans, fontSize: 14, color: '#999', marginBottom: 48 }}>
@@ -92,7 +92,7 @@ export default function PrivacyPolicy() {
 
       {/* Footer */}
       <footer style={{ background: '#f9f8f6', borderTop: '1px solid rgba(0,0,0,0.06)', padding: 24 }}>
-        <div style={{ maxWidth: 720, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="nf-footer-responsive" style={{ maxWidth: 720, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Image src="/logo.png" alt="NexFlow" width={437} height={387} style={{ height: 18, width: 'auto', objectFit: 'contain' }} />
           <div style={{ display: 'flex', gap: 24 }}>
             <Link href="/privacy" style={{ fontFamily: dmSans, fontSize: 13, color: '#999', textDecoration: 'none' }}>Privacy</Link>

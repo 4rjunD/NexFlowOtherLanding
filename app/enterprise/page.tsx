@@ -1,13 +1,25 @@
 "use client"
 
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Menu, X } from 'lucide-react'
 
 const dmSans = 'var(--font-dm-sans), "DM Sans", -apple-system, sans-serif'
 const playfair = 'var(--font-playfair), "Playfair Display", Georgia, serif'
+
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`)
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [breakpoint])
+  return isMobile
+}
 
 const wordAnimation = {
   hidden: {},
@@ -48,23 +60,6 @@ function AnimatedHeadline({ words }: { words: HeadlineWord[] }) {
   )
 }
 
-function AnimatedWords({ text }: { text: string }) {
-  const words = text.split(' ')
-  return (
-    <motion.span variants={wordAnimation} initial="hidden" animate="visible">
-      {words.map((word, i) => (
-        <motion.span
-          key={i}
-          variants={wordChild}
-          style={{ display: 'inline-block', marginRight: '0.22em' }}
-        >
-          {word}
-        </motion.span>
-      ))}
-    </motion.span>
-  )
-}
-
 /* ── Real brand SVG logos ── */
 const LogoGithub = ({ size = 28 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="#181717">
@@ -85,7 +80,7 @@ const LogoSlack = ({ size = 26 }: { size?: number }) => (
   </svg>
 )
 
-function FloatingIntegrationLogos() {
+function FloatingIntegrationLogos({ hidden }: { hidden?: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -99,6 +94,8 @@ function FloatingIntegrationLogos() {
   // X spread outward on scroll
   const xL = useTransform(scrollYProgress, [0.05, 0.35], [300, 0])
   const xR = useTransform(scrollYProgress, [0.08, 0.38], [-300, 0])
+
+  if (hidden) return null
 
   return (
     <div
@@ -178,7 +175,17 @@ const headlineWords: HeadlineWord[] = [
   { text: 'time.' },
 ]
 
+const navItems = [
+  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'Why NexFlow', href: '#why-nexflow' },
+  { label: 'Product', href: '#product' },
+  { label: 'Reports', href: '#reports' },
+]
+
 export default function Enterprise() {
+  const isMobile = useIsMobile()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       {/* Full extended background behind hero + first sections */}
@@ -194,7 +201,7 @@ export default function Enterprise() {
           }}
         />
 
-      <section style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh' }}>
+      <section style={{ position: 'relative', overflow: 'hidden', minHeight: isMobile ? 'auto' : '100vh' }}>
 
         {/* Subtle radial white fade behind center content */}
         <div
@@ -212,14 +219,14 @@ export default function Enterprise() {
           zIndex: 10,
           display: 'flex',
           justifyContent: 'center',
-          padding: '20px 24px 0',
+          padding: isMobile ? '12px 16px 0' : '20px 24px 0',
         }}>
           <motion.nav
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              padding: '10px 8px 10px 16px',
+              padding: isMobile ? '10px 12px 10px 14px' : '10px 8px 10px 16px',
               height: 52,
               maxWidth: 960,
               width: '100%',
@@ -229,6 +236,7 @@ export default function Enterprise() {
               WebkitBackdropFilter: 'blur(12px)',
               border: '1px solid rgba(255, 255, 255, 0.5)',
               boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)',
+              position: 'relative',
             }}
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -238,49 +246,130 @@ export default function Enterprise() {
               <Image src="/logo.png" alt="NexFlow" width={437} height={387} style={{ display: 'block', objectFit: 'contain', height: 28, width: 'auto' }} />
             </Link>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-              {[
-                { label: 'How It Works', href: '#how-it-works' },
-                { label: 'Why NexFlow', href: '#why-nexflow' },
-                { label: 'Product', href: '#product' },
-                { label: 'Reports', href: '#reports' },
-              ].map((item) => (
+            {!isMobile && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+                {navItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    style={{
+                      fontFamily: dmSans,
+                      fontSize: 14,
+                      fontWeight: 500,
+                      color: '#3a3a4a',
+                      letterSpacing: '-0.02em',
+                      cursor: 'pointer',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {!isMobile && (
+              <Link
+                href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                target="_blank"
+                style={{
+                  fontFamily: dmSans,
+                  fontSize: 13,
+                  fontWeight: 500,
+                  color: '#fff',
+                  padding: '8px 20px',
+                  background: '#1a1a2e',
+                  borderRadius: 9999,
+                  textDecoration: 'none',
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                Book a Demo
+              </Link>
+            )}
+
+            {isMobile && (
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 6,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#3a3a4a',
+                }}
+              >
+                {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            )}
+          </motion.nav>
+
+          {/* Mobile dropdown menu */}
+          {isMobile && mobileMenuOpen && (
+            <motion.div
+              style={{
+                position: 'absolute',
+                top: 60,
+                left: 16,
+                right: 16,
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                borderRadius: 16,
+                border: '1px solid rgba(255, 255, 255, 0.6)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                padding: 8,
+                zIndex: 100,
+              }}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {navItems.map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
                   style={{
                     fontFamily: dmSans,
-                    fontSize: 14,
+                    display: 'block',
+                    padding: '12px 16px',
+                    fontSize: 15,
                     fontWeight: 500,
                     color: '#3a3a4a',
-                    letterSpacing: '-0.02em',
-                    cursor: 'pointer',
                     textDecoration: 'none',
+                    borderRadius: 10,
                   }}
                 >
                   {item.label}
                 </Link>
               ))}
-            </div>
-
-            <Link
-              href="https://cal.com/arjun-dixit-0nwkzi/30min"
-              target="_blank"
-              style={{
-                fontFamily: dmSans,
-                fontSize: 13,
-                fontWeight: 500,
-                color: '#fff',
-                padding: '8px 20px',
-                background: '#1a1a2e',
-                borderRadius: 9999,
-                textDecoration: 'none',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Book a Demo
-            </Link>
-          </motion.nav>
+              <div style={{ height: 1, background: 'rgba(0,0,0,0.06)', margin: '4px 16px' }} />
+              <Link
+                href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                target="_blank"
+                onClick={() => setMobileMenuOpen(false)}
+                style={{
+                  fontFamily: dmSans,
+                  display: 'block',
+                  padding: '12px 16px',
+                  fontSize: 15,
+                  fontWeight: 500,
+                  color: '#fff',
+                  background: '#1a1a2e',
+                  borderRadius: 10,
+                  textDecoration: 'none',
+                  textAlign: 'center',
+                  margin: '4px 0',
+                }}
+              >
+                Book a Demo
+              </Link>
+            </motion.div>
+          )}
         </div>
 
         {/* ── Hero content ── */}
@@ -291,7 +380,7 @@ export default function Enterprise() {
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
-          padding: '80px 24px 80px',
+          padding: isMobile ? '48px 20px 56px' : '80px 24px 80px',
           maxWidth: 960,
           margin: '0 auto',
         }}>
@@ -300,7 +389,7 @@ export default function Enterprise() {
           <motion.div
             style={{
               fontFamily: dmSans,
-              fontSize: 13,
+              fontSize: isMobile ? 12 : 13,
               color: '#5a4ed4',
               padding: '6px 16px',
               background: 'rgba(255, 255, 255, 0.55)',
@@ -309,7 +398,7 @@ export default function Enterprise() {
               borderRadius: 100,
               border: '1px solid rgba(255, 255, 255, 0.6)',
               boxShadow: '0 2px 12px rgba(0, 0, 0, 0.04), 0 0.5px 2px rgba(0, 0, 0, 0.03)',
-              marginBottom: 36,
+              marginBottom: isMobile ? 24 : 36,
               letterSpacing: '-0.01em',
               fontWeight: 500,
             }}
@@ -317,18 +406,18 @@ export default function Enterprise() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
-            <span style={{ fontWeight: 600 }}>New:</span> AI agents that auto-triage stalled PRs and reassign blockers
+            <span style={{ fontWeight: 600 }}>New:</span> AI agents that auto-triage stalled PRs
           </motion.div>
 
           {/* Headline — DM Sans base + Playfair italic accents */}
           <h1 style={{
             fontFamily: dmSans,
-            fontSize: 'clamp(40px, 6vw, 76px)',
+            fontSize: 'clamp(32px, 6vw, 76px)',
             fontWeight: 500,
             letterSpacing: '-0.03em',
             lineHeight: 1.1,
             color: '#2a1f14',
-            marginBottom: 32,
+            marginBottom: isMobile ? 24 : 32,
             maxWidth: 860,
           }}>
             <AnimatedHeadline words={headlineWords} />
@@ -338,13 +427,14 @@ export default function Enterprise() {
           <motion.p
             style={{
               fontFamily: dmSans,
-              fontSize: 18,
+              fontSize: isMobile ? 16 : 18,
               fontWeight: 300,
               letterSpacing: '-0.01em',
               lineHeight: 1.6,
               color: '#5c5347',
-              marginBottom: 48,
+              marginBottom: isMobile ? 36 : 48,
               maxWidth: 540,
+              padding: isMobile ? '0 8px' : 0,
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -355,7 +445,15 @@ export default function Enterprise() {
 
           {/* CTAs */}
           <motion.div
-            style={{ display: 'flex', gap: 12, justifyContent: 'center' }}
+            style={{
+              display: 'flex',
+              flexDirection: isMobile ? 'column' : 'row',
+              gap: 12,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: isMobile ? '100%' : 'auto',
+              maxWidth: isMobile ? 320 : 'none',
+            }}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -367,15 +465,17 @@ export default function Enterprise() {
                 fontFamily: dmSans,
                 display: 'inline-flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 gap: 8,
                 background: '#1e1e2e',
                 borderRadius: 100,
-                padding: '14px 28px',
+                padding: isMobile ? '14px 24px' : '14px 28px',
                 color: '#fff',
                 fontSize: 15,
                 fontWeight: 500,
                 textDecoration: 'none',
                 letterSpacing: '-0.02em',
+                width: isMobile ? '100%' : 'auto',
               }}
             >
               Get a Free Audit <ArrowRight style={{ width: 15, height: 15 }} />
@@ -387,15 +487,17 @@ export default function Enterprise() {
                 fontFamily: dmSans,
                 display: 'inline-flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 background: 'transparent',
                 borderRadius: 100,
-                padding: '14px 28px',
+                padding: isMobile ? '14px 24px' : '14px 28px',
                 color: '#1e1e2e',
                 fontSize: 15,
                 fontWeight: 500,
                 border: '1px solid #c5c5d0',
                 textDecoration: 'none',
                 letterSpacing: '-0.02em',
+                width: isMobile ? '100%' : 'auto',
               }}
             >
               See a Sample Report
@@ -410,22 +512,22 @@ export default function Enterprise() {
         position: 'relative',
         zIndex: 1,
         background: 'transparent',
-        padding: '64px 24px',
+        padding: isMobile ? '48px 16px' : '64px 24px',
       }}>
         <div style={{
           maxWidth: 1060,
           margin: '0 auto',
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 48,
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: isMobile ? 32 : 48,
           alignItems: 'center',
           background: 'rgba(255, 255, 255, 0.55)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
           border: '1px solid rgba(255, 255, 255, 0.6)',
           boxShadow: '0 8px 40px rgba(0, 0, 0, 0.04), 0 1px 4px rgba(0, 0, 0, 0.02)',
-          borderRadius: 24,
-          padding: '36px 40px',
+          borderRadius: isMobile ? 20 : 24,
+          padding: isMobile ? '28px 20px' : '36px 40px',
         }}>
 
           {/* Left column — headline + description + CTA */}
@@ -452,7 +554,7 @@ export default function Enterprise() {
 
             <h2 style={{
               fontFamily: playfair,
-              fontSize: 'clamp(28px, 3.5vw, 40px)',
+              fontSize: isMobile ? 'clamp(26px, 7vw, 34px)' : 'clamp(28px, 3.5vw, 40px)',
               fontWeight: 400,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
@@ -546,7 +648,7 @@ export default function Enterprise() {
                   {item.step}
                 </div>
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
                     <h3 style={{
                       fontFamily: dmSans,
                       fontSize: 15,
@@ -598,15 +700,20 @@ export default function Enterprise() {
       {/* ── Our Results section ── */}
       <section id="why-nexflow" style={{
         background: '#f9f8f6',
-        padding: '64px 24px',
+        padding: isMobile ? '48px 16px' : '64px 24px',
         position: 'relative',
         overflow: 'visible',
       }}>
-        <FloatingIntegrationLogos />
+        <FloatingIntegrationLogos hidden={isMobile} />
         <div style={{ maxWidth: 1060, margin: '0 auto', position: 'relative' }}>
 
           {/* Top row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, marginBottom: 40 }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+            gap: isMobile ? 20 : 64,
+            marginBottom: 40,
+          }}>
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -622,13 +729,13 @@ export default function Enterprise() {
                 display: 'inline-block',
                 padding: '6px 16px',
                 borderRadius: 100,
-                marginBottom: 28,
+                marginBottom: isMobile ? 16 : 28,
               }}>
                 Why NexFlow
               </div>
               <h2 style={{
                 fontFamily: playfair,
-                fontSize: 'clamp(32px, 4.5vw, 52px)',
+                fontSize: isMobile ? 'clamp(28px, 8vw, 40px)' : 'clamp(32px, 4.5vw, 52px)',
                 fontWeight: 400,
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
@@ -641,11 +748,11 @@ export default function Enterprise() {
             <motion.p
               style={{
                 fontFamily: dmSans,
-                fontSize: 16,
+                fontSize: isMobile ? 15 : 16,
                 fontWeight: 400,
                 lineHeight: 1.7,
                 color: '#888',
-                paddingTop: 48,
+                paddingTop: isMobile ? 0 : 48,
                 maxWidth: 420,
               }}
               initial={{ opacity: 0, y: 24 }}
@@ -660,12 +767,12 @@ export default function Enterprise() {
           {/* Stats banner */}
           <motion.div
             style={{
-              borderRadius: 24,
+              borderRadius: isMobile ? 20 : 24,
               overflow: 'hidden',
               background: 'linear-gradient(135deg, #1a1a2e 0%, #2d2b5e 40%, #3a5a6e 70%, #2a4a5a 100%)',
-              padding: '56px 40px',
+              padding: isMobile ? '32px 20px' : '56px 40px',
               display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
               gap: 20,
               position: 'relative',
             }}
@@ -699,12 +806,12 @@ export default function Enterprise() {
                   WebkitBackdropFilter: 'blur(12px)',
                   border: '1px solid rgba(255, 255, 255, 0.15)',
                   borderRadius: 20,
-                  padding: '36px 32px',
+                  padding: isMobile ? '28px 24px' : '36px 32px',
                 }}
               >
                 <h3 style={{
                   fontFamily: playfair,
-                  fontSize: 'clamp(32px, 4.5vw, 52px)',
+                  fontSize: isMobile ? 'clamp(28px, 8vw, 40px)' : 'clamp(32px, 4.5vw, 52px)',
                   fontWeight: 400,
                   fontStyle: 'italic',
                   color: '#fff',
@@ -715,7 +822,7 @@ export default function Enterprise() {
                 </h3>
                 <p style={{
                   fontFamily: dmSans,
-                  fontSize: 15,
+                  fontSize: isMobile ? 14 : 15,
                   fontWeight: 400,
                   color: 'rgba(255,255,255,0.55)',
                   lineHeight: 1.5,
@@ -732,19 +839,24 @@ export default function Enterprise() {
       {/* ── Product Intelligence section ── */}
       <section id="product" style={{
         background: '#f9f8f6',
-        padding: '64px 24px',
+        padding: isMobile ? '48px 16px' : '64px 24px',
         overflow: 'hidden',
       }}>
         <div style={{ maxWidth: 1060, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 56, alignItems: 'center' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1.1fr 1fr',
+            gap: isMobile ? 36 : 56,
+            alignItems: 'center',
+          }}>
 
-            {/* Left: Report card mock with floating integration badges */}
+            {/* Left: Report card mock */}
             <motion.div
               style={{
                 background: 'linear-gradient(145deg, #e4e1ed 0%, #d8d4e8 100%)',
-                borderRadius: 24,
-                padding: '40px 28px 40px 28px',
-                minHeight: 520,
+                borderRadius: isMobile ? 20 : 24,
+                padding: isMobile ? '28px 16px' : '40px 28px',
+                minHeight: isMobile ? 'auto' : 520,
                 position: 'relative',
                 overflow: 'visible',
               }}
@@ -757,17 +869,17 @@ export default function Enterprise() {
               <div style={{
                 background: '#fff',
                 borderRadius: 16,
-                padding: '28px 24px',
+                padding: isMobile ? '20px 16px' : '28px 24px',
                 boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
                 position: 'relative',
                 zIndex: 2,
               }}>
                 {/* Report header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4, flexWrap: 'wrap', gap: 4 }}>
                   <span style={{ fontFamily: dmSans, fontSize: 12, color: '#999', fontWeight: 500 }}>Monday, Jan 13</span>
                   <span style={{ fontFamily: dmSans, fontSize: 12, color: '#999', fontWeight: 500 }}>Engineering · 24 members</span>
                 </div>
-                <h3 style={{ fontFamily: dmSans, fontSize: 18, fontWeight: 700, color: '#1a1a2e', marginBottom: 16 }}>
+                <h3 style={{ fontFamily: dmSans, fontSize: isMobile ? 16 : 18, fontWeight: 700, color: '#1a1a2e', marginBottom: 16 }}>
                   Weekly Engineering Health Report
                 </h3>
 
@@ -800,7 +912,7 @@ export default function Enterprise() {
                       display: 'flex',
                       alignItems: 'flex-start',
                       gap: 10,
-                      padding: '12px 14px',
+                      padding: isMobile ? '10px 12px' : '12px 14px',
                       background: '#fafafa',
                       borderRadius: 10,
                       borderLeft: `3px solid ${risk.color}`,
@@ -831,12 +943,12 @@ export default function Enterprise() {
               <motion.h2
                 style={{
                   fontFamily: dmSans,
-                  fontSize: 'clamp(28px, 3.5vw, 40px)',
+                  fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(28px, 3.5vw, 40px)',
                   fontWeight: 700,
                   color: '#1a1a2e',
                   letterSpacing: '-0.03em',
                   lineHeight: 1.15,
-                  marginBottom: 44,
+                  marginBottom: isMobile ? 32 : 44,
                 }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -855,10 +967,10 @@ export default function Enterprise() {
                   key={item.title}
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: '120px 1fr',
-                    gap: 20,
-                    paddingTop: i > 0 ? 28 : 0,
-                    paddingBottom: 28,
+                    gridTemplateColumns: isMobile ? '80px 1fr' : '120px 1fr',
+                    gap: isMobile ? 12 : 20,
+                    paddingTop: i > 0 ? (isMobile ? 20 : 28) : 0,
+                    paddingBottom: isMobile ? 20 : 28,
                     borderBottom: i < 2 ? '1px solid rgba(0,0,0,0.07)' : 'none',
                   }}
                   initial={{ opacity: 0, y: 16 }}
@@ -868,7 +980,7 @@ export default function Enterprise() {
                 >
                   <span style={{
                     fontFamily: dmSans,
-                    fontSize: 48,
+                    fontSize: isMobile ? 36 : 48,
                     fontWeight: 700,
                     color: '#1a1a2e',
                     letterSpacing: '-0.04em',
@@ -879,10 +991,10 @@ export default function Enterprise() {
                     {item.stat}
                   </span>
                   <div>
-                    <h3 style={{ fontFamily: dmSans, fontSize: 22, fontWeight: 700, color: '#1a1a2e', marginBottom: 6, lineHeight: 1.2 }}>
+                    <h3 style={{ fontFamily: dmSans, fontSize: isMobile ? 18 : 22, fontWeight: 700, color: '#1a1a2e', marginBottom: 6, lineHeight: 1.2 }}>
                       {item.title}
                     </h3>
-                    <p style={{ fontFamily: dmSans, fontSize: 15, fontWeight: 400, color: '#999', lineHeight: 1.55 }}>
+                    <p style={{ fontFamily: dmSans, fontSize: isMobile ? 14 : 15, fontWeight: 400, color: '#999', lineHeight: 1.55 }}>
                       {item.desc}
                     </p>
                   </div>
@@ -897,17 +1009,17 @@ export default function Enterprise() {
       {/* Section: Product screenshot / demo */}
       <section id="reports" style={{
         background: '#f9f8f6',
-        padding: '64px 24px',
+        padding: isMobile ? '48px 16px' : '64px 24px',
       }}>
         <div style={{ maxWidth: 960, margin: '0 auto', textAlign: 'center' }}>
           <motion.h2
-            style={{ fontFamily: dmSans, fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 500, color: '#1a1a2e', letterSpacing: '-0.03em', marginBottom: 16 }}
+            style={{ fontFamily: dmSans, fontSize: 'clamp(24px, 4vw, 44px)', fontWeight: 500, color: '#1a1a2e', letterSpacing: '-0.03em', marginBottom: 16 }}
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
           >
             Your weekly <span style={{ fontFamily: playfair, fontStyle: 'italic' }}>signal</span>
           </motion.h2>
           <motion.p
-            style={{ fontFamily: dmSans, fontSize: 16, fontWeight: 400, color: '#666', marginBottom: 48, maxWidth: 480, margin: '0 auto 48px' }}
+            style={{ fontFamily: dmSans, fontSize: isMobile ? 15 : 16, fontWeight: 400, color: '#666', marginBottom: 48, maxWidth: 480, margin: '0 auto 48px', padding: isMobile ? '0 8px' : 0 }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           >
             A single report that replaces hours of status meetings and dashboard checks.
@@ -916,10 +1028,10 @@ export default function Enterprise() {
           <motion.div
             style={{
               background: '#fff',
-              borderRadius: 20,
+              borderRadius: isMobile ? 16 : 20,
               border: '1px solid #e8e8ee',
               boxShadow: '0 8px 40px rgba(0,0,0,0.06)',
-              padding: '40px 44px',
+              padding: isMobile ? '24px 16px' : '40px 44px',
               textAlign: 'left',
             }}
             initial={{ opacity: 0, y: 24 }}
@@ -929,23 +1041,23 @@ export default function Enterprise() {
           >
             {/* Report header */}
             <div style={{ marginBottom: 8 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'flex-start', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 4 : 0 }}>
                 <div>
-                  <h3 style={{ fontFamily: dmSans, fontSize: 24, fontWeight: 700, color: '#1a1a2e', marginBottom: 4 }}>Team Flow & Capacity</h3>
+                  <h3 style={{ fontFamily: dmSans, fontSize: isMobile ? 20 : 24, fontWeight: 700, color: '#1a1a2e', marginBottom: 4 }}>Team Flow & Capacity</h3>
                   <p style={{ fontFamily: dmSans, fontSize: 13, color: '#999' }}>Feb 10 - 16, 2026</p>
                 </div>
-                <span style={{ fontFamily: dmSans, fontSize: 15, fontWeight: 600, color: '#1a1a2e' }}>Acme Engineering</span>
+                <span style={{ fontFamily: dmSans, fontSize: isMobile ? 13 : 15, fontWeight: 600, color: '#1a1a2e' }}>Acme Engineering</span>
               </div>
               <div style={{ height: 3, background: '#1a1a2e', borderRadius: 2, marginTop: 16 }} />
             </div>
 
             {/* Two stat cards */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 32, marginTop: 24 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 16, marginBottom: 32, marginTop: 24 }}>
               {/* Meeting Load */}
-              <div style={{ border: '1px solid #e8e8ee', borderRadius: 12, padding: '20px 20px 16px' }}>
+              <div style={{ border: '1px solid #e8e8ee', borderRadius: 12, padding: isMobile ? '16px' : '20px 20px 16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
                   <span style={{ fontFamily: dmSans, fontSize: 14, fontWeight: 500, color: '#555' }}>Avg Meeting Load</span>
-                  <span style={{ fontFamily: dmSans, fontSize: 32, fontWeight: 700, color: '#dc2626', lineHeight: 1 }}>15.8h</span>
+                  <span style={{ fontFamily: dmSans, fontSize: isMobile ? 28 : 32, fontWeight: 700, color: '#dc2626', lineHeight: 1 }}>15.8h</span>
                 </div>
                 <p style={{ fontFamily: dmSans, fontSize: 12, color: '#999', marginBottom: 14 }}>39.5% of workweek · Threshold: 30%</p>
                 <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end' }}>
@@ -966,10 +1078,10 @@ export default function Enterprise() {
               </div>
 
               {/* Focus Blocks */}
-              <div style={{ border: '1px solid #e8e8ee', borderRadius: 12, padding: '20px 20px 16px' }}>
+              <div style={{ border: '1px solid #e8e8ee', borderRadius: 12, padding: isMobile ? '16px' : '20px 20px 16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
                   <span style={{ fontFamily: dmSans, fontSize: 14, fontWeight: 500, color: '#555' }}>Avg Focus Blocks/Day</span>
-                  <span style={{ fontFamily: dmSans, fontSize: 32, fontWeight: 700, color: '#dc2626', lineHeight: 1 }}>2.1</span>
+                  <span style={{ fontFamily: dmSans, fontSize: isMobile ? 28 : 32, fontWeight: 700, color: '#dc2626', lineHeight: 1 }}>2.1</span>
                 </div>
                 <p style={{ fontFamily: dmSans, fontSize: 12, color: '#999', marginBottom: 14 }}>2hr+ uninterrupted · Benchmark: 3.0</p>
                 <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end' }}>
@@ -1000,29 +1112,31 @@ export default function Enterprise() {
                 Darker = more commits. Shows when the team does deep work vs. gets interrupted.
               </p>
 
-              {/* Heatmap grid */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                {/* Time labels */}
-                <div style={{ display: 'flex', paddingLeft: 36, gap: 4, marginBottom: 2 }}>
-                  {['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm'].map((t) => (
-                    <span key={t} style={{ flex: 1, fontFamily: dmSans, fontSize: 10, color: '#bbb', textAlign: 'center' }}>{t}</span>
-                  ))}
-                </div>
-
-                {[
-                  { day: 'Mon', cells: ['#d1fae5','#34d399','#059669','#34d399','#059669','#f59e0b','#d1fae5','#059669','#34d399','#d1fae5'] },
-                  { day: 'Tue', cells: ['#d1fae5','#34d399','#059669','#059669','#34d399','#ef4444','#34d399','#059669','#34d399','#d1fae5'] },
-                  { day: 'Wed', cells: ['#d1fae5','#34d399','#059669','#34d399','#f59e0b','#f59e0b','#d1fae5','#d1fae5','#34d399','#34d399'] },
-                  { day: 'Thu', cells: ['#d1fae5','#059669','#059669','#34d399','#059669','#fde68a','#34d399','#065f46','#34d399','#059669'] },
-                  { day: 'Fri', cells: ['#d1fae5','#34d399','#059669','#34d399','#34d399','#d1fae5','#d1fae5','#34d399','#059669','#34d399'] },
-                ].map((row) => (
-                  <div key={row.day} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                    <span style={{ fontFamily: dmSans, fontSize: 11, color: '#999', width: 32, textAlign: 'right', paddingRight: 4 }}>{row.day}</span>
-                    {row.cells.map((color, j) => (
-                      <div key={j} style={{ flex: 1, height: 24, background: color, borderRadius: 4 }} />
+              {/* Heatmap grid — horizontally scrollable on mobile */}
+              <div style={{ overflowX: isMobile ? 'auto' : 'visible', WebkitOverflowScrolling: 'touch' as const }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: isMobile ? 480 : 'auto' }}>
+                  {/* Time labels */}
+                  <div style={{ display: 'flex', paddingLeft: 36, gap: 4, marginBottom: 2 }}>
+                    {['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm'].map((t) => (
+                      <span key={t} style={{ flex: 1, fontFamily: dmSans, fontSize: 10, color: '#bbb', textAlign: 'center' }}>{t}</span>
                     ))}
                   </div>
-                ))}
+
+                  {[
+                    { day: 'Mon', cells: ['#d1fae5','#34d399','#059669','#34d399','#059669','#f59e0b','#d1fae5','#059669','#34d399','#d1fae5'] },
+                    { day: 'Tue', cells: ['#d1fae5','#34d399','#059669','#059669','#34d399','#ef4444','#34d399','#059669','#34d399','#d1fae5'] },
+                    { day: 'Wed', cells: ['#d1fae5','#34d399','#059669','#34d399','#f59e0b','#f59e0b','#d1fae5','#d1fae5','#34d399','#34d399'] },
+                    { day: 'Thu', cells: ['#d1fae5','#059669','#059669','#34d399','#059669','#fde68a','#34d399','#065f46','#34d399','#059669'] },
+                    { day: 'Fri', cells: ['#d1fae5','#34d399','#059669','#34d399','#34d399','#d1fae5','#d1fae5','#34d399','#059669','#34d399'] },
+                  ].map((row) => (
+                    <div key={row.day} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ fontFamily: dmSans, fontSize: 11, color: '#999', width: 32, textAlign: 'right', paddingRight: 4 }}>{row.day}</span>
+                      {row.cells.map((color, j) => (
+                        <div key={j} style={{ flex: 1, height: 24, background: color, borderRadius: 4 }} />
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <p style={{ fontFamily: dmSans, fontSize: 11, color: '#999', marginTop: 12, lineHeight: 1.5 }}>
@@ -1036,18 +1150,18 @@ export default function Enterprise() {
       {/* Section: CTA */}
       <section style={{
         background: '#1a1a2e',
-        padding: '64px 24px',
+        padding: isMobile ? '56px 20px' : '64px 24px',
         textAlign: 'center',
       }}>
         <div style={{ maxWidth: 640, margin: '0 auto' }}>
           <motion.h2
-            style={{ fontFamily: dmSans, fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 500, color: '#fff', letterSpacing: '-0.03em', marginBottom: 16 }}
+            style={{ fontFamily: dmSans, fontSize: 'clamp(24px, 4vw, 44px)', fontWeight: 500, color: '#fff', letterSpacing: '-0.03em', marginBottom: 16 }}
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
           >
             Stop flying <span style={{ fontFamily: playfair, fontStyle: 'italic' }}>blind.</span>
           </motion.h2>
           <motion.p
-            style={{ fontFamily: dmSans, fontSize: 16, fontWeight: 400, color: 'rgba(255,255,255,0.6)', marginBottom: 40, maxWidth: 440, margin: '0 auto 40px' }}
+            style={{ fontFamily: dmSans, fontSize: isMobile ? 15 : 16, fontWeight: 400, color: 'rgba(255,255,255,0.6)', marginBottom: 40, maxWidth: 440, margin: '0 auto 40px', padding: isMobile ? '0 8px' : 0 }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           >
             Get a free engineering health audit and see what your team data is telling you.
@@ -1083,14 +1197,17 @@ export default function Enterprise() {
       <footer style={{
         background: '#f9f8f6',
         borderTop: '1px solid rgba(0,0,0,0.06)',
-        padding: '24px',
+        padding: isMobile ? '24px 16px' : '24px',
       }}>
         <div style={{
           maxWidth: 960,
           margin: '0 auto',
           display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: isMobile ? 'center' : 'space-between',
+          gap: isMobile ? 16 : 0,
+          textAlign: isMobile ? 'center' : undefined,
         }}>
           <Image src="/logo.png" alt="NexFlow" width={437} height={387} style={{ height: 20, width: 'auto', objectFit: 'contain' }} />
           <div style={{ display: 'flex', gap: 24 }}>

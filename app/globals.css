@@ -143,3 +143,24 @@ html {
   font-family: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
   font-style: italic;
 }
+
+/* ── Mobile responsive utilities ── */
+@media (max-width: 768px) {
+  .nf-footer-responsive {
+    flex-direction: column !important;
+    gap: 16px !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+  .nf-legal-header {
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: center !important;
+  }
+  .nf-legal-content {
+    padding: 48px 16px 64px !important;
+  }
+  .nf-legal-title {
+    font-size: 28px !important;
+  }
+}
