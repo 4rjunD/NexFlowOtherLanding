@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono, Inter, Instrument_Serif, Playfair_Display, DM_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
@@ -25,9 +25,22 @@ const instrumentSerif = Instrument_Serif({
   style: ["normal", "italic"],
 });
 
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+});
+
 export const metadata: Metadata = {
-  title: "NexFlow Enterprise - The Command Center for Workforce Health",
-  description: "See everything before it surfaces. Total visibility into workforce health, burnout risk, and team performance.",
+  title: "NexFlow - Engineering Intelligence That Ships Results",
+  description: "Weekly engineering health reports with early warning signals for bottlenecks, burnout, and delivery risk. Built for VP Eng and Engineering Managers at mid-market tech companies.",
   icons: {
     icon: [
       { url: "/favicon.png", type: "image/png" },
@@ -60,7 +73,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${instrumentSerif.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${instrumentSerif.variable} ${playfairDisplay.variable} ${dmSans.variable} antialiased`}
       >
         {children}
       </body>

@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+html {
+  scroll-behavior: smooth;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -9,16 +13,17 @@
   --font-sans: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: var(--font-geist-mono), 'JetBrains Mono', 'SF Mono', monospace;
 
-  /* NexFlow Design Tokens */
-  --color-nf-bg-primary: #000000;
-  --color-nf-bg-secondary: #0A0A0A;
-  --color-nf-bg-elevated: #111111;
-  --color-nf-bg-card: #0D0D0D;
-  --color-nf-border-subtle: rgba(255, 255, 255, 0.06);
-  --color-nf-border-hover: rgba(255, 255, 255, 0.12);
-  --color-nf-text-primary: #FFFFFF;
-  --color-nf-text-secondary: rgba(255, 255, 255, 0.55);
-  --color-nf-text-muted: rgba(255, 255, 255, 0.3);
+  /* NexFlow Design Tokens — Light theme */
+  --color-nf-bg-primary: #ffffff;
+  --color-nf-bg-secondary: #f8fafc;
+  --color-nf-bg-elevated: #ffffff;
+  --color-nf-bg-card: #ffffff;
+  --color-nf-border-subtle: #e2e8f0;
+  --color-nf-border-hover: #cbd5e1;
+  --color-nf-text-primary: #0f172a;
+  --color-nf-text-secondary: #64748b;
+  --color-nf-text-muted: #94a3b8;
+  --color-nf-accent: #10b981;
 
   /* Existing shadcn tokens */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -54,22 +59,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  @keyframes moveAurora1 {
-  from {
-    transform: translate(0, 0);
-    }
-  to {
-    transform: translate(100px, 80px);
-    }
-  }
-  @keyframes moveAurora2 {
-  from {
-    transform: translate(0, 0);
-    }
-  to {
-    transform: translate(-100px, -80px);
-    }
-  }
 }
 
 :root {
@@ -148,4 +137,9 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.font-serif-accent {
+  font-family: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
+  font-style: italic;
 }

@@ -1,142 +1,100 @@
 "use client"
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
-
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.3,
-        }
-    },
-}
-
-const fadeUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
-    },
-}
+import { fadeInUp, staggerContainer } from '@/lib/animations'
 
 const integrations = [
-    { src: '/logos/slack.svg', alt: 'Slack' },
-    { src: '/logos/github.svg', alt: 'GitHub' },
-    { src: '/logos/linear.svg', alt: 'Linear' },
-    { src: '/logos/notion.svg', alt: 'Notion' },
+    { name: 'GitHub', icon: '/logos/github.svg' },
+    { name: 'Slack', icon: '/logos/slack.svg' },
+    { name: 'Linear', icon: '/logos/linear.svg' },
+    { name: 'Calendar', icon: '/logos/notion.svg' },
 ]
 
 export function EnterpriseHero() {
     return (
-        <section style={{ background: '#111111' }}>
-            <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-10 pb-3 sm:pb-4">
-                {/* Hero container — rounded rectangle like o11 */}
-                <div
-                    className="relative w-full overflow-hidden"
-                    style={{
-                        borderRadius: 'clamp(10px, 2vw, 16px)',
-                        border: '1px solid rgba(255,255,255,0.08)',
-                        minHeight: 'min(calc(100vh - 72px), 900px)',
-                    }}
-                >
-                    {/* Background video */}
-                    <video
-                        className="absolute inset-0 w-full h-full object-cover z-0"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        style={{ opacity: 0.85 }}
+        <section className="bg-white">
+            <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10 py-16 sm:py-20 md:py-28">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    {/* Left column — text */}
+                    <motion.div
+                        variants={staggerContainer}
+                        initial="hidden"
+                        animate="visible"
                     >
-                        <source src="/landingpagevid.mp4" type="video/mp4" />
-                    </video>
-
-                    {/* Gradient overlay for text readability */}
-                    <div
-                        className="absolute inset-0 z-[1]"
-                        style={{
-                            background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 70%, transparent 100%)',
-                        }}
-                    />
-
-                    {/* Content — left-aligned, anchored to bottom */}
-                    <div
-                        className="relative z-10 flex items-end px-4 sm:px-8 md:px-10 pb-6 sm:pb-10 md:pb-12 pt-20"
-                        style={{ minHeight: 'min(calc(100vh - 72px), 900px)' }}
-                    >
-                        {/* Frosted panel behind text */}
-                        <motion.div
-                            className="relative overflow-hidden px-5 py-6 sm:px-10 sm:py-10 md:px-12 md:py-12 w-full sm:w-auto"
+                        <motion.h1
+                            className="text-slate-900 mb-5"
                             style={{
-                                background: 'rgba(0, 0, 0, 0.55)',
-                                backdropFilter: 'blur(24px) saturate(1.1)',
-                                WebkitBackdropFilter: 'blur(24px) saturate(1.1)',
-                                border: '1px solid rgba(255, 255, 255, 0.08)',
-                                borderRadius: 'clamp(8px, 1.5vw, 12px)',
-                                maxWidth: '720px',
+                                fontSize: 'clamp(32px, 4.5vw, 56px)',
+                                fontWeight: 600,
+                                letterSpacing: '-0.03em',
+                                lineHeight: '1.1',
                             }}
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate="visible"
+                            variants={fadeInUp}
                         >
-                            {/* Headline */}
-                            <motion.h1
-                                className="text-white mb-4 sm:mb-5"
-                                style={{
-                                    fontSize: 'clamp(28px, 5.5vw, 72px)',
-                                    fontWeight: 500,
-                                    letterSpacing: '-0.03em',
-                                    lineHeight: '1.08',
-                                }}
-                                variants={fadeUp}
-                            >
-                                The AI Chief of Staff{' '}
-                                <span style={{ fontFamily: 'var(--font-instrument-serif), "Instrument Serif", Georgia, serif', fontStyle: 'italic' }}>
-                                    that sees around corners.
-                                </span>
-                            </motion.h1>
+                            Your engineering org is losing $50K per developer,{' '}
+                            <span className="font-serif-accent font-normal">per year.</span>
+                        </motion.h1>
 
-                            {/* Subtitle */}
-                            <motion.p
-                                className="text-[14px] sm:text-[16px] md:text-[17px] mb-5 sm:mb-7"
-                                style={{
-                                    color: 'rgba(255,255,255,0.55)',
-                                    lineHeight: '1.55',
-                                }}
-                                variants={fadeUp}
-                            >
-                                Predicts bottlenecks, burnout, and project risks days before they surface. Your team stays ahead of what&apos;s coming.
-                            </motion.p>
+                        <motion.p
+                            className="text-slate-500 text-[16px] sm:text-[17px] mb-8 max-w-[520px]"
+                            style={{ lineHeight: '1.6' }}
+                            variants={fadeInUp}
+                        >
+                            NexFlow delivers weekly engineering health reports with early warning signals for bottlenecks, slow PR cycles, and delivery risk — so you can fix problems before they cost you.
+                        </motion.p>
 
-                            {/* CTA buttons */}
-                            <motion.div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5" variants={fadeUp}>
-                                <Link
-                                    href="https://cal.com/arjun-dixit-0nwkzi/30min"
-                                    target="_blank"
-                                    className="inline-flex items-center justify-center gap-2 px-6 py-3 text-black bg-white text-[14px] font-medium hover:bg-white/90 transition-colors"
-                                    style={{ borderRadius: '8px' }}
-                                >
-                                    Book a Demo
-                                </Link>
-                                <Link
-                                    href="mailto:arjundixit@nexflowinc.com"
-                                    className="inline-flex items-center justify-center gap-2 px-6 py-3 text-[14px] font-medium transition-colors"
-                                    style={{
-                                        color: 'rgba(255,255,255,0.55)',
-                                        border: '1px solid rgba(255,255,255,0.15)',
-                                        borderRadius: '8px',
-                                    }}
-                                >
-                                    Try NexFlow <ArrowRight className="w-3.5 h-3.5" />
-                                </Link>
-                            </motion.div>
+                        <motion.div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3" variants={fadeInUp}>
+                            <Link
+                                href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                                target="_blank"
+                                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-white bg-emerald-500 hover:bg-emerald-600 text-[14px] font-medium transition-colors rounded-lg"
+                            >
+                                Get Your Free Engineering Audit
+                            </Link>
+                            <Link
+                                href="#report-preview"
+                                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-[14px] font-medium text-slate-500 hover:text-slate-900 transition-colors"
+                            >
+                                See a sample report <ArrowRight className="w-3.5 h-3.5" />
+                            </Link>
                         </motion.div>
-                    </div>
+
+                        {/* Trust line */}
+                        <motion.div className="mt-10 flex items-center gap-5" variants={fadeInUp}>
+                            <span className="text-[12px] text-slate-400 uppercase tracking-wider font-medium">Integrates with</span>
+                            <div className="flex items-center gap-4">
+                                {integrations.map((item) => (
+                                    <div
+                                        key={item.name}
+                                        className="w-7 h-7 rounded-md bg-slate-100 flex items-center justify-center"
+                                        title={item.name}
+                                    >
+                                        <img src={item.icon} alt={item.name} className="w-4 h-4 opacity-50" />
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* Right column — product screenshot placeholder (21st.dev swap point) */}
+                    <motion.div
+                        className="relative"
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <div className="bg-slate-50 border border-slate-200 rounded-xl shadow-sm aspect-[4/3] flex items-center justify-center">
+                            <div className="text-center px-8">
+                                <div className="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center mx-auto mb-3">
+                                    <div className="w-6 h-6 rounded bg-emerald-500/20" />
+                                </div>
+                                <p className="text-slate-400 text-[14px]">Dashboard preview</p>
+                                <p className="text-slate-300 text-[12px] mt-1">21st.dev component swap point</p>
+                            </div>
+                        </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

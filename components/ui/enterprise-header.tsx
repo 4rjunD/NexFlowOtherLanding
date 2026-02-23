@@ -6,8 +6,7 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
     { label: "How It Works", href: "#how-it-works" },
-    { label: "Platform", href: "#platform" },
-    { label: "Why NexFlow", href: "#why-nexflow" },
+    { label: "Features", href: "#features" },
     { label: "Pricing", href: "#pricing" },
     { label: "Contact", href: "https://cal.com/arjun-dixit-0nwkzi/30min", external: true },
 ];
@@ -27,14 +26,11 @@ function EnterpriseHeader() {
     return (
         <>
             {/* Static header — visible at top */}
-            <header className="w-full z-40 relative" style={{ background: '#111111' }}>
-                <div className="w-full max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-10">
+            <header className="w-full z-40 relative bg-white border-b border-slate-200">
+                <div className="w-full max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10">
                     <div className="flex items-center justify-between h-[56px]">
                         <Link href="/" className="flex items-center shrink-0">
-                            <span
-                                className="text-white text-[17px] font-semibold"
-                                style={{ letterSpacing: '-0.01em' }}
-                            >
+                            <span className="text-slate-900 text-[17px] font-semibold tracking-tight">
                                 NexFlow
                             </span>
                         </Link>
@@ -45,8 +41,7 @@ function EnterpriseHeader() {
                                     key={link.label}
                                     href={link.href}
                                     {...(link.external ? { target: "_blank" } : {})}
-                                    className="px-3 py-1.5 text-[14px] font-normal transition-colors"
-                                    style={{ color: 'rgba(255,255,255,0.6)' }}
+                                    className="px-3 py-1.5 text-[14px] font-normal text-slate-500 hover:text-slate-900 transition-colors"
                                 >
                                     {link.label}
                                 </Link>
@@ -57,19 +52,14 @@ function EnterpriseHeader() {
                             <Link
                                 href="https://cal.com/arjun-dixit-0nwkzi/30min"
                                 target="_blank"
-                                className="px-4 py-1.5 text-[14px] font-normal transition-colors"
-                                style={{
-                                    color: 'rgba(255,255,255,0.6)',
-                                    border: '1px solid rgba(255,255,255,0.15)',
-                                    borderRadius: '8px',
-                                }}
+                                className="px-4 py-1.5 text-[14px] font-medium text-white bg-emerald-500 hover:bg-emerald-600 transition-colors rounded-lg"
                             >
-                                Log In
+                                Get Free Audit
                             </Link>
                         </div>
 
                         <button
-                            className="md:hidden w-9 h-9 flex items-center justify-center text-white"
+                            className="md:hidden w-9 h-9 flex items-center justify-center text-slate-900"
                             onClick={() => setOpen(!isOpen)}
                         >
                             {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -77,38 +67,26 @@ function EnterpriseHeader() {
                     </div>
 
                     {isOpen && (
-                        <div
-                            className="md:hidden absolute top-[56px] left-0 w-full py-4 px-5 sm:px-8 flex flex-col gap-0.5 z-50"
-                            style={{
-                                backgroundColor: '#111111',
-                                borderTop: '1px solid rgba(255,255,255,0.06)',
-                            }}
-                        >
+                        <div className="md:hidden absolute top-[56px] left-0 w-full py-4 px-5 sm:px-8 flex flex-col gap-0.5 z-50 bg-white border-t border-slate-200">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.label}
                                     href={link.href}
                                     {...(link.external ? { target: "_blank" } : {})}
                                     onClick={() => setOpen(false)}
-                                    className="px-3 py-2.5 text-[14px]"
-                                    style={{ color: 'rgba(255,255,255,0.6)' }}
+                                    className="px-3 py-2.5 text-[14px] text-slate-500 hover:text-slate-900 transition-colors"
                                 >
                                     {link.label}
                                 </Link>
                             ))}
-                            <div className="mt-3 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                            <div className="mt-3 pt-3 border-t border-slate-200">
                                 <Link
                                     href="https://cal.com/arjun-dixit-0nwkzi/30min"
                                     target="_blank"
                                     onClick={() => setOpen(false)}
-                                    className="block px-3 py-2.5 text-[14px] text-center"
-                                    style={{
-                                        color: 'rgba(255,255,255,0.6)',
-                                        border: '1px solid rgba(255,255,255,0.15)',
-                                        borderRadius: '8px',
-                                    }}
+                                    className="block px-3 py-2.5 text-[14px] text-center font-medium text-white bg-emerald-500 hover:bg-emerald-600 transition-colors rounded-lg"
                                 >
-                                    Log In
+                                    Get Free Audit
                                 </Link>
                             </div>
                         </div>
@@ -127,22 +105,14 @@ function EnterpriseHeader() {
             >
                 <div className="px-4 pt-3">
                     <div
-                        className="max-w-[720px] mx-auto"
+                        className="max-w-[720px] mx-auto bg-white/90 backdrop-blur-xl border border-slate-200 rounded-[14px]"
                         style={{
-                            background: 'rgba(10, 10, 10, 0.85)',
-                            backdropFilter: 'blur(20px) saturate(1.2)',
-                            WebkitBackdropFilter: 'blur(20px) saturate(1.2)',
-                            border: '1px solid rgba(255, 255, 255, 0.08)',
-                            borderRadius: '14px',
-                            boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                            boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
                         }}
                     >
                         <div className="flex items-center justify-between h-[44px] px-4">
                             <Link href="/" className="flex items-center shrink-0">
-                                <span
-                                    className="text-white text-[15px] font-semibold"
-                                    style={{ letterSpacing: '-0.01em' }}
-                                >
+                                <span className="text-slate-900 text-[15px] font-semibold tracking-tight">
                                     NexFlow
                                 </span>
                             </Link>
@@ -153,8 +123,7 @@ function EnterpriseHeader() {
                                         key={link.label}
                                         href={link.href}
                                         {...(link.external ? { target: "_blank" } : {})}
-                                        className="px-2.5 py-1 text-[13px] font-normal transition-colors"
-                                        style={{ color: 'rgba(255,255,255,0.5)' }}
+                                        className="px-2.5 py-1 text-[13px] font-normal text-slate-500 hover:text-slate-900 transition-colors"
                                     >
                                         {link.label}
                                     </Link>
@@ -165,19 +134,14 @@ function EnterpriseHeader() {
                                 <Link
                                     href="https://cal.com/arjun-dixit-0nwkzi/30min"
                                     target="_blank"
-                                    className="px-3.5 py-1 text-[13px] font-normal transition-colors"
-                                    style={{
-                                        color: 'rgba(255,255,255,0.5)',
-                                        border: '1px solid rgba(255,255,255,0.12)',
-                                        borderRadius: '7px',
-                                    }}
+                                    className="px-3.5 py-1 text-[13px] font-medium text-white bg-emerald-500 hover:bg-emerald-600 transition-colors rounded-lg"
                                 >
-                                    Log In
+                                    Get Free Audit
                                 </Link>
                             </div>
 
                             <button
-                                className="md:hidden w-8 h-8 flex items-center justify-center text-white"
+                                className="md:hidden w-8 h-8 flex items-center justify-center text-slate-900"
                                 onClick={() => setOpen(!isOpen)}
                             >
                                 {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}

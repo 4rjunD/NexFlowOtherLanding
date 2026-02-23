@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Engineering Digest — Acme Engineering</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #0f172a;
+    background: #e2e8f0;
+    font-size: 11pt;
+    line-height: 1.6;
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    padding: 0.65in 0.75in;
+    page-break-after: always;
+    position: relative;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 32px;
+  }
+
+  .page:last-child { page-break-after: avoid; }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #10b981;
+    margin-bottom: 28px;
+  }
+
+  .header-left h1 {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+  }
+
+  .header-left p {
+    font-size: 9pt;
+    color: #64748b;
+    margin-top: 2px;
+  }
+
+  .header-right {
+    text-align: right;
+  }
+
+  .header-right .company {
+    font-size: 13pt;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  .header-right .date {
+    font-size: 9pt;
+    color: #64748b;
+  }
+
+  /* Score banner */
+  .score-banner {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .score-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .score-circle.amber {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 3px solid #f59e0b;
+  }
+
+  .score-circle .number {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #92400e;
+  }
+
+  .score-summary h2 {
+    font-size: 13pt;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .score-summary p {
+    font-size: 10pt;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  .score-meta {
+    margin-left: auto;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .score-meta .trend {
+    font-size: 10pt;
+    font-weight: 600;
+  }
+
+  .score-meta .trend.down { color: #ef4444; }
+  .score-meta .trend.up { color: #10b981; }
+
+  .score-meta .label {
+    font-size: 8pt;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Narrative sections */
+  .section {
+    margin-bottom: 24px;
+  }
+
+  .section h3 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .section p {
+    font-size: 10.5pt;
+    color: #334155;
+    margin-bottom: 10px;
+    line-height: 1.65;
+  }
+
+  .section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .highlight {
+    background: #fef3c7;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+
+  .highlight-red {
+    background: #fee2e2;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 500;
+    color: #991b1b;
+  }
+
+  .highlight-green {
+    background: #d1fae5;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 500;
+    color: #065f46;
+  }
+
+  /* Metrics row */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .metric-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+
+  .metric-card .label {
+    font-size: 8pt;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .metric-card .value {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .metric-card .change {
+    font-size: 9pt;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .metric-card .change.bad { color: #ef4444; }
+  .metric-card .change.good { color: #10b981; }
+  .metric-card .change.neutral { color: #64748b; }
+
+  /* Callout box */
+  .callout {
+    border-left: 3px solid #f59e0b;
+    background: #fffbeb;
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 16px 0;
+  }
+
+  .callout.red {
+    border-left-color: #ef4444;
+    background: #fef2f2;
+  }
+
+  .callout.green {
+    border-left-color: #10b981;
+    background: #ecfdf5;
+  }
+
+  .callout p {
+    font-size: 10pt;
+    color: #334155;
+    margin: 0;
+  }
+
+  .callout strong {
+    color: #0f172a;
+  }
+
+  /* Footer */
+  .footer {
+    position: absolute;
+    bottom: 0.5in;
+    left: 0.75in;
+    right: 0.75in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .footer span {
+    font-size: 8pt;
+    color: #94a3b8;
+  }
+
+  /* Lists */
+  .section ul {
+    margin: 8px 0 10px 20px;
+    font-size: 10.5pt;
+    color: #334155;
+  }
+
+  .section ul li {
+    margin-bottom: 4px;
+    line-height: 1.5;
+  }
+
+  /* Quote block */
+  .quote {
+    font-style: italic;
+    color: #64748b;
+    padding-left: 16px;
+    border-left: 2px solid #cbd5e1;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+
+  /* Table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+
+  .data-table th {
+    text-align: left;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #94a3b8;
+    padding: 8px 12px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .data-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+  }
+
+  .data-table tr:nth-child(even) {
+    background: #f8fafc;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 8pt;
+    font-weight: 600;
+  }
+
+  .badge.red { background: #fee2e2; color: #991b1b; }
+  .badge.amber { background: #fef3c7; color: #92400e; }
+  .badge.green { background: #d1fae5; color: #065f46; }
+
+  @media print {
+    body { padding: 0; background: #ffffff; }
+    .page { padding: 0.65in 0.75in; box-shadow: none; margin-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1 ==================== -->
+<div class="page">
+  <div class="header">
+    <div class="header-left">
+      <h1>Weekly Engineering Digest</h1>
+      <p>Feb 10 – Feb 16, 2026 &nbsp;·&nbsp; Sprint 24, Day 9 of 14</p>
+    </div>
+    <div class="header-right">
+      <div class="company">Acme Engineering</div>
+      <div class="date">Generated Feb 17, 2026</div>
+    </div>
+  </div>
+
+  <div class="score-banner">
+    <div class="score-circle amber">
+      <span class="number">6.8</span>
+    </div>
+    <div class="score-summary">
+      <h2>Overall Health: Needs Attention</h2>
+      <p>Sprint 24 is behind pace. Velocity has declined for a second consecutive sprint, and the PR review queue is at a 90-day high. Deployment cadence remains healthy, but the team is absorbing risk from two under-estimated backend tickets.</p>
+    </div>
+    <div class="score-meta">
+      <div class="trend down">-0.4</div>
+      <div class="label">vs last week</div>
+    </div>
+  </div>
+
+  <div class="metrics-row">
+    <div class="metric-card">
+      <div class="label">Sprint Completion</div>
+      <div class="value">42%</div>
+      <div class="change bad">Expected: 64% by day 9</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">PR Cycle Time</div>
+      <div class="value">4.2d</div>
+      <div class="change bad">+1.1d vs last week</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">PRs Merged</div>
+      <div class="value">18</div>
+      <div class="change neutral">vs 23 last week</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Deploy Frequency</div>
+      <div class="value">1.4/d</div>
+      <div class="change good">Healthy — on par</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Executive Summary</h3>
+    <p>This was a difficult week for the Acme engineering team. Sprint 24 entered its second half with only <span class="highlight">42% of story points completed</span> — well behind the 64% pace needed for on-time delivery. The root cause is concentrated in two areas: an expanding PR review bottleneck and scope underestimation on the payments migration work.</p>
+    <p>The PR review queue grew to <span class="highlight-red">14 open PRs</span>, with 6 waiting more than 48 hours for first review. This is a 90-day high. Marcus Johnson and Sarah Chen handled 62% of all reviews this week — when Marcus was pulled into incident response on Wednesday, the queue stalled for nearly a full day.</p>
+    <p>On the positive side, deployment frequency remained steady at 1.4 deploys/day, CI pass rates held at 94%, and the frontend team shipped the new dashboard components ahead of schedule. The issue is not team capability — it's a process bottleneck that's creating a cascading delay.</p>
+  </div>
+
+  <div class="callout red">
+    <p><strong>Risk Signal:</strong> If the PR queue isn't addressed by mid-week, Sprint 24 will likely miss 3-4 tickets, pushing the payments V2 launch past the March 1 target. This is the second sprint in a row with slippage on this workstream.</p>
+  </div>
+
+  <div class="footer">
+    <span>NexFlow Weekly Digest — Acme Engineering</span>
+    <span>Page 1 of 4 &nbsp;·&nbsp; Confidential</span>
+  </div>
+</div>
+
+<!-- ==================== PAGE 2 ==================== -->
+<div class="page">
+  <div class="header">
+    <div class="header-left">
+      <h1>Weekly Engineering Digest</h1>
+      <p>Feb 10 – Feb 16, 2026</p>
+    </div>
+    <div class="header-right">
+      <div class="company">Acme Engineering</div>
+      <div class="date">Page 2 of 4</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Delivery & Sprint Health</h3>
+    <p>Sprint 24 carries 84 story points across 22 tickets. As of end-of-day Friday, <span class="highlight">35 points (42%)</span> are complete, 28 points (33%) are in progress, and 21 points (25%) haven't started. At the current velocity, the team is on pace to complete approximately <span class="highlight-red">62-68 points</span> by sprint close — a 16-22 point shortfall.</p>
+    <p>The shortfall traces primarily to two tickets in the payments workstream:</p>
+    <ul>
+      <li><strong>ACME-891: Payment retry logic refactor</strong> — Originally estimated at 5 points, now consumed 8 days of work across two engineers. The Stripe webhook handling proved more complex than scoped. Still in review.</li>
+      <li><strong>ACME-903: Idempotency layer for payment events</strong> — Blocked on ACME-891 merge. 8 points sitting idle since Tuesday.</li>
+    </ul>
+    <p>Outside of payments, velocity is normal. The frontend squad completed 4 of 5 tickets on schedule. Infrastructure shipped the Redis migration with zero downtime.</p>
+  </div>
+
+  <div class="callout">
+    <p><strong>Pattern detected:</strong> This is the third time in 6 sprints that a payments-related ticket has exceeded its estimate by 50%+. The team may need to apply a consistent 1.5x multiplier to Stripe integration work, or break these tickets into smaller units.</p>
+  </div>
+
+  <div class="section">
+    <h3>Code Review & PR Health</h3>
+    <p>The PR review pipeline is the most urgent issue this week. The team opened 24 PRs and merged 18 — leaving a growing backlog of <span class="highlight-red">14 open PRs</span>, up from 8 last week.</p>
+    <p>Key patterns in the review data:</p>
+    <ul>
+      <li><strong>Time to first review</strong> averaged <span class="highlight-red">18.5 hours</span>, up from 11.2 hours last week. Industry benchmark for a team of 8 is under 4 hours.</li>
+      <li><strong>Review concentration</strong> remains a single point of failure. Marcus (38%) and Sarah (24%) handled 62% of all reviews. When Marcus was pulled into incident response Wednesday afternoon, 4 PRs sat untouched until Thursday morning.</li>
+      <li><strong>Large PRs</strong> are part of the problem — 3 PRs exceeded 400 lines changed. These take 3x longer to review on average and have a 2.4x higher chance of requiring re-review after comments.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>PR Queue — Aging Details</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>PR</th>
+          <th>Author</th>
+          <th>Age</th>
+          <th>Size</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#342 — Payment retry logic</td>
+          <td>Alex Kim</td>
+          <td>5 days</td>
+          <td>+487 / -129</td>
+          <td><span class="badge red">No reviewer</span></td>
+        </tr>
+        <tr>
+          <td>#338 — Rate limiter middleware</td>
+          <td>Jordan Rivera</td>
+          <td>4 days</td>
+          <td>+215 / -42</td>
+          <td><span class="badge amber">Changes requested</span></td>
+        </tr>
+        <tr>
+          <td>#345 — Dashboard filter component</td>
+          <td>Riley Zhang</td>
+          <td>3 days</td>
+          <td>+89 / -12</td>
+          <td><span class="badge amber">Awaiting review</span></td>
+        </tr>
+        <tr>
+          <td>#347 — Redis session migration</td>
+          <td>Sam Okafor</td>
+          <td>2 days</td>
+          <td>+156 / -98</td>
+          <td><span class="badge green">Approved, merging</span></td>
+        </tr>
+        <tr>
+          <td>#349 — API error handling cleanup</td>
+          <td>Taylor Nguyen</td>
+          <td>2 days</td>
+          <td>+63 / -41</td>
+          <td><span class="badge amber">Awaiting review</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <span>NexFlow Weekly Digest — Acme Engineering</span>
+    <span>Page 2 of 4 &nbsp;·&nbsp; Confidential</span>
+  </div>
+</div>
+
+<!-- ==================== PAGE 3 ==================== -->
+<div class="page">
+  <div class="header">
+    <div class="header-left">
+      <h1>Weekly Engineering Digest</h1>
+      <p>Feb 10 – Feb 16, 2026</p>
+    </div>
+    <div class="header-right">
+      <div class="company">Acme Engineering</div>
+      <div class="date">Page 3 of 4</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Team Flow & Capacity</h3>
+    <p>Meeting load climbed to <span class="highlight">15.8 hours/person</span> this week — up from 13.2 last week. The increase came primarily from two unplanned incident retros and a cross-team alignment session for the payments launch. This put meeting time at <span class="highlight-red">39.5% of the workweek</span>, above the 30% threshold where coding velocity typically starts to decline.</p>
+    <p>Focus time (blocks of 2+ uninterrupted hours) averaged <span class="highlight">2.1 blocks/person/day</span>, down from 2.8 last week. The team's most productive coding window continues to be 9-11am, with a secondary peak from 2-4pm. Slack activity during these windows increased 23% — suggesting more interruptions are cutting into deep work.</p>
+    <p>After-hours commits remained low (4 total across the team), which is a healthy signal. The workload pressure isn't translating into overtime yet, but continued meeting creep could change that.</p>
+  </div>
+
+  <div class="callout green">
+    <p><strong>Bright spot:</strong> Despite the heavier meeting week, the frontend squad (Riley, Taylor, Priya) maintained their velocity at 95% of plan. Their PR sizes averaged 120 lines — well within the quick-review sweet spot — and they pair-reviewed each other consistently, keeping their own queue clear.</p>
+  </div>
+
+  <div class="section">
+    <h3>CI/CD & Deployment Health</h3>
+    <p>Deployment frequency held steady at <span class="highlight-green">1.4 deploys/day</span> — healthy for a team this size. CI pass rate was 94.2%, slightly down from 96.1% last week. The dip was caused by 3 flaky tests in the payment integration suite that have been failing intermittently for 2 weeks.</p>
+    <p>Build times averaged 4.2 minutes, well within acceptable range. No rollbacks were needed this week. The Redis migration deploy (Thursday) went cleanly with zero-downtime cutover.</p>
+  </div>
+
+  <div class="section">
+    <h3>Cross-Team Alignment</h3>
+    <p>Two active cross-functional workstreams are in flight:</p>
+    <p><strong>Payments V2 Launch (target: March 1)</strong> — Engineering is tracking at <span class="highlight-red">~70% confidence</span> for the March 1 date. Marketing has already scheduled launch comms for March 3. If ACME-891 and ACME-903 don't merge by end of next week, the launch will need to slip by at least one week. Sales has 3 prospects waiting on this feature for contract close.</p>
+    <p><strong>Dashboard Redesign (target: March 15)</strong> — Frontend work is <span class="highlight-green">ahead of schedule</span>. 4 of 6 component tickets are complete. Design review is scheduled for Tuesday. No cross-team dependencies remaining — this workstream is clean.</p>
+  </div>
+
+  <div class="callout">
+    <p><strong>Alignment risk:</strong> Marketing's March 3 launch communications are set, but engineering confidence for March 1 code-complete is only 70%. If the payments PRs don't clear review by Wednesday, this should be escalated as a launch date risk. Recommend a 15-minute sync between engineering and marketing leads early this week.</p>
+  </div>
+
+  <div class="footer">
+    <span>NexFlow Weekly Digest — Acme Engineering</span>
+    <span>Page 3 of 4 &nbsp;·&nbsp; Confidential</span>
+  </div>
+</div>
+
+<!-- ==================== PAGE 4 ==================== -->
+<div class="page">
+  <div class="header">
+    <div class="header-left">
+      <h1>Weekly Engineering Digest</h1>
+      <p>Feb 10 – Feb 16, 2026</p>
+    </div>
+    <div class="header-right">
+      <div class="company">Acme Engineering</div>
+      <div class="date">Page 4 of 4</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Signals & Early Warnings</h3>
+    <p>NexFlow detected 3 active signals this week, ranked by severity:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Signal</th>
+          <th>Severity</th>
+          <th>Confidence</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PR queue approaching critical threshold</td>
+          <td><span class="badge red">High</span></td>
+          <td>89%</td>
+          <td>14 open PRs, 6 waiting >48hrs. Queue doubled in 7 days. If trend continues, merge throughput drops ~30% next week.</td>
+        </tr>
+        <tr>
+          <td>Sprint velocity declining (2nd consecutive sprint)</td>
+          <td><span class="badge amber">Medium</span></td>
+          <td>76%</td>
+          <td>Sprint 23: 78 of 88 pts completed. Sprint 24 tracking to ~65 of 84 pts. Two consecutive declines historically correlate with 3rd sprint miss at 68% probability.</td>
+        </tr>
+        <tr>
+          <td>Meeting load exceeding 35% threshold</td>
+          <td><span class="badge amber">Medium</span></td>
+          <td>72%</td>
+          <td>15.8 hrs/person (39.5%). When meeting load exceeds 35% for 2+ weeks, coding velocity typically drops 15-20% the following sprint.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Week-Over-Week Trends</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>This Week</th>
+          <th>Last Week</th>
+          <th>4-Wk Avg</th>
+          <th>Trend</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Health Score</td>
+          <td>6.8</td>
+          <td>7.2</td>
+          <td>7.1</td>
+          <td><span class="badge red">Declining</span></td>
+        </tr>
+        <tr>
+          <td>PR Cycle Time</td>
+          <td>4.2 days</td>
+          <td>3.1 days</td>
+          <td>2.8 days</td>
+          <td><span class="badge red">Rising</span></td>
+        </tr>
+        <tr>
+          <td>PRs Merged</td>
+          <td>18</td>
+          <td>23</td>
+          <td>22</td>
+          <td><span class="badge amber">Below avg</span></td>
+        </tr>
+        <tr>
+          <td>Deploy Frequency</td>
+          <td>1.4/day</td>
+          <td>1.3/day</td>
+          <td>1.3/day</td>
+          <td><span class="badge green">Stable</span></td>
+        </tr>
+        <tr>
+          <td>CI Pass Rate</td>
+          <td>94.2%</td>
+          <td>96.1%</td>
+          <td>95.4%</td>
+          <td><span class="badge amber">Slight dip</span></td>
+        </tr>
+        <tr>
+          <td>Meeting Load</td>
+          <td>15.8 hrs</td>
+          <td>13.2 hrs</td>
+          <td>12.6 hrs</td>
+          <td><span class="badge red">Rising</span></td>
+        </tr>
+        <tr>
+          <td>Focus Time</td>
+          <td>2.1 blks/day</td>
+          <td>2.8 blks/day</td>
+          <td>2.9 blks/day</td>
+          <td><span class="badge red">Declining</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Looking Ahead: Next Week</h3>
+    <p>Three things to watch in the final 5 days of Sprint 24:</p>
+    <ul>
+      <li><strong>PR #342 (payment retry logic)</strong> — This is the critical-path blocker. If it merges by Tuesday, ACME-903 can start and the sprint has a chance of recovering. If it doesn't merge by Wednesday, the payments workstream will miss the sprint.</li>
+      <li><strong>Review load redistribution</strong> — The team needs at least one additional person actively reviewing backend PRs. Priya or Jordan are the best candidates given their familiarity with the payments codebase.</li>
+      <li><strong>Meeting load</strong> — No new recurring meetings should be added next week. If the payments retro is needed, keep it to 30 minutes max and skip the Thursday all-hands or make it async.</li>
+    </ul>
+  </div>
+
+  <div class="callout green">
+    <p><strong>One thing going well:</strong> The frontend squad is executing cleanly and the dashboard redesign is ahead of schedule. This is worth recognizing — especially since the payments pressure could easily have pulled them into support mode. The team's discipline in protecting their workstream is a strength worth reinforcing.</p>
+  </div>
+
+  <div style="margin-top: 24px; padding: 16px 20px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+    <p style="font-size: 9pt; color: #64748b; margin: 0; line-height: 1.5;">This report was generated automatically by NexFlow using data from GitHub, Linear, Slack, and Google Calendar. All metrics are team-level — individual performance data is visible only to the individual. Questions or feedback? Reply to this email.</p>
+  </div>
+
+  <div class="footer">
+    <span>NexFlow Weekly Digest — Acme Engineering</span>
+    <span>Page 4 of 4 &nbsp;·&nbsp; Confidential</span>
+  </div>
+</div>
+
+</body>
+</html>
