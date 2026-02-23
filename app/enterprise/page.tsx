@@ -412,36 +412,16 @@ export default function Enterprise() {
           {/* Headline — DM Sans base + Playfair italic accents */}
           <h1 style={{
             fontFamily: dmSans,
-            fontSize: 'clamp(32px, 6vw, 76px)',
+            fontSize: 'clamp(32px, 5.5vw, 68px)',
             fontWeight: 500,
             letterSpacing: '-0.03em',
             lineHeight: 1.1,
             color: '#2a1f14',
             marginBottom: isMobile ? 24 : 32,
-            maxWidth: 860,
+            maxWidth: 960,
           }}>
             <AnimatedHeadline words={headlineWords} />
           </h1>
-
-          {/* Subtext */}
-          <motion.p
-            style={{
-              fontFamily: dmSans,
-              fontSize: isMobile ? 16 : 18,
-              fontWeight: 300,
-              letterSpacing: '-0.01em',
-              lineHeight: 1.6,
-              color: '#5c5347',
-              marginBottom: isMobile ? 36 : 48,
-              maxWidth: 540,
-              padding: isMobile ? '0 8px' : 0,
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-          >
-            NexFlow predicts bottlenecks, flags attrition risk, and shows you where delivery will slip. Weeks before it happens.
-          </motion.p>
 
           {/* CTAs */}
           <motion.div
@@ -503,6 +483,23 @@ export default function Enterprise() {
               See a Sample Report
             </Link>
           </motion.div>
+
+          {/* Subtext below CTA */}
+          <motion.p
+            style={{
+              fontFamily: dmSans,
+              fontSize: isMobile ? 13 : 14,
+              fontWeight: 400,
+              color: '#999',
+              marginTop: 20,
+              letterSpacing: '-0.01em',
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.4 }}
+          >
+            Connects to GitHub, Slack, and Linear. First report in 24 hours.
+          </motion.p>
         </div>
 
       </section>
