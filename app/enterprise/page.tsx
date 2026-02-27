@@ -163,23 +163,20 @@ function FloatingIntegrationLogos({ hidden }: { hidden?: boolean }) {
 }
 
 const headlineWords: HeadlineWord[] = [
-  { text: 'Predict' },
-  { text: 'delays', italic: true },
-  { text: 'weeks' },
-  { text: 'in' },
-  { text: 'advance.' },
-  { text: 'Ship' },
-  { text: 'on' },
-  { text: 'time,' },
-  { text: 'every', italic: true },
-  { text: 'time.' },
+  { text: 'Know' },
+  { text: 'what' },
+  { text: 'happens', italic: true },
+  { text: 'next,' },
+  { text: 'before' },
+  { text: 'anyone', italic: true },
+  { text: 'else.' },
 ]
 
 const navItems = [
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Why NexFlow', href: '#why-nexflow' },
-  { label: 'Product', href: '#product' },
-  { label: 'Reports', href: '#reports' },
+  { label: 'Platform', href: '#product' },
+  { label: 'Insights', href: '#reports' },
 ]
 
 export default function Enterprise() {
@@ -284,7 +281,7 @@ export default function Enterprise() {
                   letterSpacing: '-0.02em',
                 }}
               >
-                Book a Demo
+                Get a Demo
               </Link>
             )}
 
@@ -366,7 +363,7 @@ export default function Enterprise() {
                   margin: '4px 0',
                 }}
               >
-                Book a Demo
+                Get a Demo
               </Link>
             </motion.div>
           )}
@@ -406,7 +403,7 @@ export default function Enterprise() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
-            <span style={{ fontWeight: 600 }}>New:</span> AI agents that auto-triage stalled PRs
+            <span style={{ fontWeight: 600 }}>New:</span> Predictive AI that learns your patterns
           </motion.div>
 
           {/* Headline — DM Sans base + Playfair italic accents */}
@@ -458,7 +455,7 @@ export default function Enterprise() {
                 width: isMobile ? '100%' : 'auto',
               }}
             >
-              Get a Free Audit <ArrowRight style={{ width: 15, height: 15 }} />
+              Get Early Access <ArrowRight style={{ width: 15, height: 15 }} />
             </Link>
             <Link
               href="/sample-report.html"
@@ -480,7 +477,7 @@ export default function Enterprise() {
                 width: isMobile ? '100%' : 'auto',
               }}
             >
-              See a Sample Report
+              See a Sample Insight
             </Link>
           </motion.div>
 
@@ -498,7 +495,7 @@ export default function Enterprise() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.4 }}
           >
-            Connects to GitHub, Slack, and Linear. First report in 24 hours.
+            Connects to your existing data sources. First insights in 24 hours.
           </motion.p>
         </div>
 
@@ -558,7 +555,7 @@ export default function Enterprise() {
               color: '#2a1f14',
               marginBottom: 16,
             }}>
-              AI speed, engineering-grade <span style={{ fontStyle: 'italic' }}>accuracy.</span>
+              AI precision, human-level <span style={{ fontStyle: 'italic' }}>intuition.</span>
             </h2>
 
             <p style={{
@@ -570,7 +567,7 @@ export default function Enterprise() {
               marginBottom: 24,
               maxWidth: 400,
             }}>
-              Built on the same ML infrastructure that powers recommendations at scale, applied to engineering health.
+              Built on the same ML infrastructure that powers predictions at scale, applied to your most critical decisions.
             </p>
 
             <Link
@@ -600,21 +597,21 @@ export default function Enterprise() {
             {[
               {
                 step: '01',
-                title: 'Surface risks in real time',
+                title: 'Surface hidden patterns',
                 tag: '24 hours',
-                desc: 'AI agents scan repos, sprints, and comms. First report the same day.',
+                desc: 'AI models analyze your data streams in real time. First insights the same day.',
               },
               {
                 step: '02',
-                title: 'Predict delays 4x earlier',
+                title: 'Predict outcomes 4x earlier',
                 tag: 'Weeks 2-4',
-                desc: 'Catch delivery risks weeks before they surface. 2x more accurate than manual checks.',
+                desc: 'Detect emerging risks and trends weeks before they become visible to anyone else.',
               },
               {
                 step: '03',
                 title: 'Continuous intelligence',
                 tag: 'Ongoing',
-                desc: 'Builds memory over time. Recommendations get sharper every sprint.',
+                desc: 'Builds memory over time. Predictions get sharper every cycle.',
               },
             ].map((item, i) => (
               <motion.div
@@ -738,7 +735,7 @@ export default function Enterprise() {
                 lineHeight: 1.1,
                 color: '#2a1f14',
               }}>
-                See more, ship <span style={{ fontStyle: 'italic' }}>faster</span>
+                See more, act <span style={{ fontStyle: 'italic' }}>faster</span>
               </h2>
             </motion.div>
 
@@ -757,7 +754,7 @@ export default function Enterprise() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              Our team comes from Stanford and Harvard, where we researched ML systems for engineering productivity. NexFlow is that research, productized.
+              Our team comes from Stanford and Harvard, where we researched ML systems for predictive intelligence. NexFlow is that research, productized.
             </motion.p>
           </div>
 
@@ -791,8 +788,8 @@ export default function Enterprise() {
             }} />
 
             {[
-              { stat: '4x earlier', desc: 'Risks caught before they hit your roadmap' },
-              { stat: '60% fewer', desc: 'Hours wasted in status meetings each week' },
+              { stat: '4x earlier', desc: 'Risks detected before they reach the surface' },
+              { stat: '60% fewer', desc: 'Hours spent manually reviewing signals each week' },
             ].map((item) => (
               <div
                 key={item.stat}
@@ -874,10 +871,10 @@ export default function Enterprise() {
                 {/* Report header */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4, flexWrap: 'wrap', gap: 4 }}>
                   <span style={{ fontFamily: dmSans, fontSize: 12, color: '#999', fontWeight: 500 }}>Monday, Jan 13</span>
-                  <span style={{ fontFamily: dmSans, fontSize: 12, color: '#999', fontWeight: 500 }}>Engineering · 24 members</span>
+                  <span style={{ fontFamily: dmSans, fontSize: 12, color: '#999', fontWeight: 500 }}>Operations · 24 members</span>
                 </div>
                 <h3 style={{ fontFamily: dmSans, fontSize: isMobile ? 16 : 18, fontWeight: 700, color: '#1a1a2e', marginBottom: 16 }}>
-                  Weekly Engineering Health Report
+                  Weekly Intelligence Report
                 </h3>
 
                 {/* Tab bar */}
@@ -901,9 +898,9 @@ export default function Enterprise() {
                 {/* Risk items */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                   {[
-                    { color: '#ef4444', label: 'Auth service PR blocked 4 days', severity: 'Critical' },
-                    { color: '#f59e0b', label: 'Sprint velocity down 23% week-over-week', severity: 'Warning' },
-                    { color: '#ef4444', label: '2 engineers at burnout risk threshold', severity: 'Critical' },
+                    { color: '#ef4444', label: 'Critical pipeline anomaly detected in Sector 7', severity: 'Critical' },
+                    { color: '#f59e0b', label: 'Output velocity declining 23% week-over-week', severity: 'Warning' },
+                    { color: '#ef4444', label: '2 resource nodes approaching capacity threshold', severity: 'Critical' },
                   ].map((risk) => (
                     <div key={risk.label} style={{
                       display: 'flex',
@@ -952,13 +949,13 @@ export default function Enterprise() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                Real-time engineering intelligence
+                Real-time predictive intelligence
               </motion.h2>
 
               {[
-                { stat: '12+', title: 'Integrations', desc: 'GitHub, Slack, Linear, Jira, Calendar, and more. Connect your full stack in minutes.' },
-                { stat: '<24hr', title: 'Time to first insight', desc: 'Get your first engineering health report within 24 hours of connecting your tools.' },
-                { stat: '95%', title: 'Signal accuracy', desc: 'Built on ML models trained across thousands of engineering teams. Trusted by leaders at top companies.' },
+                { stat: '12+', title: 'Data Sources', desc: 'APIs, databases, live feeds, and more. Connect your full data stack in minutes.' },
+                { stat: '<24hr', title: 'Time to first insight', desc: 'Get your first intelligence report within 24 hours of connecting your data.' },
+                { stat: '95%', title: 'Signal accuracy', desc: 'Built on ML models trained across thousands of data environments. Trusted by leaders at top companies.' },
               ].map((item, i) => (
                 <motion.div
                   key={item.title}
@@ -1019,7 +1016,7 @@ export default function Enterprise() {
             style={{ fontFamily: dmSans, fontSize: isMobile ? 15 : 16, fontWeight: 400, color: '#666', marginBottom: 48, maxWidth: 480, margin: '0 auto 48px', padding: isMobile ? '0 8px' : 0 }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           >
-            A single report that replaces hours of status meetings and dashboard checks.
+            A single report that replaces hours of manual analysis and dashboard checks.
           </motion.p>
           {/* Report mock */}
           <motion.div
@@ -1040,10 +1037,10 @@ export default function Enterprise() {
             <div style={{ marginBottom: 8 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'flex-start', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 4 : 0 }}>
                 <div>
-                  <h3 style={{ fontFamily: dmSans, fontSize: isMobile ? 20 : 24, fontWeight: 700, color: '#1a1a2e', marginBottom: 4 }}>Team Flow & Capacity</h3>
+                  <h3 style={{ fontFamily: dmSans, fontSize: isMobile ? 20 : 24, fontWeight: 700, color: '#1a1a2e', marginBottom: 4 }}>Operational Flow & Capacity</h3>
                   <p style={{ fontFamily: dmSans, fontSize: 13, color: '#999' }}>Feb 10 - 16, 2026</p>
                 </div>
-                <span style={{ fontFamily: dmSans, fontSize: isMobile ? 13 : 15, fontWeight: 600, color: '#1a1a2e' }}>Acme Engineering</span>
+                <span style={{ fontFamily: dmSans, fontSize: isMobile ? 13 : 15, fontWeight: 600, color: '#1a1a2e' }}>Acme Operations</span>
               </div>
               <div style={{ height: 3, background: '#1a1a2e', borderRadius: 2, marginTop: 16 }} />
             </div>
@@ -1053,10 +1050,10 @@ export default function Enterprise() {
               {/* Meeting Load */}
               <div style={{ border: '1px solid #e8e8ee', borderRadius: 12, padding: isMobile ? '16px' : '20px 20px 16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
-                  <span style={{ fontFamily: dmSans, fontSize: 14, fontWeight: 500, color: '#555' }}>Avg Meeting Load</span>
+                  <span style={{ fontFamily: dmSans, fontSize: 14, fontWeight: 500, color: '#555' }}>Avg Processing Load</span>
                   <span style={{ fontFamily: dmSans, fontSize: isMobile ? 28 : 32, fontWeight: 700, color: '#dc2626', lineHeight: 1 }}>15.8h</span>
                 </div>
-                <p style={{ fontFamily: dmSans, fontSize: 12, color: '#999', marginBottom: 14 }}>39.5% of workweek · Threshold: 30%</p>
+                <p style={{ fontFamily: dmSans, fontSize: 12, color: '#999', marginBottom: 14 }}>39.5% of capacity · Threshold: 30%</p>
                 <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end' }}>
                   {[
                     { h: 28, color: '#34d399' },
@@ -1077,10 +1074,10 @@ export default function Enterprise() {
               {/* Focus Blocks */}
               <div style={{ border: '1px solid #e8e8ee', borderRadius: 12, padding: isMobile ? '16px' : '20px 20px 16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
-                  <span style={{ fontFamily: dmSans, fontSize: 14, fontWeight: 500, color: '#555' }}>Avg Focus Blocks/Day</span>
+                  <span style={{ fontFamily: dmSans, fontSize: 14, fontWeight: 500, color: '#555' }}>Avg Focus Windows/Day</span>
                   <span style={{ fontFamily: dmSans, fontSize: isMobile ? 28 : 32, fontWeight: 700, color: '#dc2626', lineHeight: 1 }}>2.1</span>
                 </div>
-                <p style={{ fontFamily: dmSans, fontSize: 12, color: '#999', marginBottom: 14 }}>2hr+ uninterrupted · Benchmark: 3.0</p>
+                <p style={{ fontFamily: dmSans, fontSize: 12, color: '#999', marginBottom: 14 }}>2hr+ uninterrupted output · Benchmark: 3.0</p>
                 <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end' }}>
                   {[
                     { h: 26, color: '#34d399' },
@@ -1102,11 +1099,11 @@ export default function Enterprise() {
             {/* Heatmap section */}
             <div>
               <h4 style={{ fontFamily: dmSans, fontSize: 14, fontWeight: 700, color: '#1a1a2e', letterSpacing: '0.04em', textTransform: 'uppercase' as const, marginBottom: 4 }}>
-                Coding Activity Heatmap (Team Aggregate)
+                Activity Heatmap (Aggregate)
               </h4>
               <div style={{ height: 2, background: '#f59e0b', borderRadius: 1, marginBottom: 12 }} />
               <p style={{ fontFamily: dmSans, fontSize: 12, color: '#888', marginBottom: 16 }}>
-                Darker = more commits. Shows when the team does deep work vs. gets interrupted.
+                Darker = more activity. Shows when the system does deep processing vs. experiences disruptions.
               </p>
 
               {/* Heatmap grid — horizontally scrollable on mobile */}
@@ -1137,7 +1134,7 @@ export default function Enterprise() {
               </div>
 
               <p style={{ fontFamily: dmSans, fontSize: 11, color: '#999', marginTop: 12, lineHeight: 1.5 }}>
-                Green = coding activity. Amber = meetings. Wednesday afternoon was nearly all meetings (incident retro + cross-team sync).
+                Green = productive activity. Amber = disruptions. Wednesday afternoon was nearly all disruptions (incident response + cross-team sync).
               </p>
             </div>
           </motion.div>
@@ -1161,7 +1158,7 @@ export default function Enterprise() {
             style={{ fontFamily: dmSans, fontSize: isMobile ? 15 : 16, fontWeight: 400, color: 'rgba(255,255,255,0.6)', marginBottom: 40, maxWidth: 440, margin: '0 auto 40px', padding: isMobile ? '0 8px' : 0 }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           >
-            Get a free engineering health audit and see what your team data is telling you.
+            Get a free data intelligence audit and see what your signals are really telling you.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}
@@ -1184,7 +1181,7 @@ export default function Enterprise() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Get Free Audit <ArrowRight style={{ width: 15, height: 15 }} />
+              Get Started <ArrowRight style={{ width: 15, height: 15 }} />
             </Link>
           </motion.div>
         </div>

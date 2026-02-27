@@ -39,16 +39,16 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "NexFlow — Engineering Intelligence for Scaling Teams",
-  description: "NexFlow connects your GitHub, Slack, and Linear to surface sprint risks, PR bottlenecks, and team capacity signals before they become problems. Free engineering health audit.",
-  keywords: ["engineering intelligence", "PR review bottleneck", "sprint risk", "engineering metrics", "developer productivity", "async standup", "engineering health"],
+  title: "NexFlow — Predictive Intelligence for Modern Teams",
+  description: "NexFlow connects your data sources to surface emerging risks, hidden patterns, and capacity signals before they become problems. AI-powered predictive intelligence.",
+  keywords: ["predictive intelligence", "AI predictions", "data intelligence", "operational analytics", "risk detection", "pattern recognition", "predictive analytics"],
   metadataBase: new URL("https://nexflowinc.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "NexFlow — Engineering Intelligence for Scaling Teams",
-    description: "Stop losing $50K/dev/year to invisible bottlenecks. NexFlow shows you what's about to break before it does.",
+    title: "NexFlow — Predictive Intelligence for Modern Teams",
+    description: "Stop reacting to problems after they happen. NexFlow shows you what's coming before anyone else sees it.",
     type: "website",
     url: "https://nexflowinc.com",
     siteName: "NexFlow",
@@ -57,14 +57,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "NexFlow - Engineering Intelligence Platform",
+        alt: "NexFlow - Predictive Intelligence Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NexFlow — Engineering Intelligence for Scaling Teams",
-    description: "Stop losing $50K/dev/year to invisible bottlenecks.",
+    title: "NexFlow — Predictive Intelligence for Modern Teams",
+    description: "Stop reacting to problems after they happen. See what's coming first.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -110,7 +110,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
               "name": "NexFlow",
-              "description": "Engineering intelligence platform that connects GitHub, Slack, and Linear to surface sprint risks, PR bottlenecks, and team capacity signals.",
+              "description": "Predictive intelligence platform that connects your data sources to surface emerging risks, hidden patterns, and capacity signals before they become problems.",
               "url": "https://nexflowinc.com",
               "applicationCategory": "BusinessApplication",
               "offers": {
