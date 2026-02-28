@@ -39,7 +39,7 @@ export default function BlogIndex() {
           <nav style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
             <Link href="/enterprise" style={{ fontFamily: dmSans, fontSize: 14, color: '#666', textDecoration: 'none' }}>Home</Link>
             <Link
-              href="https://cal.com/arjun-dixit-0nwkzi/30min"
+              href="https://calendly.com/arjundixit3508/30min"
               target="_blank"
               style={{
                 fontFamily: dmSans,
@@ -52,7 +52,7 @@ export default function BlogIndex() {
                 textDecoration: 'none',
               }}
             >
-              Get Free Audit
+              Get Your Free 48-Hour Audit
             </Link>
           </nav>
         </div>

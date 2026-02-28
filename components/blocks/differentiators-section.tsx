@@ -1,10 +1,22 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { Signal, Heart, Plug } from 'lucide-react'
+import { Signal, Heart, Plug, type LucideIcon } from 'lucide-react'
 import { fadeInUp, staggerContainer } from '@/lib/animations'
 
-const differentiators = [
+interface DifferentiatorItem {
+    icon: LucideIcon
+    title: string
+    description: string
+}
+
+interface DifferentiatorsSectionProps {
+    heading?: React.ReactNode
+    items?: DifferentiatorItem[]
+    sectionId?: string
+}
+
+const defaultItems: DifferentiatorItem[] = [
     {
         icon: Signal,
         title: 'Signals, not noise',
@@ -22,9 +34,13 @@ const differentiators = [
     },
 ]
 
-export function DifferentiatorsSection() {
+export function DifferentiatorsSection({
+    heading,
+    items = defaultItems,
+    sectionId,
+}: DifferentiatorsSectionProps) {
     return (
-        <section className="bg-white py-16 sm:py-20">
+        <section id={sectionId} className="bg-white py-16 sm:py-20">
             <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10">
                 <motion.div
                     className="text-center mb-12"
@@ -34,7 +50,7 @@ export function DifferentiatorsSection() {
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 >
                     <h2 className="text-slate-900 text-[28px] sm:text-[36px] font-semibold tracking-tight mb-3">
-                        Why teams <span className="font-serif-accent font-normal">choose</span> NexFlow
+                        {heading ?? <>Why teams <span className="font-serif-accent font-normal">choose</span> NexFlow</>}
                     </h2>
                 </motion.div>
 
@@ -45,7 +61,7 @@ export function DifferentiatorsSection() {
                     whileInView="visible"
                     viewport={{ once: true, margin: '-60px' }}
                 >
-                    {differentiators.map((item) => {
+                    {items.map((item) => {
                         const Icon = item.icon
                         return (
                             <motion.div

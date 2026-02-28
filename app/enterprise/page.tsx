@@ -1,1218 +1,640 @@
 "use client"
 
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef, useState, useEffect } from 'react'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, Menu, X } from 'lucide-react'
+import { ArrowRight, Menu, X, Link2, BarChart3, Zap, TrendingDown, GitPullRequest, Shuffle, AlertTriangle } from 'lucide-react'
+import { fadeInUp, staggerContainer } from '@/lib/animations'
+import { AnimatedGroup } from '@/components/ui/animated-group'
+import { cn } from '@/lib/utils'
+import { DarkCtaSection } from '@/components/blocks/dark-cta-section'
 
-const dmSans = 'var(--font-dm-sans), "DM Sans", -apple-system, sans-serif'
-const playfair = 'var(--font-playfair), "Playfair Display", Georgia, serif'
+const CAL_LINK = 'https://calendly.com/arjundixit3508/30min'
 
-function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`)
-    setIsMobile(mq.matches)
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
-    mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
-  }, [breakpoint])
-  return isMobile
-}
-
-const wordAnimation = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.06 },
+const heroTransition = {
+  container: {
+    visible: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  },
+  item: {
+    hidden: {
+      opacity: 0,
+      filter: 'blur(12px)',
+      y: 12,
+    },
+    visible: {
+      opacity: 1,
+      filter: 'blur(0px)',
+      y: 0,
+      transition: {
+        type: 'spring',
+        bounce: 0.3,
+        duration: 1.5,
+      },
+    },
   },
 }
 
-const wordChild = {
-  hidden: { opacity: 0, y: 18 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
+const heroCtaTransition = {
+  container: {
+    visible: {
+      transition: {
+        staggerChildren: 0.05,
+        delayChildren: 0.75,
+      },
+    },
+  },
+  item: {
+    hidden: {
+      opacity: 0,
+      filter: 'blur(12px)',
+      y: 12,
+    },
+    visible: {
+      opacity: 1,
+      filter: 'blur(0px)',
+      y: 0,
+      transition: {
+        type: 'spring',
+        bounce: 0.3,
+        duration: 1.5,
+      },
+    },
   },
 }
 
-type HeadlineWord = { text: string; italic?: boolean }
+const navItems = [
+  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'The Offer', href: '#offer' },
+  { label: 'Why NexFlow', href: '#why-us' },
+]
 
-function AnimatedHeadline({ words }: { words: HeadlineWord[] }) {
+/* ── Navbar ── */
+function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
-    <motion.span variants={wordAnimation} initial="hidden" animate="visible">
-      {words.map((word, i) => (
-        <motion.span
-          key={i}
-          variants={wordChild}
-          style={{
-            display: 'inline-block',
-            marginRight: '0.22em',
-            fontFamily: word.italic ? playfair : undefined,
-            fontStyle: word.italic ? 'italic' : undefined,
-          }}
+    <div className="relative z-10 flex justify-center pt-3 px-4 md:pt-5 md:px-6">
+      <motion.nav
+        className="grid grid-cols-[1fr_auto_1fr] items-center px-4 h-[52px] max-w-[960px] w-full rounded-full bg-white/70 backdrop-blur-xl border border-white/50 shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_4px_rgba(0,0,0,0.04)]"
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        {/* Left — logo */}
+        <div className="flex items-center">
+          <Link href="/" className="flex items-center">
+            <Image src="/logo.png" alt="NexFlow" width={437} height={387} className="block object-contain h-7 w-auto" />
+          </Link>
+        </div>
+
+        {/* Center — nav links */}
+        <div className="hidden md:flex items-center gap-6">
+          {navItems.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              className="text-[14px] font-medium text-slate-600 tracking-tight no-underline hover:text-slate-900 transition-colors"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Right — CTA (mirrors logo width for symmetry) */}
+        <div className="flex items-center justify-end">
+          <Link
+            href={CAL_LINK}
+            target="_blank"
+            className="hidden md:inline-flex text-[13px] font-medium text-white bg-slate-900 px-5 py-2 rounded-full no-underline tracking-tight hover:bg-slate-800 transition-colors"
+          >
+            Get Free Audit
+          </Link>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden bg-transparent border-none cursor-pointer p-1.5 flex items-center justify-center text-slate-600"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </motion.nav>
+
+      {/* Mobile dropdown */}
+      {mobileMenuOpen && (
+        <motion.div
+          className="absolute top-[60px] left-4 right-4 bg-white/95 backdrop-blur-2xl rounded-2xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.1)] p-2 z-[100]"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
         >
-          {word.text}
-        </motion.span>
-      ))}
-    </motion.span>
-  )
-}
-
-/* ── Real brand SVG logos ── */
-const LogoGithub = ({ size = 28 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="#181717">
-    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-  </svg>
-)
-
-const LogoSlack = ({ size = 26 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24">
-    <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52z" fill="#E01E5A"/>
-    <path d="M6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z" fill="#E01E5A"/>
-    <path d="M8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834z" fill="#36C5F0"/>
-    <path d="M8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312z" fill="#36C5F0"/>
-    <path d="M18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834z" fill="#2EB67D"/>
-    <path d="M17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312z" fill="#2EB67D"/>
-    <path d="M15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52z" fill="#ECB22E"/>
-    <path d="M15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" fill="#ECB22E"/>
-  </svg>
-)
-
-function FloatingIntegrationLogos({ hidden }: { hidden?: boolean }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  })
-
-  // Y parallax
-  const y0 = useTransform(scrollYProgress, [0, 1], [60, -40])
-  const y1 = useTransform(scrollYProgress, [0, 1], [40, -60])
-
-  // X spread outward on scroll
-  const xL = useTransform(scrollYProgress, [0.05, 0.35], [300, 0])
-  const xR = useTransform(scrollYProgress, [0.08, 0.38], [-300, 0])
-
-  if (hidden) return null
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        position: 'absolute',
-        inset: 0,
-        pointerEvents: 'none',
-        zIndex: 5,
-      }}
-    >
-      {/* GitHub — far left */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          left: 'calc(50% - 660px)',
-          top: '35%',
-          y: y0,
-          x: xL,
-          rotate: -6,
-          width: 72,
-          height: 72,
-          background: '#fff',
-          borderRadius: 18,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)',
-        }}
-        initial={{ opacity: 0, scale: 0.5 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <LogoGithub size={32} />
-      </motion.div>
-
-      {/* Slack — far right */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          right: 'calc(50% - 660px)',
-          top: '40%',
-          y: y1,
-          x: xR,
-          rotate: 5,
-          width: 72,
-          height: 72,
-          background: '#fff',
-          borderRadius: 18,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)',
-        }}
-        initial={{ opacity: 0, scale: 0.5 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <LogoSlack size={30} />
-      </motion.div>
+          {navItems.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="block px-4 py-3 text-[15px] font-medium text-slate-600 no-underline rounded-xl"
+            >
+              {item.label}
+            </Link>
+          ))}
+          <div className="h-px bg-black/5 mx-4 my-1" />
+          <Link
+            href={CAL_LINK}
+            target="_blank"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-4 py-3 text-[15px] font-medium text-white bg-slate-900 rounded-xl no-underline text-center my-1"
+          >
+            Get Free Audit
+          </Link>
+        </motion.div>
+      )}
     </div>
   )
 }
 
-const headlineWords: HeadlineWord[] = [
-  { text: 'Know' },
-  { text: 'what' },
-  { text: 'happens', italic: true },
-  { text: 'next,' },
-  { text: 'before' },
-  { text: 'anyone', italic: true },
-  { text: 'else.' },
-]
-
-const navItems = [
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Why NexFlow', href: '#why-nexflow' },
-  { label: 'Platform', href: '#product' },
-  { label: 'Insights', href: '#reports' },
-]
-
-export default function Enterprise() {
-  const isMobile = useIsMobile()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+/* ── Hero ── */
+function Hero() {
   return (
-    <main style={{ background: '#fff', minHeight: '100vh' }}>
-      {/* Full extended background behind hero + first sections */}
-      <div style={{ position: 'relative' }}>
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: 'url(/hero-bg-extended.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center top',
-            zIndex: 0,
-          }}
-        />
-
-      <section style={{ position: 'relative', overflow: 'hidden', minHeight: isMobile ? 'auto' : '100vh' }}>
-
-        {/* Subtle radial white fade behind center content */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'radial-gradient(ellipse 60% 55% at 50% 45%, rgba(255,252,250,0.7) 0%, rgba(255,252,250,0.4) 35%, rgba(255,255,255,0) 65%)',
-            zIndex: 1,
-          }}
-        />
-
-        {/* ── Floating glass navbar ── */}
-        <div style={{
-          position: 'relative',
-          zIndex: 10,
-          display: 'flex',
-          justifyContent: 'center',
-          padding: isMobile ? '12px 16px 0' : '20px 24px 0',
-        }}>
-          <motion.nav
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: isMobile ? '10px 12px 10px 14px' : '10px 8px 10px 16px',
-              height: 52,
-              maxWidth: 960,
-              width: '100%',
-              borderRadius: 9999,
-              background: 'rgba(255, 255, 255, 0.7)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              border: '1px solid rgba(255, 255, 255, 0.5)',
-              boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)',
-              position: 'relative',
-            }}
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-              <Image src="/logo.png" alt="NexFlow" width={437} height={387} style={{ display: 'block', objectFit: 'contain', height: 28, width: 'auto' }} />
-            </Link>
-
-            {!isMobile && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-                {navItems.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    style={{
-                      fontFamily: dmSans,
-                      fontSize: 14,
-                      fontWeight: 500,
-                      color: '#3a3a4a',
-                      letterSpacing: '-0.02em',
-                      cursor: 'pointer',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-
-            {!isMobile && (
-              <Link
-                href="https://cal.com/arjun-dixit-0nwkzi/30min"
-                target="_blank"
-                style={{
-                  fontFamily: dmSans,
-                  fontSize: 13,
-                  fontWeight: 500,
-                  color: '#fff',
-                  padding: '8px 20px',
-                  background: '#1a1a2e',
-                  borderRadius: 9999,
-                  textDecoration: 'none',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                Get a Demo
-              </Link>
-            )}
-
-            {isMobile && (
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: 6,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#3a3a4a',
-                }}
-              >
-                {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
-            )}
-          </motion.nav>
-
-          {/* Mobile dropdown menu */}
-          {isMobile && mobileMenuOpen && (
-            <motion.div
-              style={{
-                position: 'absolute',
-                top: 60,
-                left: 16,
-                right: 16,
-                background: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                borderRadius: 16,
-                border: '1px solid rgba(255, 255, 255, 0.6)',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-                padding: 8,
-                zIndex: 100,
-              }}
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {navItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  style={{
-                    fontFamily: dmSans,
-                    display: 'block',
-                    padding: '12px 16px',
-                    fontSize: 15,
-                    fontWeight: 500,
-                    color: '#3a3a4a',
-                    textDecoration: 'none',
-                    borderRadius: 10,
-                  }}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <div style={{ height: 1, background: 'rgba(0,0,0,0.06)', margin: '4px 16px' }} />
-              <Link
-                href="https://cal.com/arjun-dixit-0nwkzi/30min"
-                target="_blank"
-                onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  fontFamily: dmSans,
-                  display: 'block',
-                  padding: '12px 16px',
-                  fontSize: 15,
-                  fontWeight: 500,
-                  color: '#fff',
-                  background: '#1a1a2e',
-                  borderRadius: 10,
-                  textDecoration: 'none',
-                  textAlign: 'center',
-                  margin: '4px 0',
-                }}
-              >
-                Get a Demo
-              </Link>
-            </motion.div>
-          )}
-        </div>
-
-        {/* ── Hero content ── */}
-        <div style={{
-          position: 'relative',
-          zIndex: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          textAlign: 'center',
-          padding: isMobile ? '48px 20px 56px' : '80px 24px 80px',
-          maxWidth: 960,
-          margin: '0 auto',
-        }}>
-
-          {/* Announcement pill */}
-          <motion.div
-            style={{
-              fontFamily: dmSans,
-              fontSize: isMobile ? 12 : 13,
-              color: '#5a4ed4',
-              padding: '6px 16px',
-              background: 'rgba(255, 255, 255, 0.55)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              borderRadius: 100,
-              border: '1px solid rgba(255, 255, 255, 0.6)',
-              boxShadow: '0 2px 12px rgba(0, 0, 0, 0.04), 0 0.5px 2px rgba(0, 0, 0, 0.03)',
-              marginBottom: isMobile ? 24 : 36,
-              letterSpacing: '-0.01em',
-              fontWeight: 500,
-            }}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-          >
-            <span style={{ fontWeight: 600 }}>New:</span> Predictive AI that learns your patterns
-          </motion.div>
-
-          {/* Headline — DM Sans base + Playfair italic accents */}
-          <h1 style={{
-            fontFamily: dmSans,
-            fontSize: 'clamp(32px, 5.5vw, 68px)',
-            fontWeight: 500,
-            letterSpacing: '-0.03em',
-            lineHeight: 1.1,
-            color: '#2a1f14',
-            marginBottom: isMobile ? 24 : 32,
-            maxWidth: 960,
-          }}>
-            <AnimatedHeadline words={headlineWords} />
+    <div className="relative z-[2] pt-20 md:pt-28 pb-12 md:pb-16">
+      <div className="mx-auto max-w-4xl px-6 text-center">
+        <AnimatedGroup variants={heroTransition}>
+          <h1 className="text-balance text-5xl md:text-7xl xl:text-[5.25rem] font-medium tracking-[-0.03em] leading-[1.08] text-[#2a1f14]">
+            Ship on time.{' '}
+            <span className="font-playfair">Every time.</span>
           </h1>
 
-          {/* CTAs */}
-          <motion.div
-            style={{
-              display: 'flex',
-              flexDirection: isMobile ? 'column' : 'row',
-              gap: 12,
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: isMobile ? '100%' : 'auto',
-              maxWidth: isMobile ? 320 : 'none',
-            }}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <p className="mx-auto mt-6 max-w-lg text-balance text-lg text-slate-500">
+            Spot engineering delays 2 to 3 weeks before they hit.
+          </p>
+        </AnimatedGroup>
+
+        <AnimatedGroup
+          variants={heroCtaTransition}
+          className="mt-8 flex flex-col items-center justify-center gap-3"
+        >
+          <div className="rounded-[14px] border border-slate-200 bg-slate-900/10 p-0.5">
             <Link
-              href="https://cal.com/arjun-dixit-0nwkzi/30min"
+              href={CAL_LINK}
               target="_blank"
-              style={{
-                fontFamily: dmSans,
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-                background: '#1e1e2e',
-                borderRadius: 100,
-                padding: isMobile ? '14px 24px' : '14px 28px',
-                color: '#fff',
-                fontSize: 15,
-                fontWeight: 500,
-                textDecoration: 'none',
-                letterSpacing: '-0.02em',
-                width: isMobile ? '100%' : 'auto',
-              }}
+              className="inline-flex items-center justify-center gap-2 bg-slate-900 rounded-xl px-6 py-3 text-white text-[15px] font-medium no-underline tracking-tight hover:bg-slate-800 transition-colors"
             >
-              Get Early Access <ArrowRight style={{ width: 15, height: 15 }} />
+              Get Your Free 48-Hour Audit <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
-              href="/sample-report.html"
-              target="_blank"
-              style={{
-                fontFamily: dmSans,
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: 'transparent',
-                borderRadius: 100,
-                padding: isMobile ? '14px 24px' : '14px 28px',
-                color: '#1e1e2e',
-                fontSize: 15,
-                fontWeight: 500,
-                border: '1px solid #c5c5d0',
-                textDecoration: 'none',
-                letterSpacing: '-0.02em',
-                width: isMobile ? '100%' : 'auto',
-              }}
-            >
-              See a Sample Insight
-            </Link>
-          </motion.div>
+          </div>
 
-          {/* Subtext below CTA */}
-          <motion.p
-            style={{
-              fontFamily: dmSans,
-              fontSize: isMobile ? 13 : 14,
-              fontWeight: 400,
-              color: '#999',
-              marginTop: 20,
-              letterSpacing: '-0.01em',
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.4 }}
-          >
-            Connects to your existing data sources. First insights in 24 hours.
-          </motion.p>
-        </div>
+          <p className="text-[14px] text-slate-400 tracking-tight">
+            See which teams are at risk. Free report in 48 hours.
+          </p>
+        </AnimatedGroup>
+      </div>
+    </div>
+  )
+}
 
-      </section>
 
-      {/* ── How we work — two-column layout ── */}
-      <section id="how-it-works" style={{
-        position: 'relative',
-        zIndex: 1,
-        background: 'transparent',
-        padding: isMobile ? '48px 16px' : '64px 24px',
-      }}>
-        <div style={{
-          maxWidth: 1060,
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-          gap: isMobile ? 32 : 48,
-          alignItems: 'center',
-          background: 'rgba(255, 255, 255, 0.55)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255, 255, 255, 0.6)',
-          boxShadow: '0 8px 40px rgba(0, 0, 0, 0.04), 0 1px 4px rgba(0, 0, 0, 0.02)',
-          borderRadius: isMobile ? 20 : 24,
-          padding: isMobile ? '28px 20px' : '36px 40px',
-        }}>
+/* ── Solution Section (features-5 style) ── */
+function SolutionSection() {
+  const signals = [
+    { icon: GitPullRequest, label: 'PR reviews stuck too long' },
+    { icon: TrendingDown, label: 'Sprint velocity dropping' },
+    { icon: Shuffle, label: 'Too much context switching' },
+    { icon: AlertTriangle, label: 'Blockers about to spread' },
+  ]
 
-          {/* Left column — headline + description + CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div style={{
-              fontFamily: dmSans,
-              fontSize: 12,
-              fontWeight: 600,
-              color: '#1a1a2e',
-              background: 'rgba(255,255,255,0.6)',
-              backdropFilter: 'blur(8px)',
-              display: 'inline-block',
-              padding: '5px 14px',
-              borderRadius: 100,
-              marginBottom: 20,
-            }}>
-              How we work
+  return (
+    <section className="bg-slate-50 py-16 md:py-24 px-6">
+      <div className="mx-auto max-w-xl md:max-w-6xl">
+        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-10 lg:grid-cols-5 lg:gap-16">
+          <div className="lg:col-span-2">
+            <div className="md:pr-6 lg:pr-0 text-center md:text-left">
+              <h2 className="text-3xl font-semibold md:text-4xl lg:text-5xl tracking-tight text-slate-900">
+                What if you knew <span className="font-playfair">3 weeks early?</span>
+              </h2>
+              <p className="mt-4 text-slate-500 leading-relaxed">
+                We read the signals your tools already create. Then we tell you what&apos;s about to go wrong.
+              </p>
             </div>
+            <ul className="mt-8 divide-y divide-slate-200 border-y border-slate-200">
+              {signals.map((signal) => {
+                const Icon = signal.icon
+                return (
+                  <li key={signal.label} className="flex items-center gap-3 py-3">
+                    <Icon className="size-5 text-emerald-500 shrink-0" strokeWidth={1.5} />
+                    <span className="text-slate-700 text-[15px]">{signal.label}</span>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+          <div className="relative rounded-3xl border border-slate-200 p-3 lg:col-span-3">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm">
+              {/* Mini report preview */}
+              <div className="flex items-center justify-between mb-5">
+                <div>
+                  <div className="text-slate-900 text-[15px] font-semibold">Risk Summary</div>
+                  <div className="text-slate-400 text-[12px] mt-0.5">Week of Feb 24, 2026</div>
+                </div>
+                <div className="px-2.5 py-1 bg-amber-50 text-amber-600 text-[12px] font-medium rounded-md">
+                  3 At-Risk
+                </div>
+              </div>
+              <div className="space-y-3 mb-5">
+                {[
+                  { risk: 'Auth migration blocked on infra review', days: '5d', severity: 'high' },
+                  { risk: '3 PRs stale >48h in payments team', days: '3d', severity: 'medium' },
+                  { risk: 'Sprint velocity down 18% vs last week', days: '—', severity: 'medium' },
+                ].map((item) => (
+                  <div key={item.risk} className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg">
+                    <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${item.severity === 'high' ? 'bg-red-400' : 'bg-amber-400'}`} />
+                    <div className="flex-1">
+                      <div className="text-slate-700 text-[13px] font-medium">{item.risk}</div>
+                    </div>
+                    <span className="text-slate-400 text-[12px] font-medium shrink-0">{item.days}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="pt-4 border-t border-slate-100">
+                <div className="text-slate-900 text-[13px] font-semibold mb-2">Recommended Actions</div>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                    <span className="text-slate-500 text-[13px]">Escalate infra review — 2 teams blocked</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                    <span className="text-slate-500 text-[13px]">Reassign stale PR reviews in payments</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
-            <h2 style={{
-              fontFamily: playfair,
-              fontSize: isMobile ? 'clamp(26px, 7vw, 34px)' : 'clamp(28px, 3.5vw, 40px)',
-              fontWeight: 400,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.1,
-              color: '#2a1f14',
-              marginBottom: 16,
-            }}>
-              AI precision, human-level <span style={{ fontStyle: 'italic' }}>intuition.</span>
-            </h2>
+/* ── How It Works (CTO-perspective) ── */
+const howItWorksSteps = [
+  {
+    num: '01',
+    title: 'Connect your tools',
+    description: 'GitHub, Jira, Slack. 10 minutes. Read-only.',
+    detail: 'Nothing changes for your team.',
+    icon: Link2,
+  },
+  {
+    num: '02',
+    title: 'We scan 90 days of data',
+    description: 'PR cycles, sprint patterns, workload signals.',
+    detail: 'Things you can\'t see in a standup.',
+    icon: BarChart3,
+  },
+  {
+    num: '03',
+    title: 'Get a report every Monday',
+    description: 'What\'s slipping, why, what to do.',
+    detail: 'One page. In your inbox before standup.',
+    icon: Zap,
+  },
+]
 
-            <p style={{
-              fontFamily: dmSans,
-              fontSize: 14,
-              fontWeight: 400,
-              lineHeight: 1.65,
-              color: '#666',
-              marginBottom: 24,
-              maxWidth: 400,
-            }}>
-              Built on the same ML infrastructure that powers predictions at scale, applied to your most critical decisions.
-            </p>
+function HowItWorksSection() {
+  return (
+    <section id="how-it-works" className="bg-white py-16 md:py-24 px-6">
+      <div className="max-w-4xl mx-auto">
+        <motion.div
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 mb-2">
+            Three steps. Report in <span className="font-playfair">48 hours.</span>
+          </h2>
+        </motion.div>
 
-            <Link
-              href="https://cal.com/arjun-dixit-0nwkzi/30min"
-              target="_blank"
-              style={{
-                fontFamily: dmSans,
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                background: '#1a1a2e',
-                borderRadius: 100,
-                padding: '12px 24px',
-                color: '#fff',
-                fontSize: 14,
-                fontWeight: 500,
-                textDecoration: 'none',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Schedule Demo
-            </Link>
-          </motion.div>
-
-          {/* Right column — numbered steps */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {[
-              {
-                step: '01',
-                title: 'Surface hidden patterns',
-                tag: '24 hours',
-                desc: 'AI models analyze your data streams in real time. First insights the same day.',
-              },
-              {
-                step: '02',
-                title: 'Predict outcomes 4x earlier',
-                tag: 'Weeks 2-4',
-                desc: 'Detect emerging risks and trends weeks before they become visible to anyone else.',
-              },
-              {
-                step: '03',
-                title: 'Continuous intelligence',
-                tag: 'Ongoing',
-                desc: 'Builds memory over time. Predictions get sharper every cycle.',
-              },
-            ].map((item, i) => (
+        <div className="space-y-0 divide-y divide-slate-100">
+          {howItWorksSteps.map((step, index) => {
+            const Icon = step.icon
+            return (
               <motion.div
-                key={item.step}
-                style={{
-                  display: 'flex',
-                  gap: 16,
-                  background: 'rgba(255, 255, 255, 0.45)',
-                  backdropFilter: 'blur(8px)',
-                  WebkitBackdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(255, 255, 255, 0.5)',
-                  borderRadius: 14,
-                  padding: '16px 18px',
-                }}
+                key={step.num}
+                className="group grid grid-cols-1 md:grid-cols-[64px_1fr_auto] gap-3 md:gap-6 items-start py-6 first:pt-0 last:pb-0"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
               >
-                <div style={{
-                  fontFamily: dmSans,
-                  fontSize: 13,
-                  fontWeight: 500,
-                  color: '#bbb',
-                  minWidth: 24,
-                  paddingTop: 1,
-                }}>
-                  {item.step}
-                </div>
+                {/* Step number */}
+                <span className="text-[40px] font-semibold tracking-tight text-slate-200 leading-none hidden md:block">
+                  {step.num}
+                </span>
+
+                {/* Content */}
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
-                    <h3 style={{
-                      fontFamily: dmSans,
-                      fontSize: 15,
-                      fontWeight: 700,
-                      color: '#1a1a2e',
-                    }}>
-                      {item.title}
-                    </h3>
-                    <span style={{
-                      fontFamily: dmSans,
-                      fontSize: 11,
-                      fontWeight: 500,
-                      color: '#888',
-                      background: 'rgba(255,255,255,0.6)',
-                      padding: '2px 8px',
-                      borderRadius: 100,
-                      border: '1px solid rgba(0,0,0,0.06)',
-                    }}>
-                      {item.tag}
-                    </span>
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="md:hidden text-xs font-semibold text-slate-300 tracking-wider uppercase">Step {step.num}</span>
                   </div>
-                  <p style={{
-                    fontFamily: dmSans,
-                    fontSize: 13,
-                    fontWeight: 400,
-                    color: '#999',
-                    lineHeight: 1.5,
-                  }}>
-                    {item.desc}
+                  <h3 className="text-slate-900 text-lg font-semibold tracking-tight mb-1.5">
+                    {step.title}
+                  </h3>
+                  <p className="text-slate-500 text-[15px] leading-relaxed max-w-lg">
+                    {step.description}
+                  </p>
+                  <p className="text-slate-400 text-[13px] mt-2">
+                    {step.detail}
                   </p>
                 </div>
+
+                {/* Icon */}
+                <div className="hidden md:flex w-10 h-10 rounded-lg bg-slate-50 items-center justify-center shrink-0 group-hover:bg-emerald-50 transition-colors duration-300 mt-1">
+                  <Icon className="w-5 h-5 text-slate-400 group-hover:text-emerald-500 transition-colors duration-300" strokeWidth={1.5} />
+                </div>
               </motion.div>
-            ))}
-          </div>
-
+            )
+          })}
         </div>
-      </section>
+      </div>
+    </section>
+  )
+}
 
-      {/* Fade out the extended background */}
-      <div style={{
-        position: 'relative',
-        zIndex: 1,
-        height: 120,
-        background: 'linear-gradient(to bottom, transparent, #f9f8f6)',
-      }} />
+/* ── Grand Slam Offer ── */
+const valueMetrics = [
+  {
+    stat: '40%',
+    label: 'fewer surprise delays',
+    description: 'Know what\'s slipping weeks before sprint review.',
+  },
+  {
+    stat: '6hrs',
+    label: 'saved per week',
+    description: 'One report replaces your status meetings.',
+  },
+  {
+    stat: '48hrs',
+    label: 'to first report',
+    description: 'See your risks before your next sprint review.',
+  },
+  {
+    stat: '10min',
+    label: 'to set up',
+    description: 'Connect your tools. We handle the rest.',
+  },
+]
 
-      </div>{/* End extended background wrapper */}
+function GrandSlamOffer() {
+  return (
+    <section id="offer" className="bg-slate-50 py-16 md:py-24 px-6">
+      <div className="max-w-4xl mx-auto">
+        <motion.div
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="text-emerald-600 text-sm font-medium tracking-wide uppercase mb-3">
+            The Offer
+          </p>
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 mb-3 leading-[1.15]">
+            Be the leader who{' '}
+            <span className="font-playfair">always knows what&apos;s shipping.</span>
+          </h2>
+          <p className="text-slate-500 text-[15px] max-w-md mx-auto leading-relaxed">
+            No more fire drills. No more &quot;we need two more weeks.&quot;
+          </p>
+        </motion.div>
 
-      {/* ── Our Results section ── */}
-      <section id="why-nexflow" style={{
-        background: '#f9f8f6',
-        padding: isMobile ? '48px 16px' : '64px 24px',
-        position: 'relative',
-        overflow: 'visible',
-      }}>
-        <FloatingIntegrationLogos hidden={isMobile} />
-        <div style={{ maxWidth: 1060, margin: '0 auto', position: 'relative' }}>
-
-          {/* Top row */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-            gap: isMobile ? 20 : 64,
-            marginBottom: 40,
-          }}>
+        {/* Value metrics grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 rounded-2xl overflow-hidden border border-slate-200 mb-10">
+          {valueMetrics.map((metric, index) => (
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              key={metric.stat}
+              className="bg-white p-6 md:p-8"
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
             >
-              <div style={{
-                fontFamily: dmSans,
-                fontSize: 13,
-                fontWeight: 600,
-                color: '#1a1a2e',
-                background: 'rgba(0,0,0,0.05)',
-                display: 'inline-block',
-                padding: '6px 16px',
-                borderRadius: 100,
-                marginBottom: isMobile ? 16 : 28,
-              }}>
-                Why NexFlow
+              <div className="flex items-baseline gap-2 mb-1.5">
+                <span className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900">
+                  {metric.stat}
+                </span>
+                <span className="text-sm font-medium text-slate-400">
+                  {metric.label}
+                </span>
               </div>
-              <h2 style={{
-                fontFamily: playfair,
-                fontSize: isMobile ? 'clamp(28px, 8vw, 40px)' : 'clamp(32px, 4.5vw, 52px)',
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
-                lineHeight: 1.1,
-                color: '#2a1f14',
-              }}>
-                See more, act <span style={{ fontStyle: 'italic' }}>faster</span>
-              </h2>
+              <p className="text-slate-500 text-[14px] leading-relaxed">
+                {metric.description}
+              </p>
             </motion.div>
+          ))}
+        </div>
 
-            <motion.p
-              style={{
-                fontFamily: dmSans,
-                fontSize: isMobile ? 15 : 16,
-                fontWeight: 400,
-                lineHeight: 1.7,
-                color: '#888',
-                paddingTop: isMobile ? 0 : 48,
-                maxWidth: 420,
-              }}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              Our team comes from Stanford and Harvard, where we researched ML systems for predictive intelligence. NexFlow is that research, productized.
-            </motion.p>
-          </div>
-
-          {/* Stats banner */}
-          <motion.div
-            style={{
-              borderRadius: isMobile ? 20 : 24,
-              overflow: 'hidden',
-              background: 'linear-gradient(135deg, #1a1a2e 0%, #2d2b5e 40%, #3a5a6e 70%, #2a4a5a 100%)',
-              padding: isMobile ? '32px 20px' : '56px 40px',
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-              gap: 20,
-              position: 'relative',
-            }}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+        {/* CTA block */}
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <p className="text-slate-500 text-[15px] max-w-md mx-auto mb-6 leading-relaxed">
+            We audit 90 days of your data and send you a risk report in 48 hours. Free. Keep it no matter what.
+          </p>
+          <Link
+            href={CAL_LINK}
+            target="_blank"
+            className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-slate-900 px-8 text-[15px] font-medium text-white no-underline transition-all duration-300 hover:bg-slate-800 hover:scale-105 active:scale-95 hover:ring-4 hover:ring-slate-900/20"
           >
-            <div style={{
-              position: 'absolute',
-              top: '30%',
-              left: '35%',
-              width: 300,
-              height: 300,
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(139,124,247,0.25) 0%, transparent 70%)',
-              filter: 'blur(60px)',
-              pointerEvents: 'none',
-            }} />
+            Get Your Free 48-Hour Audit
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+          <p className="text-xs font-medium text-emerald-600 mt-4">
+            Only 10 audit slots open this month.
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
 
-            {[
-              { stat: '4x earlier', desc: 'Risks detected before they reach the surface' },
-              { stat: '60% fewer', desc: 'Hours spent manually reviewing signals each week' },
-            ].map((item) => (
-              <div
-                key={item.stat}
-                style={{
-                  position: 'relative',
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  borderRadius: 20,
-                  padding: isMobile ? '28px 24px' : '36px 32px',
-                }}
-              >
-                <h3 style={{
-                  fontFamily: playfair,
-                  fontSize: isMobile ? 'clamp(28px, 8vw, 40px)' : 'clamp(32px, 4.5vw, 52px)',
-                  fontWeight: 400,
-                  fontStyle: 'italic',
-                  color: '#fff',
-                  marginBottom: 10,
-                  letterSpacing: '-0.02em',
-                }}>
-                  {item.stat}
-                </h3>
-                <p style={{
-                  fontFamily: dmSans,
-                  fontSize: isMobile ? 14 : 15,
-                  fontWeight: 400,
-                  color: 'rgba(255,255,255,0.55)',
-                  lineHeight: 1.5,
-                }}>
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </motion.div>
 
-        </div>
-      </section>
+/* ── Why NexFlow — Bento Grid ── */
+const bentoItems = [
+  {
+    title: 'Plugs into your existing stack',
+    description: 'GitHub, Jira, Slack. No new tools. Nothing changes for your engineers.',
+    status: 'Plug & Play',
+    tags: ['GitHub', 'Jira', 'Slack'],
+    colSpan: 2,
+    hasPersistentHover: true,
+  },
+  {
+    title: 'Predicts, not just reports',
+    description: 'Most tools show what happened. We show what\'s about to happen.',
+    status: 'Predictive',
+    tags: ['AI', 'Forecasting'],
+  },
+  {
+    title: 'One page, every Monday',
+    description: 'No dashboards. No alerts. One report in your inbox.',
+    status: 'Simple',
+    tags: ['Reports'],
+  },
+  {
+    title: 'We never see your code',
+    description: 'Read-only metadata access. No source code, no messages.',
+    status: 'Secure',
+    tags: ['Metadata', 'Read-only'],
+    colSpan: 2,
+  },
+]
 
-      {/* ── Product Intelligence section ── */}
-      <section id="product" style={{
-        background: '#f9f8f6',
-        padding: isMobile ? '48px 16px' : '64px 24px',
-        overflow: 'hidden',
-      }}>
-        <div style={{ maxWidth: 1060, margin: '0 auto' }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : '1.1fr 1fr',
-            gap: isMobile ? 36 : 56,
-            alignItems: 'center',
-          }}>
+function WhyUsSection() {
+  return (
+    <section id="why-us" className="bg-white py-16 md:py-24 px-6">
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 mb-3">
+            Why <span className="font-playfair">NexFlow?</span>
+          </h2>
+          <p className="text-slate-500 text-[15px] max-w-md mx-auto">
+            Built by Stanford and Harvard researchers who studied how engineering teams break down under load.
+          </p>
+        </motion.div>
 
-            {/* Left: Report card mock */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {bentoItems.map((item, index) => (
             <motion.div
-              style={{
-                background: 'linear-gradient(145deg, #e4e1ed 0%, #d8d4e8 100%)',
-                borderRadius: isMobile ? 20 : 24,
-                padding: isMobile ? '28px 16px' : '40px 28px',
-                minHeight: isMobile ? 'auto' : 520,
-                position: 'relative',
-                overflow: 'visible',
-              }}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              key={index}
+              className={cn(
+                'group relative p-5 rounded-xl overflow-hidden transition-all duration-300',
+                'border border-slate-200 bg-white',
+                'hover:shadow-[0_2px_12px_rgba(0,0,0,0.04)]',
+                'hover:-translate-y-0.5 will-change-transform',
+                item.colSpan === 2 ? 'md:col-span-2' : 'col-span-1',
+                item.hasPersistentHover && 'shadow-[0_2px_12px_rgba(0,0,0,0.04)] -translate-y-0.5',
+              )}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
             >
-              {/* White report card */}
-              <div style={{
-                background: '#fff',
-                borderRadius: 16,
-                padding: isMobile ? '20px 16px' : '28px 24px',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
-                position: 'relative',
-                zIndex: 2,
-              }}>
-                {/* Report header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4, flexWrap: 'wrap', gap: 4 }}>
-                  <span style={{ fontFamily: dmSans, fontSize: 12, color: '#999', fontWeight: 500 }}>Monday, Jan 13</span>
-                  <span style={{ fontFamily: dmSans, fontSize: 12, color: '#999', fontWeight: 500 }}>Operations · 24 members</span>
-                </div>
-                <h3 style={{ fontFamily: dmSans, fontSize: isMobile ? 16 : 18, fontWeight: 700, color: '#1a1a2e', marginBottom: 16 }}>
-                  Weekly Intelligence Report
-                </h3>
-
-                {/* Tab bar */}
-                <div style={{ display: 'flex', gap: 0, marginBottom: 20, borderBottom: '1px solid #eee', paddingBottom: 0 }}>
-                  {['Overview', 'Risks', 'Actions'].map((tab) => (
-                    <div key={tab} style={{
-                      fontFamily: dmSans,
-                      fontSize: 13,
-                      fontWeight: tab === 'Risks' ? 600 : 400,
-                      color: tab === 'Risks' ? '#1a1a2e' : '#999',
-                      padding: '8px 16px',
-                      borderBottom: tab === 'Risks' ? '2px solid #1a1a2e' : '2px solid transparent',
-                      marginBottom: -1,
-                      cursor: 'pointer',
-                    }}>
-                      {tab}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Risk items */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                  {[
-                    { color: '#ef4444', label: 'Critical pipeline anomaly detected in Sector 7', severity: 'Critical' },
-                    { color: '#f59e0b', label: 'Output velocity declining 23% week-over-week', severity: 'Warning' },
-                    { color: '#ef4444', label: '2 resource nodes approaching capacity threshold', severity: 'Critical' },
-                  ].map((risk) => (
-                    <div key={risk.label} style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: 10,
-                      padding: isMobile ? '10px 12px' : '12px 14px',
-                      background: '#fafafa',
-                      borderRadius: 10,
-                      borderLeft: `3px solid ${risk.color}`,
-                    }}>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontFamily: dmSans, fontSize: 13, fontWeight: 500, color: '#1a1a2e', marginBottom: 2 }}>
-                          {risk.label}
-                        </div>
-                        <span style={{
-                          fontFamily: dmSans,
-                          fontSize: 11,
-                          fontWeight: 600,
-                          color: risk.color,
-                          textTransform: 'uppercase' as const,
-                          letterSpacing: '0.04em',
-                        }}>
-                          {risk.severity}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              {/* Dot pattern on hover */}
+              <div className={`absolute inset-0 ${item.hasPersistentHover ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-300`}>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:4px_4px]" />
               </div>
-            </motion.div>
 
-            {/* Right: headline + stat rows */}
-            <div>
-              <motion.h2
-                style={{
-                  fontFamily: dmSans,
-                  fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(28px, 3.5vw, 40px)',
-                  fontWeight: 700,
-                  color: '#1a1a2e',
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1.15,
-                  marginBottom: isMobile ? 32 : 44,
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                Real-time predictive intelligence
-              </motion.h2>
-
-              {[
-                { stat: '12+', title: 'Data Sources', desc: 'APIs, databases, live feeds, and more. Connect your full data stack in minutes.' },
-                { stat: '<24hr', title: 'Time to first insight', desc: 'Get your first intelligence report within 24 hours of connecting your data.' },
-                { stat: '95%', title: 'Signal accuracy', desc: 'Built on ML models trained across thousands of data environments. Trusted by leaders at top companies.' },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: isMobile ? '80px 1fr' : '120px 1fr',
-                    gap: isMobile ? 12 : 20,
-                    paddingTop: i > 0 ? (isMobile ? 20 : 28) : 0,
-                    paddingBottom: isMobile ? 20 : 28,
-                    borderBottom: i < 2 ? '1px solid rgba(0,0,0,0.07)' : 'none',
-                  }}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
-                >
-                  <span style={{
-                    fontFamily: dmSans,
-                    fontSize: isMobile ? 36 : 48,
-                    fontWeight: 700,
-                    color: '#1a1a2e',
-                    letterSpacing: '-0.04em',
-                    lineHeight: 1,
-                    alignSelf: 'start',
-                    paddingTop: 4,
-                  }}>
-                    {item.stat}
+              <div className="relative flex flex-col space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-medium px-2 py-1 rounded-lg bg-slate-50 text-slate-500 transition-colors duration-300 group-hover:bg-slate-100">
+                    {item.status}
                   </span>
-                  <div>
-                    <h3 style={{ fontFamily: dmSans, fontSize: isMobile ? 18 : 22, fontWeight: 700, color: '#1a1a2e', marginBottom: 6, lineHeight: 1.2 }}>
-                      {item.title}
-                    </h3>
-                    <p style={{ fontFamily: dmSans, fontSize: isMobile ? 14 : 15, fontWeight: 400, color: '#999', lineHeight: 1.55 }}>
-                      {item.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Section: Product screenshot / demo */}
-      <section id="reports" style={{
-        background: '#f9f8f6',
-        padding: isMobile ? '48px 16px' : '64px 24px',
-      }}>
-        <div style={{ maxWidth: 960, margin: '0 auto', textAlign: 'center' }}>
-          <motion.h2
-            style={{ fontFamily: dmSans, fontSize: 'clamp(24px, 4vw, 44px)', fontWeight: 500, color: '#1a1a2e', letterSpacing: '-0.03em', marginBottom: 16 }}
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
-          >
-            Your weekly <span style={{ fontFamily: playfair, fontStyle: 'italic' }}>signal</span>
-          </motion.h2>
-          <motion.p
-            style={{ fontFamily: dmSans, fontSize: isMobile ? 15 : 16, fontWeight: 400, color: '#666', marginBottom: 48, maxWidth: 480, margin: '0 auto 48px', padding: isMobile ? '0 8px' : 0 }}
-            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-          >
-            A single report that replaces hours of manual analysis and dashboard checks.
-          </motion.p>
-          {/* Report mock */}
-          <motion.div
-            style={{
-              background: '#fff',
-              borderRadius: isMobile ? 16 : 20,
-              border: '1px solid #e8e8ee',
-              boxShadow: '0 8px 40px rgba(0,0,0,0.06)',
-              padding: isMobile ? '24px 16px' : '40px 44px',
-              textAlign: 'left',
-            }}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            {/* Report header */}
-            <div style={{ marginBottom: 8 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'flex-start', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 4 : 0 }}>
-                <div>
-                  <h3 style={{ fontFamily: dmSans, fontSize: isMobile ? 20 : 24, fontWeight: 700, color: '#1a1a2e', marginBottom: 4 }}>Operational Flow & Capacity</h3>
-                  <p style={{ fontFamily: dmSans, fontSize: 13, color: '#999' }}>Feb 10 - 16, 2026</p>
                 </div>
-                <span style={{ fontFamily: dmSans, fontSize: isMobile ? 13 : 15, fontWeight: 600, color: '#1a1a2e' }}>Acme Operations</span>
-              </div>
-              <div style={{ height: 3, background: '#1a1a2e', borderRadius: 2, marginTop: 16 }} />
-            </div>
 
-            {/* Two stat cards */}
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 16, marginBottom: 32, marginTop: 24 }}>
-              {/* Meeting Load */}
-              <div style={{ border: '1px solid #e8e8ee', borderRadius: 12, padding: isMobile ? '16px' : '20px 20px 16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
-                  <span style={{ fontFamily: dmSans, fontSize: 14, fontWeight: 500, color: '#555' }}>Avg Processing Load</span>
-                  <span style={{ fontFamily: dmSans, fontSize: isMobile ? 28 : 32, fontWeight: 700, color: '#dc2626', lineHeight: 1 }}>15.8h</span>
+                <div className="space-y-1.5">
+                  <h3 className="font-medium text-slate-900 tracking-tight text-[15px]">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-slate-500 leading-snug">
+                    {item.description}
+                  </p>
                 </div>
-                <p style={{ fontFamily: dmSans, fontSize: 12, color: '#999', marginBottom: 14 }}>39.5% of capacity · Threshold: 30%</p>
-                <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end' }}>
-                  {[
-                    { h: 28, color: '#34d399' },
-                    { h: 24, color: '#34d399' },
-                    { h: 30, color: '#34d399' },
-                    { h: 26, color: '#f59e0b' },
-                    { h: 28, color: '#f59e0b' },
-                    { h: 34, color: '#ef4444' },
-                  ].map((bar, i) => (
-                    <div key={i} style={{ flex: 1, textAlign: 'center' }}>
-                      <div style={{ height: bar.h, background: bar.color, borderRadius: 4, marginBottom: 4 }} />
-                      <span style={{ fontFamily: dmSans, fontSize: 10, color: '#bbb' }}>W{i + 1}</span>
-                    </div>
+
+                <div className="flex items-center space-x-2 text-xs text-slate-400 mt-2">
+                  {item.tags?.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="px-2 py-1 rounded-md bg-slate-50 transition-all duration-200 hover:bg-slate-100"
+                    >
+                      #{tag}
+                    </span>
                   ))}
                 </div>
               </div>
-
-              {/* Focus Blocks */}
-              <div style={{ border: '1px solid #e8e8ee', borderRadius: 12, padding: isMobile ? '16px' : '20px 20px 16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
-                  <span style={{ fontFamily: dmSans, fontSize: 14, fontWeight: 500, color: '#555' }}>Avg Focus Windows/Day</span>
-                  <span style={{ fontFamily: dmSans, fontSize: isMobile ? 28 : 32, fontWeight: 700, color: '#dc2626', lineHeight: 1 }}>2.1</span>
-                </div>
-                <p style={{ fontFamily: dmSans, fontSize: 12, color: '#999', marginBottom: 14 }}>2hr+ uninterrupted output · Benchmark: 3.0</p>
-                <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end' }}>
-                  {[
-                    { h: 26, color: '#34d399' },
-                    { h: 32, color: '#34d399' },
-                    { h: 28, color: '#34d399' },
-                    { h: 24, color: '#34d399' },
-                    { h: 22, color: '#f59e0b' },
-                    { h: 18, color: '#ef4444' },
-                  ].map((bar, i) => (
-                    <div key={i} style={{ flex: 1, textAlign: 'center' }}>
-                      <div style={{ height: bar.h, background: bar.color, borderRadius: 4, marginBottom: 4 }} />
-                      <span style={{ fontFamily: dmSans, fontSize: 10, color: '#bbb' }}>W{i + 1}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Heatmap section */}
-            <div>
-              <h4 style={{ fontFamily: dmSans, fontSize: 14, fontWeight: 700, color: '#1a1a2e', letterSpacing: '0.04em', textTransform: 'uppercase' as const, marginBottom: 4 }}>
-                Activity Heatmap (Aggregate)
-              </h4>
-              <div style={{ height: 2, background: '#f59e0b', borderRadius: 1, marginBottom: 12 }} />
-              <p style={{ fontFamily: dmSans, fontSize: 12, color: '#888', marginBottom: 16 }}>
-                Darker = more activity. Shows when the system does deep processing vs. experiences disruptions.
-              </p>
-
-              {/* Heatmap grid — horizontally scrollable on mobile */}
-              <div style={{ overflowX: isMobile ? 'auto' : 'visible', WebkitOverflowScrolling: 'touch' as const }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: isMobile ? 480 : 'auto' }}>
-                  {/* Time labels */}
-                  <div style={{ display: 'flex', paddingLeft: 36, gap: 4, marginBottom: 2 }}>
-                    {['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm'].map((t) => (
-                      <span key={t} style={{ flex: 1, fontFamily: dmSans, fontSize: 10, color: '#bbb', textAlign: 'center' }}>{t}</span>
-                    ))}
-                  </div>
-
-                  {[
-                    { day: 'Mon', cells: ['#d1fae5','#34d399','#059669','#34d399','#059669','#f59e0b','#d1fae5','#059669','#34d399','#d1fae5'] },
-                    { day: 'Tue', cells: ['#d1fae5','#34d399','#059669','#059669','#34d399','#ef4444','#34d399','#059669','#34d399','#d1fae5'] },
-                    { day: 'Wed', cells: ['#d1fae5','#34d399','#059669','#34d399','#f59e0b','#f59e0b','#d1fae5','#d1fae5','#34d399','#34d399'] },
-                    { day: 'Thu', cells: ['#d1fae5','#059669','#059669','#34d399','#059669','#fde68a','#34d399','#065f46','#34d399','#059669'] },
-                    { day: 'Fri', cells: ['#d1fae5','#34d399','#059669','#34d399','#34d399','#d1fae5','#d1fae5','#34d399','#059669','#34d399'] },
-                  ].map((row) => (
-                    <div key={row.day} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                      <span style={{ fontFamily: dmSans, fontSize: 11, color: '#999', width: 32, textAlign: 'right', paddingRight: 4 }}>{row.day}</span>
-                      {row.cells.map((color, j) => (
-                        <div key={j} style={{ flex: 1, height: 24, background: color, borderRadius: 4 }} />
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <p style={{ fontFamily: dmSans, fontSize: 11, color: '#999', marginTop: 12, lineHeight: 1.5 }}>
-                Green = productive activity. Amber = disruptions. Wednesday afternoon was nearly all disruptions (incident response + cross-team sync).
-              </p>
-            </div>
-          </motion.div>
+            </motion.div>
+          ))}
         </div>
-      </section>
+      </div>
+    </section>
+  )
+}
 
-      {/* Section: CTA */}
-      <section style={{
-        background: '#1a1a2e',
-        padding: isMobile ? '56px 20px' : '64px 24px',
-        textAlign: 'center',
-      }}>
-        <div style={{ maxWidth: 640, margin: '0 auto' }}>
-          <motion.h2
-            style={{ fontFamily: dmSans, fontSize: 'clamp(24px, 4vw, 44px)', fontWeight: 500, color: '#fff', letterSpacing: '-0.03em', marginBottom: 16 }}
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
-          >
-            Stop flying <span style={{ fontFamily: playfair, fontStyle: 'italic' }}>blind.</span>
-          </motion.h2>
-          <motion.p
-            style={{ fontFamily: dmSans, fontSize: isMobile ? 15 : 16, fontWeight: 400, color: 'rgba(255,255,255,0.6)', marginBottom: 40, maxWidth: 440, margin: '0 auto 40px', padding: isMobile ? '0 8px' : 0 }}
-            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-          >
-            Get a free data intelligence audit and see what your signals are really telling you.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}
-          >
-            <Link
-              href="https://cal.com/arjun-dixit-0nwkzi/30min"
-              target="_blank"
-              style={{
-                fontFamily: dmSans,
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                background: '#fff',
-                borderRadius: 100,
-                padding: '16px 32px',
-                color: '#1a1a2e',
-                fontSize: 15,
-                fontWeight: 500,
-                textDecoration: 'none',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Get Started <ArrowRight style={{ width: 15, height: 15 }} />
-            </Link>
-          </motion.div>
+/* ── Footer ── */
+function Footer() {
+  return (
+    <footer className="bg-slate-50 border-t border-black/[0.06] py-6 px-4 md:px-6">
+      <div className="max-w-[960px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 text-center md:text-left">
+        <Image src="/logo.png" alt="NexFlow" width={437} height={387} className="h-5 w-auto object-contain" />
+        <div className="flex gap-6">
+          <Link href="/blog" className="text-[13px] text-slate-400 no-underline hover:text-slate-600 transition-colors">Blog</Link>
+          <Link href="/privacy" className="text-[13px] text-slate-400 no-underline hover:text-slate-600 transition-colors">Privacy</Link>
+          <Link href="/terms" className="text-[13px] text-slate-400 no-underline hover:text-slate-600 transition-colors">Terms</Link>
+          <Link href="mailto:arjundixit@nexflowinc.com" className="text-[13px] text-slate-400 no-underline hover:text-slate-600 transition-colors">Contact</Link>
         </div>
-      </section>
+        <span className="text-[13px] text-slate-400">&copy; 2026 NexFlow Inc.</span>
+      </div>
+    </footer>
+  )
+}
 
-      {/* Footer */}
-      <footer style={{
-        background: '#f9f8f6',
-        borderTop: '1px solid rgba(0,0,0,0.06)',
-        padding: isMobile ? '24px 16px' : '24px',
-      }}>
-        <div style={{
-          maxWidth: 960,
-          margin: '0 auto',
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          alignItems: 'center',
-          justifyContent: isMobile ? 'center' : 'space-between',
-          gap: isMobile ? 16 : 0,
-          textAlign: isMobile ? 'center' : undefined,
-        }}>
-          <Image src="/logo.png" alt="NexFlow" width={437} height={387} style={{ height: 20, width: 'auto', objectFit: 'contain' }} />
-          <div style={{ display: 'flex', gap: 24 }}>
-            <Link href="/blog" style={{ fontFamily: dmSans, fontSize: 13, color: '#999', textDecoration: 'none' }}>Blog</Link>
-            <Link href="/privacy" style={{ fontFamily: dmSans, fontSize: 13, color: '#999', textDecoration: 'none' }}>Privacy</Link>
-            <Link href="/terms" style={{ fontFamily: dmSans, fontSize: 13, color: '#999', textDecoration: 'none' }}>Terms</Link>
-            <Link href="mailto:arjundixit@nexflowinc.com" style={{ fontFamily: dmSans, fontSize: 13, color: '#999', textDecoration: 'none' }}>Contact</Link>
-          </div>
-          <span style={{ fontFamily: dmSans, fontSize: 13, color: '#999' }}>&copy; 2026 NexFlow Inc.</span>
-        </div>
-      </footer>
+/* ── Page ── */
+export default function Enterprise() {
+  return (
+    <main className="bg-white min-h-screen">
+      {/* Full extended background behind hero */}
+      <div className="relative">
+        <div
+          className="absolute inset-0 bg-cover bg-no-repeat z-0"
+          style={{ backgroundImage: 'url(/hero-bg-extended.jpg)', backgroundPosition: 'center top' }}
+        />
+
+        <section className="relative overflow-hidden">
+          {/* Radial white fade */}
+          <div
+            className="absolute inset-0 z-[1]"
+            style={{ background: 'radial-gradient(ellipse 60% 55% at 50% 45%, rgba(255,252,250,0.7) 0%, rgba(255,252,250,0.4) 35%, rgba(255,255,255,0) 65%)' }}
+          />
+
+          <Navbar />
+          <Hero />
+        </section>
+
+        {/* Fade out */}
+        <div className="relative z-[1] h-[60px]" style={{ background: 'linear-gradient(to bottom, transparent, #fff)' }} />
+      </div>
+
+      <SolutionSection />
+
+      <HowItWorksSection />
+      <GrandSlamOffer />
+
+      <WhyUsSection />
+
+      <DarkCtaSection
+        heading={<>Your next missed deadline is already <span className="font-playfair">forming.</span></>}
+        description="See your risks 3 weeks early. Free audit, 48 hours."
+        buttonText="Get Your Free 48-Hour Audit"
+        calLink={CAL_LINK}
+      />
+
+      <Footer />
     </main>
   )
 }

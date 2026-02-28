@@ -43,7 +43,7 @@ export function ReportPreviewSection() {
                             ))}
                         </motion.ul>
                         <motion.a
-                            href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                            href="https://calendly.com/arjundixit3508/30min"
                             target="_blank"
                             className="inline-flex items-center gap-2 text-emerald-500 hover:text-emerald-600 text-[14px] font-medium transition-colors"
                             variants={fadeInUp}

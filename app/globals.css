@@ -144,6 +144,11 @@ html {
   font-style: italic;
 }
 
+.font-playfair {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-style: italic;
+}
+
 /* ── Blog card hover ── */
 .nf-blog-card {
   transition: box-shadow 0.2s, border-color 0.2s;

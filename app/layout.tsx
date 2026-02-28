@@ -39,16 +39,16 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "NexFlow — Predictive Intelligence for Modern Teams",
-  description: "NexFlow connects your data sources to surface emerging risks, hidden patterns, and capacity signals before they become problems. AI-powered predictive intelligence.",
-  keywords: ["predictive intelligence", "AI predictions", "data intelligence", "operational analytics", "risk detection", "pattern recognition", "predictive analytics"],
+  title: "NexFlow — Predict Engineering Delays Before They Hit",
+  description: "NexFlow predicts engineering delays 2-3 weeks before they hit. Connect GitHub, Jira, and Slack to get a weekly one-page report showing exactly where your team is at risk.",
+  keywords: ["engineering delays", "sprint prediction", "engineering intelligence", "delivery risk", "predictive analytics", "engineering management", "sprint velocity"],
   metadataBase: new URL("https://nexflowinc.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "NexFlow — Predictive Intelligence for Modern Teams",
-    description: "Stop reacting to problems after they happen. NexFlow shows you what's coming before anyone else sees it.",
+    title: "NexFlow — Predict Engineering Delays Before They Hit",
+    description: "NexFlow predicts engineering delays 2-3 weeks before they hit. Get a weekly one-page report showing exactly where your team is at risk.",
     type: "website",
     url: "https://nexflowinc.com",
     siteName: "NexFlow",
@@ -63,8 +63,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NexFlow — Predictive Intelligence for Modern Teams",
-    description: "Stop reacting to problems after they happen. See what's coming first.",
+    title: "NexFlow — Predict Engineering Delays Before They Hit",
+    description: "Predict engineering delays 2-3 weeks early. Ship on time, every time.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -110,7 +110,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
               "name": "NexFlow",
-              "description": "Predictive intelligence platform that connects your data sources to surface emerging risks, hidden patterns, and capacity signals before they become problems.",
+              "description": "NexFlow predicts engineering delays 2-3 weeks before they hit. Connect GitHub, Jira, and Slack to get a weekly one-page report showing exactly where your team is at risk.",
               "url": "https://nexflowinc.com",
               "applicationCategory": "BusinessApplication",
               "offers": {

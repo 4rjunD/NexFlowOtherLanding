@@ -3,7 +3,7 @@ import Link from 'next/link'
 const footerLinks = [
     { label: 'Privacy', href: '/privacy' },
     { label: 'Terms', href: '/terms' },
-    { label: 'Contact', href: 'https://cal.com/arjun-dixit-0nwkzi/30min', external: true },
+    { label: 'Contact', href: 'https://calendly.com/arjundixit3508/30min', external: true },
 ]
 
 export function FooterSection() {

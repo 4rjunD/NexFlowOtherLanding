@@ -22,7 +22,7 @@ const tiers = [
             "Team playbook export",
         ],
         cta: "Talk to Founders",
-        href: "https://cal.com/arjun-dixit-0nwkzi/30min",
+        href: "https://calendly.com/arjundixit3508/30min",
         highlighted: false,
     },
     {
@@ -46,7 +46,7 @@ const tiers = [
             "Priority Slack support",
         ],
         cta: "Start 14-Day Pilot",
-        href: "https://cal.com/arjun-dixit-0nwkzi/30min",
+        href: "https://calendly.com/arjundixit3508/30min",
         highlighted: true,
     },
     {
@@ -68,7 +68,7 @@ const tiers = [
             "Custom model training",
         ],
         cta: "Talk to Sales",
-        href: "https://cal.com/arjun-dixit-0nwkzi/30min",
+        href: "https://calendly.com/arjundixit3508/30min",
         highlighted: false,
     },
 ]

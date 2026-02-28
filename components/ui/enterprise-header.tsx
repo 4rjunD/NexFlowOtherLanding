@@ -8,7 +8,7 @@ const navLinks = [
     { label: "How It Works", href: "#how-it-works" },
     { label: "Features", href: "#features" },
     { label: "Pricing", href: "#pricing" },
-    { label: "Contact", href: "https://cal.com/arjun-dixit-0nwkzi/30min", external: true },
+    { label: "Contact", href: "https://calendly.com/arjundixit3508/30min", external: true },
 ];
 
 function EnterpriseHeader() {
@@ -50,7 +50,7 @@ function EnterpriseHeader() {
 
                         <div className="hidden md:flex items-center shrink-0">
                             <Link
-                                href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                                href="https://calendly.com/arjundixit3508/30min"
                                 target="_blank"
                                 className="px-4 py-1.5 text-[14px] font-medium text-white bg-emerald-500 hover:bg-emerald-600 transition-colors rounded-lg"
                             >
@@ -81,7 +81,7 @@ function EnterpriseHeader() {
                             ))}
                             <div className="mt-3 pt-3 border-t border-slate-200">
                                 <Link
-                                    href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                                    href="https://calendly.com/arjundixit3508/30min"
                                     target="_blank"
                                     onClick={() => setOpen(false)}
                                     className="block px-3 py-2.5 text-[14px] text-center font-medium text-white bg-emerald-500 hover:bg-emerald-600 transition-colors rounded-lg"
@@ -132,7 +132,7 @@ function EnterpriseHeader() {
 
                             <div className="hidden md:flex items-center shrink-0">
                                 <Link
-                                    href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                                    href="https://calendly.com/arjundixit3508/30min"
                                     target="_blank"
                                     className="px-3.5 py-1 text-[13px] font-medium text-white bg-emerald-500 hover:bg-emerald-600 transition-colors rounded-lg"
                                 >

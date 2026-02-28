@@ -47,7 +47,7 @@ export function EnterpriseHero() {
 
                         <motion.div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3" variants={fadeInUp}>
                             <Link
-                                href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                                href="https://calendly.com/arjundixit3508/30min"
                                 target="_blank"
                                 className="inline-flex items-center justify-center gap-2 px-6 py-3 text-white bg-emerald-500 hover:bg-emerald-600 text-[14px] font-medium transition-colors rounded-lg"
                             >

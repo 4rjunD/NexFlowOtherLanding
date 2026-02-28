@@ -70,7 +70,7 @@ export function HowWeWork() {
 
                         {/* CTA */}
                         <Link
-                            href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                            href="https://calendly.com/arjundixit3508/30min"
                             target="_blank"
                             className="inline-flex items-center justify-center px-[24px] py-[12px] text-[16px] font-medium text-white bg-[#1F4D3A] rounded-[8px] hover:bg-[#163D2E] transition-colors duration-200"
                             style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}

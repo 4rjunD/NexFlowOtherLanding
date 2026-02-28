@@ -13,7 +13,7 @@ const plans = [
         description: 'Everything you need to understand engineering health at a glance.',
         highlighted: true,
         cta: 'Get Started',
-        ctaHref: 'https://cal.com/arjun-dixit-0nwkzi/30min',
+        ctaHref: 'https://calendly.com/arjundixit3508/30min',
         features: [
             'Weekly engineering health report',
             'PR cycle time tracking',
@@ -30,7 +30,7 @@ const plans = [
         description: 'Real-time dashboard, alerts, and AI-powered recommendations.',
         highlighted: false,
         cta: 'Join Waitlist',
-        ctaHref: 'https://cal.com/arjun-dixit-0nwkzi/30min',
+        ctaHref: 'https://calendly.com/arjundixit3508/30min',
         features: [
             'Everything in Weekly Reports',
             'Real-time dashboard',

@@ -211,7 +211,7 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
           <nav style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
             <Link href="/blog" style={{ fontFamily: dmSans, fontSize: 14, color: '#666', textDecoration: 'none' }}>Blog</Link>
             <Link
-              href="https://cal.com/arjun-dixit-0nwkzi/30min"
+              href="https://calendly.com/arjundixit3508/30min"
               target="_blank"
               style={{
                 fontFamily: dmSans,
@@ -224,7 +224,7 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
                 textDecoration: 'none',
               }}
             >
-              Get Free Audit
+              Get Your Free 48-Hour Audit
             </Link>
           </nav>
         </div>
@@ -302,7 +302,7 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
             marginBottom: 12,
             lineHeight: 1.3,
           }}>
-            Want to see where YOUR team has these problems?
+            Your next missed deadline is already forming.
           </h3>
           <p style={{
             fontFamily: dmSans,
@@ -313,10 +313,10 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
             maxWidth: 480,
             margin: '0 auto 24px',
           }}>
-            Get a free engineering health audit. We analyze your GitHub, Slack, and Linear data and deliver a full report in 48 hours.
+            We&apos;ll audit 90 days of your GitHub, Jira, and Slack data and deliver a one-page risk report in 48 hours — showing exactly which teams and repos are most likely to miss their next deadline. Free.
           </p>
           <Link
-            href="https://cal.com/arjun-dixit-0nwkzi/30min"
+            href="https://calendly.com/arjundixit3508/30min"
             target="_blank"
             style={{
               fontFamily: dmSans,
@@ -332,7 +332,7 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
               textDecoration: 'none',
             }}
           >
-            Get Free Audit
+            Get Your Free 48-Hour Audit
           </Link>
         </div>
 

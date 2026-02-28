@@ -1,10 +1,24 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { Link2, BarChart3, Zap } from 'lucide-react'
+import { Link2, BarChart3, Zap, type LucideIcon } from 'lucide-react'
 import { fadeInUp, staggerContainer } from '@/lib/animations'
 
-const steps = [
+interface StepItem {
+    num: number
+    title: string
+    description: string
+    icon: LucideIcon
+}
+
+interface HowItWorksStepsProps {
+    heading?: React.ReactNode
+    subheading?: string
+    steps?: StepItem[]
+    sectionId?: string
+}
+
+const defaultSteps: StepItem[] = [
     {
         num: 1,
         title: 'Connect',
@@ -25,9 +39,14 @@ const steps = [
     },
 ]
 
-export function HowItWorksSteps() {
+export function HowItWorksSteps({
+    heading,
+    subheading = 'From zero to your first engineering health report in one week.',
+    steps = defaultSteps,
+    sectionId = 'how-it-works',
+}: HowItWorksStepsProps) {
     return (
-        <section id="how-it-works" className="bg-white py-16 sm:py-20">
+        <section id={sectionId} className="bg-white py-20 md:py-28">
             <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10">
                 <motion.div
                     className="text-center mb-12"
@@ -37,11 +56,13 @@ export function HowItWorksSteps() {
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 >
                     <h2 className="text-slate-900 text-[28px] sm:text-[36px] font-semibold tracking-tight mb-3">
-                        How it <span className="font-serif-accent font-normal">works</span>
+                        {heading ?? <>How it <span className="font-serif-accent font-normal">works</span></>}
                     </h2>
-                    <p className="text-slate-500 text-[15px] max-w-[440px] mx-auto">
-                        From zero to your first engineering health report in one week.
-                    </p>
+                    {subheading && (
+                        <p className="text-slate-500 text-[15px] max-w-[440px] mx-auto">
+                            {subheading}
+                        </p>
+                    )}
                 </motion.div>
 
                 <motion.div

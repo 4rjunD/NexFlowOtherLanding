@@ -45,7 +45,7 @@ export function EnterpriseContact() {
                         {/* CTAs */}
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
                             <Link
-                                href="https://cal.com/arjun-dixit-0nwkzi/30min"
+                                href="https://calendly.com/arjundixit3508/30min"
                                 target="_blank"
                                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#1F4D3A] rounded-full text-base font-medium hover:bg-[#f6f0e9] transition-colors duration-200"
                                 style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
