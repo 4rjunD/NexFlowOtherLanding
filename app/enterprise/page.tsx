@@ -108,9 +108,8 @@ function Navbar() {
         {/* Right — CTA (mirrors logo width for symmetry) */}
         <div className="flex items-center justify-end">
           <Link
-            href={CAL_LINK}
-            target="_blank"
-            className="hidden md:inline-flex text-[13px] font-medium text-white bg-slate-900 px-5 py-2 rounded-full no-underline tracking-tight hover:bg-slate-800 transition-colors"
+            href="/audit"
+            className="hidden md:inline-flex text-[13px] font-medium text-white bg-emerald-600 px-5 py-2 rounded-full no-underline tracking-tight hover:bg-emerald-500 transition-colors"
           >
             Get Free Audit
           </Link>
@@ -145,10 +144,9 @@ function Navbar() {
           ))}
           <div className="h-px bg-black/5 mx-4 my-1" />
           <Link
-            href={CAL_LINK}
-            target="_blank"
+            href="/audit"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-3 text-[15px] font-medium text-white bg-slate-900 rounded-xl no-underline text-center my-1"
+            className="block px-4 py-3 text-[15px] font-medium text-white bg-emerald-600 rounded-xl no-underline text-center my-1"
           >
             Get Free Audit
           </Link>
@@ -164,13 +162,13 @@ function Hero() {
     <div className="relative z-[2] pt-20 md:pt-28 pb-12 md:pb-16">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <AnimatedGroup variants={heroTransition}>
-          <h1 className="text-balance text-5xl md:text-7xl xl:text-[5.25rem] font-medium tracking-[-0.03em] leading-[1.08] text-[#2a1f14]">
-            Ship on time.{' '}
-            <span className="font-playfair">Every time.</span>
+          <h1 className="text-balance text-4xl md:text-6xl xl:text-7xl font-medium tracking-[-0.03em] leading-[1.08] text-[#2a1f14]">
+            See engineering delays{' '}
+            <span className="font-playfair">before they happen.</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-lg text-balance text-lg text-slate-500">
-            Spot engineering delays 2 to 3 weeks before they hit.
+          <p className="mx-auto mt-6 max-w-lg text-balance text-base md:text-lg text-slate-500">
+            NexFlow reads your GitHub, Jira, and Slack to flag risks 2-3 weeks early.
           </p>
         </AnimatedGroup>
 
@@ -367,33 +365,76 @@ function HowItWorksSection() {
   )
 }
 
+/* ── What NexFlow Replaces ── */
+const replacesItems = [
+  { label: 'Status meetings', detail: 'Hours wasted every week chasing updates across teams' },
+  { label: 'OKR spreadsheets & Notion docs', detail: 'Hours of manual upkeep that go stale by Wednesday' },
+  { label: 'Quarterly retros', detail: 'Finding problems months after they already shipped' },
+  { label: 'Managers chasing updates', detail: 'Your best people context-switching instead of leading' },
+]
+
+function ReplacesSection() {
+  return (
+    <section className="bg-slate-50 py-16 md:py-24 px-6">
+      <div className="max-w-4xl mx-auto">
+        <motion.div
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 mb-2">
+            What NexFlow <span className="font-playfair">replaces.</span>
+          </h2>
+          <p className="text-slate-500 text-[15px]">One weekly report replaces all of this.</p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 rounded-2xl overflow-hidden border border-slate-200">
+          {replacesItems.map((item, index) => (
+            <motion.div
+              key={item.label}
+              className="bg-white p-6 md:p-8"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
+            >
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
+                <span className="text-slate-900 text-[15px] font-semibold">{item.label}</span>
+              </div>
+              <p className="text-slate-500 text-[14px] leading-relaxed">{item.detail}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ── Grand Slam Offer ── */
 const valueMetrics = [
   {
-    stat: '40%',
-    label: 'fewer surprise delays',
-    description: 'Know what\'s slipping weeks before sprint review.',
+    stat: '2-3 wks',
+    label: 'early warning',
+    description: 'Catch delays weeks before they hit sprint review.',
   },
   {
-    stat: '6hrs',
-    label: 'saved per week',
-    description: 'One report replaces your status meetings.',
-  },
-  {
-    stat: '48hrs',
-    label: 'to first report',
-    description: 'See your risks before your next sprint review.',
+    stat: '1 report',
+    label: 'replaces your status meetings',
+    description: 'No more chasing updates across Slack and Jira.',
   },
   {
     stat: '10min',
-    label: 'to set up',
-    description: 'Connect your tools. We handle the rest.',
+    label: 'setup, zero eng time',
+    description: 'Connect your tools. Your team changes nothing.',
   },
 ]
 
 function GrandSlamOffer() {
   return (
-    <section id="offer" className="bg-slate-50 py-16 md:py-24 px-6">
+    <section id="offer" className="bg-white py-16 md:py-24 px-6">
       <div className="max-w-4xl mx-auto">
         <motion.div
           className="text-center mb-10"
@@ -415,7 +456,7 @@ function GrandSlamOffer() {
         </motion.div>
 
         {/* Value metrics grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 rounded-2xl overflow-hidden border border-slate-200 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-slate-200 rounded-2xl overflow-hidden border border-slate-200 mb-10">
           {valueMetrics.map((metric, index) => (
             <motion.div
               key={metric.stat}
@@ -425,15 +466,13 @@ function GrandSlamOffer() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.08 }}
             >
-              <div className="flex items-baseline gap-2 mb-1.5">
-                <span className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900">
-                  {metric.stat}
-                </span>
-                <span className="text-sm font-medium text-slate-400">
-                  {metric.label}
-                </span>
-              </div>
-              <p className="text-slate-500 text-[14px] leading-relaxed">
+              <span className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900 block mb-1">
+                {metric.stat}
+              </span>
+              <span className="text-sm font-medium text-slate-400 block mb-2">
+                {metric.label}
+              </span>
+              <p className="text-slate-500 text-[13px] leading-relaxed">
                 {metric.description}
               </p>
             </motion.div>
@@ -511,12 +550,9 @@ function WhyUsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 mb-3">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900">
             Why <span className="font-playfair">NexFlow?</span>
           </h2>
-          <p className="text-slate-500 text-[15px] max-w-md mx-auto">
-            Built by Stanford and Harvard researchers who studied how engineering teams break down under load.
-          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -623,6 +659,7 @@ export default function Enterprise() {
       <SolutionSection />
 
       <HowItWorksSection />
+      <ReplacesSection />
       <GrandSlamOffer />
 
       <WhyUsSection />

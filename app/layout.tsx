@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Instrument_Serif, Playfair_Display, DM_Sans } from "next/font/google";
+import { Geist, Geist_Mono, Inter, Instrument_Serif, Playfair_Display, DM_Sans, Syne, DM_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
@@ -36,6 +36,18 @@ const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
+});
+
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const dmMono = DM_Mono({
+  variable: "--font-dm-mono",
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -99,7 +111,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${instrumentSerif.variable} ${playfairDisplay.variable} ${dmSans.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${instrumentSerif.variable} ${playfairDisplay.variable} ${dmSans.variable} ${syne.variable} ${dmMono.variable} antialiased`}
       >
         {children}
         <Script
