@@ -193,21 +193,7 @@ export default function AuditPage() {
               are about to miss their deadline. Free, 48-hour turnaround.
             </p>
 
-            {/* Social proof — desktop only (below subhead) */}
-            <div className="audit-social-proof audit-social-desktop">
-              {[
-                'Read-only access, no code seen',
-                '10 min setup, zero eng time',
-                'Report in 48 hours',
-              ].map((text) => (
-                <div key={text} className="audit-proof-item">
-                  <svg width="14" height="14" fill="none" stroke={ACCENT} strokeWidth="2" viewBox="0 0 24 24">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                  {text}
-                </div>
-              ))}
-            </div>
+{/* (social proof moved into form card) */}
           </div>
 
           {/* Right — form card */}
@@ -240,24 +226,23 @@ export default function AuditPage() {
               <p className="audit-form-note">
                 No spam. No pitch. Just the audit doc.
               </p>
+
+              <div className="audit-form-trust">
+                {[
+                  'Free, yours to keep',
+                  'Covers 90 days of data',
+                  'Delivered in 48 hours',
+                ].map((text) => (
+                  <div key={text} className="audit-trust-item">
+                    <svg width="12" height="12" fill="none" stroke={ACCENT} strokeWidth="2" viewBox="0 0 24 24">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {text}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* Social proof — mobile only (below form) */}
-        <div className="audit-social-proof audit-social-mobile">
-          {[
-            'Read-only, no code seen',
-            '10 min setup',
-            '48-hour report',
-          ].map((text) => (
-            <div key={text} className="audit-proof-item">
-              <svg width="14" height="14" fill="none" stroke={ACCENT} strokeWidth="2" viewBox="0 0 24 24">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              {text}
-            </div>
-          ))}
         </div>
       </section>
 
@@ -537,9 +522,6 @@ export default function AuditPage() {
           text-align: center;
         }
 
-        /* Social proof visibility toggles */
-        .audit-social-desktop { display: flex; }
-        .audit-social-mobile { display: none; }
 
         /* ── Form ── */
         .audit-form-wrap {
@@ -645,25 +627,29 @@ export default function AuditPage() {
         }
         .audit-success-btn:hover { background: ${ACCENT_DIM}; }
 
-        /* ── Form note + social proof ── */
+        /* ── Form note + trust bar ── */
         .audit-form-note {
           font-size: 11px;
           color: #444;
           text-align: center;
-          margin-top: 14px;
+          margin-top: 12px;
         }
 
-        .audit-social-proof {
+        .audit-form-trust {
           display: flex;
           align-items: center;
-          gap: 20px;
+          justify-content: center;
+          gap: 16px;
+          margin-top: 14px;
+          padding-top: 14px;
+          border-top: 1px solid ${BORDER};
           flex-wrap: wrap;
         }
-        .audit-proof-item {
+        .audit-trust-item {
           display: flex;
           align-items: center;
-          gap: 8px;
-          font-size: 12px;
+          gap: 5px;
+          font-size: 11px;
           color: #555;
         }
 
@@ -930,12 +916,6 @@ export default function AuditPage() {
           .audit-subhead { margin: 0 auto 20px; }
           .audit-h1 { font-size: clamp(26px, 5vw, 40px); letter-spacing: -1px; }
 
-          .audit-social-desktop { display: none; }
-          .audit-social-mobile {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-          }
 
           .audit-form-card {
             max-width: 100%;
@@ -971,14 +951,8 @@ export default function AuditPage() {
           .audit-input { padding: 14px; font-size: 16px; }
           .audit-btn-primary { padding: 16px; font-size: 15px; }
 
-          .audit-social-mobile {
-            flex-direction: row;
-            justify-content: center;
-            gap: 14px;
-            margin-top: 12px;
-          }
-          .audit-proof-item { font-size: 10px; gap: 4px; }
-          .audit-proof-item svg { width: 12px; height: 12px; }
+          .audit-form-trust { gap: 10px; }
+          .audit-trust-item { font-size: 10px; }
 
           .audit-form-note { font-size: 10px; margin-top: 10px; }
 
