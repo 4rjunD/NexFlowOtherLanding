@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 
 const SYNE = 'var(--font-syne), "Syne", sans-serif'
@@ -13,19 +13,6 @@ const SURFACE = '#111111'
 const BORDER = '#1e1e1e'
 const MUTED = '#666'
 const DANGER = '#ff4444'
-
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  background: SURFACE,
-  border: `1px solid ${BORDER}`,
-  color: '#f0f0f0',
-  fontFamily: MONO,
-  fontSize: 14,
-  padding: '14px 16px',
-  borderRadius: 2,
-  outline: 'none',
-  transition: 'border-color 0.2s, box-shadow 0.2s',
-}
 
 function AuditForm({
   idPrefix,
@@ -66,78 +53,34 @@ function AuditForm({
 
   if (submitted) {
     return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 16,
-          padding: 40,
-          background: ACCENT_DIM,
-          border: '1px solid rgba(0,255,135,0.2)',
-          borderRadius: 4,
-          maxWidth: 440,
-          margin: '0 auto',
-        }}
-      >
-        <div
-          style={{
-            width: 48,
-            height: 48,
-            background: ACCENT,
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#000',
-            fontSize: 22,
-            fontWeight: 700,
-          }}
-        >
-          ✓
-        </div>
-        <h3 style={{ fontFamily: SYNE, fontWeight: 700, fontSize: 20, color: '#f0f0f0' }}>
-          Audit doc on its way.
-        </h3>
-        <p style={{ fontSize: 13, color: MUTED, textAlign: 'center', fontFamily: MONO }}>
+      <div className="audit-success">
+        <div className="audit-success-icon">✓</div>
+        <h3 className="audit-success-title">Audit doc on its way.</h3>
+        <p className="audit-success-desc">
           Check your inbox — we&apos;ll also send you a sample risk report so you know exactly what NexFlow catches.
         </p>
         <a
           href="https://calendly.com/arjundixit3508/30min"
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            background: 'transparent',
-            border: '1px solid rgba(0,255,135,0.3)',
-            color: ACCENT,
-            fontFamily: SYNE,
-            fontWeight: 600,
-            fontSize: 13,
-            padding: '12px 24px',
-            borderRadius: 2,
-            cursor: 'pointer',
-            textDecoration: 'none',
-            transition: 'background 0.2s',
-          }}
+          className="audit-success-btn"
         >
-          Book a live demo instead →
+          Book a walkthrough instead →
         </a>
       </div>
     )
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 440, margin: '0 auto' }}>
-      <div style={{ display: 'flex', gap: 10 }}>
+    <div className="audit-form-wrap">
+      <div className="audit-form-row">
         <input
           type="text"
           placeholder="First name"
           value={form.firstName}
           onChange={(e) => setForm({ ...form, firstName: e.target.value })}
           required
-          style={inputStyle}
-          onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(0,255,135,0.4)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,255,135,0.06)' }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = BORDER; e.currentTarget.style.boxShadow = 'none' }}
+          className="audit-input"
         />
         <input
           type="text"
@@ -145,21 +88,17 @@ function AuditForm({
           value={form.company}
           onChange={(e) => setForm({ ...form, company: e.target.value })}
           required
-          style={inputStyle}
-          onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(0,255,135,0.4)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,255,135,0.06)' }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = BORDER; e.currentTarget.style.boxShadow = 'none' }}
+          className="audit-input"
         />
       </div>
-      <div style={{ display: 'flex', gap: 10 }}>
+      <div className="audit-form-row">
         <input
           type="email"
           placeholder="Work email"
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
           required
-          style={inputStyle}
-          onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(0,255,135,0.4)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,255,135,0.06)' }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = BORDER; e.currentTarget.style.boxShadow = 'none' }}
+          className="audit-input"
         />
         <input
           type="tel"
@@ -167,48 +106,29 @@ function AuditForm({
           value={form.phone}
           onChange={(e) => setForm({ ...form, phone: e.target.value })}
           required
-          style={inputStyle}
-          onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(0,255,135,0.4)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,255,135,0.06)' }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = BORDER; e.currentTarget.style.boxShadow = 'none' }}
+          className="audit-input"
         />
       </div>
       <button
         onClick={handleSubmit}
         disabled={loading}
-        style={{
-          width: '100%',
-          background: ACCENT,
-          color: '#000',
-          fontFamily: SYNE,
-          fontWeight: 700,
-          fontSize: 15,
-          letterSpacing: '0.02em',
-          padding: '16px 24px',
-          border: 'none',
-          borderRadius: 2,
-          cursor: loading ? 'wait' : 'pointer',
-          transition: 'transform 0.15s, box-shadow 0.15s',
-          opacity: loading ? 0.6 : 1,
-        }}
-        onMouseEnter={(e) => { if (!loading) { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,255,135,0.25)' } }}
-        onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
+        className="audit-btn-primary"
       >
-        {loading ? 'Sending...' : `Get the Free Audit Doc →`}
+        {loading ? 'Sending...' : 'Get the Free Audit Doc →'}
       </button>
     </div>
   )
 }
 
-/* ── Audit grid items ── */
+/* ── Data ── */
 const auditItems = [
   { num: '01', title: 'PR Velocity Analysis', desc: 'Which PRs are sitting too long, which reviewers are bottlenecks, and where review debt is building up.' },
   { num: '02', title: 'Sprint Health Score', desc: 'Velocity trends over 90 days, scope creep signals, and which sprints are headed for a miss right now.' },
-  { num: '03', title: 'Blocker Spread Map', desc: 'Blockers that are about to cascade across teams — caught before they take down two sprints instead of one.' },
+  { num: '03', title: 'Blocker Spread Map', desc: 'Blockers about to cascade across teams — caught before they take down two sprints instead of one.' },
   { num: '04', title: 'Context Switch Load', desc: "Engineers context-switching too much drop 40% in output. We show you who's overloaded before it shows up in velocity." },
   { num: '05', title: 'Top 3 Risk Flags', desc: 'The three most urgent things in your org right now, ranked by impact, with a recommended action for each.' },
 ]
 
-/* ── Risk cards for preview ── */
 const riskCards = [
   { severity: 'high' as const, label: 'High Risk', title: 'Auth migration stalled', desc: 'Blocked on infra review for 5 days. Two downstream teams waiting. Sprint miss probable.', eta: 'ETA miss: ~4 days' },
   { severity: 'medium' as const, label: 'Medium Risk', title: 'Payments PR backlog', desc: '3 PRs stale >48h. Single reviewer bottleneck identified. Reassignment recommended.', eta: 'Escalate today' },
@@ -218,7 +138,6 @@ const riskCards = [
 
 const severityColors = { high: DANGER, medium: '#ff9500', low: ACCENT }
 
-/* ── Math rows ── */
 const mathRows = [
   { label: 'Average cost of one missed engineering deadline', value: '$50,000+', isAccent: false },
   { label: 'NexFlow monthly cost', value: '$300/mo', isAccent: false },
@@ -226,7 +145,6 @@ const mathRows = [
   { label: 'ROI from catching one delay per year', value: '13.8x', isAccent: true },
 ]
 
-/* ── Steps ── */
 const steps = [
   { num: '01', title: 'Connect your stack', desc: 'GitHub, Jira or Linear, Slack. Read-only OAuth. 10 minutes. Nothing changes for your engineers.' },
   { num: '02', title: 'We scan 90 days of signals', desc: "PR cycles, sprint patterns, blocker chains, context switch load. The signals your tools already create — just never synthesized." },
@@ -234,7 +152,6 @@ const steps = [
 ]
 
 export default function AuditPage() {
-  const heroRef = useRef<HTMLDivElement>(null)
   const [heroSubmitted, setHeroSubmitted] = useState(false)
 
   const handleBottomSuccess = () => {
@@ -243,188 +160,59 @@ export default function AuditPage() {
   }
 
   return (
-    <main
-      style={{
-        background: BG,
-        color: '#f0f0f0',
-        fontFamily: MONO,
-        fontSize: 15,
-        lineHeight: 1.6,
-        minHeight: '100vh',
-        overflowX: 'hidden',
-      }}
-    >
+    <main className="audit-page">
       {/* Grain overlay */}
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
-          pointerEvents: 'none',
-          zIndex: 1000,
-          opacity: 0.4,
-        }}
-      />
+      <div className="audit-grain" />
 
       {/* ── NAV ── */}
-      <nav
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '20px 40px',
-          borderBottom: `1px solid ${BORDER}`,
-          position: 'sticky',
-          top: 0,
-          background: 'rgba(10,10,10,0.92)',
-          backdropFilter: 'blur(12px)',
-          zIndex: 100,
-        }}
-      >
-        <Link
-          href="/enterprise"
-          style={{
-            fontFamily: SYNE,
-            fontWeight: 800,
-            fontSize: 18,
-            letterSpacing: -0.5,
-            color: '#f0f0f0',
-            textDecoration: 'none',
-          }}
-        >
-          Nex<span style={{ color: ACCENT }}>Flow</span>
+      <nav className="audit-nav">
+        <Link href="/enterprise" className="audit-logo">
+          Nex<span>Flow</span>
         </Link>
-        <Link
-          href="/enterprise"
-          style={{ color: MUTED, textDecoration: 'none', fontSize: 13, transition: 'color 0.2s' }}
-        >
+        <Link href="/enterprise" className="audit-nav-back">
           ← Back to site
         </Link>
       </nav>
 
       {/* ── HERO ── */}
-      <section
-        ref={heroRef}
-        style={{
-          maxWidth: 860,
-          margin: '0 auto',
-          padding: '100px 40px 80px',
-          textAlign: 'center',
-        }}
-      >
+      <section className="audit-hero">
         {/* Badge */}
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            background: ACCENT_DIM,
-            border: '1px solid rgba(0,255,135,0.2)',
-            color: ACCENT,
-            fontSize: 11,
-            fontWeight: 500,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            padding: '6px 14px',
-            borderRadius: 2,
-            marginBottom: 32,
-          }}
-        >
-          <span
-            className="audit-pulse"
-            style={{
-              width: 6,
-              height: 6,
-              background: ACCENT,
-              borderRadius: '50%',
-              display: 'inline-block',
-            }}
-          />
+        <div className="audit-badge">
+          <span className="audit-pulse audit-badge-dot" />
           Free Engineering Risk Audit
         </div>
 
+        {/* ICP qualifier */}
+        <p className="audit-icp-line">
+          For VPs of Engineering, CTOs, and engineering leaders at growing companies
+        </p>
+
         {/* Headline */}
-        <h1
-          style={{
-            fontFamily: SYNE,
-            fontWeight: 800,
-            fontSize: 'clamp(36px, 6vw, 62px)',
-            lineHeight: 1.05,
-            letterSpacing: -2,
-            marginBottom: 24,
-          }}
-        >
-          Your next missed<br />deadline is <em style={{ fontStyle: 'normal', color: ACCENT }}>already</em><br />forming.
+        <h1 className="audit-h1">
+          Your next missed<br />deadline is <em>already</em><br />forming.
         </h1>
 
-        {/* Subhead */}
-        <p
-          style={{
-            fontSize: 16,
-            color: MUTED,
-            maxWidth: 520,
-            margin: '0 auto 48px',
-            lineHeight: 1.7,
-          }}
-        >
-          Get a free audit showing exactly which projects in your engineering org are at risk — before your next sprint review.
+        {/* Subhead — ICP-specific */}
+        <p className="audit-subhead">
+          We scan your GitHub, Jira, and Slack and show you exactly which teams
+          are about to miss their deadline. Free, 48-hour turnaround.
         </p>
 
         {/* Form / Success */}
         {heroSubmitted ? (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 16,
-              padding: 40,
-              background: ACCENT_DIM,
-              border: '1px solid rgba(0,255,135,0.2)',
-              borderRadius: 4,
-              maxWidth: 440,
-              margin: '0 auto',
-            }}
-          >
-            <div
-              style={{
-                width: 48,
-                height: 48,
-                background: ACCENT,
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#000',
-                fontSize: 22,
-                fontWeight: 700,
-              }}
-            >
-              ✓
-            </div>
-            <h3 style={{ fontFamily: SYNE, fontWeight: 700, fontSize: 20, color: '#f0f0f0' }}>
-              Audit doc on its way.
-            </h3>
-            <p style={{ fontSize: 13, color: MUTED, textAlign: 'center' }}>
+          <div className="audit-success">
+            <div className="audit-success-icon">✓</div>
+            <h3 className="audit-success-title">Audit doc on its way.</h3>
+            <p className="audit-success-desc">
               Check your inbox — we&apos;ll also send you a sample risk report so you know exactly what NexFlow catches.
             </p>
             <a
               href="https://calendly.com/arjundixit3508/30min"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                background: 'transparent',
-                border: '1px solid rgba(0,255,135,0.3)',
-                color: ACCENT,
-                fontFamily: SYNE,
-                fontWeight: 600,
-                fontSize: 13,
-                padding: '12px 24px',
-                borderRadius: 2,
-                textDecoration: 'none',
-              }}
+              className="audit-success-btn"
             >
-              Book a live demo instead →
+              Book a walkthrough instead →
             </a>
           </div>
         ) : (
@@ -432,27 +220,18 @@ export default function AuditPage() {
         )}
 
         {/* Form note */}
-        <p style={{ fontSize: 12, color: '#444', textAlign: 'center', marginTop: 24 }}>
+        <p className="audit-form-note">
           No spam. No pitch on the first email. Just the audit doc.
         </p>
 
         {/* Social proof */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 20,
-            marginTop: 40,
-            flexWrap: 'wrap',
-          }}
-        >
+        <div className="audit-social-proof">
           {[
             'Read-only access, no code seen',
-            '10 min to connect your stack',
+            '10 min setup, zero eng time',
             'Report in 48 hours',
           ].map((text) => (
-            <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#555' }}>
+            <div key={text} className="audit-proof-item">
               <svg width="14" height="14" fill="none" stroke={ACCENT} strokeWidth="2" viewBox="0 0 24 24">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
@@ -462,188 +241,82 @@ export default function AuditPage() {
         </div>
       </section>
 
-      {/* Divider */}
-      <hr style={{ border: 'none', borderTop: `1px solid ${BORDER}`, margin: 0 }} />
+      <hr className="audit-divider" />
 
       {/* ── WHAT YOU GET ── */}
-      <section style={{ maxWidth: 860, margin: '0 auto', padding: '80px 40px' }}>
-        <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: ACCENT, marginBottom: 16 }}>
-          What you get
-        </div>
-        <h2 style={{ fontFamily: SYNE, fontWeight: 800, fontSize: 'clamp(26px, 4vw, 38px)', letterSpacing: -1, lineHeight: 1.1, marginBottom: 48 }}>
-          A 5-point risk scan of<br />your engineering org.<br /><span style={{ color: ACCENT }}>Free. Yours to keep.</span>
+      <section className="audit-section">
+        <div className="audit-section-label">What you get</div>
+        <h2 className="audit-h2">
+          A 5-point risk scan of<br />your engineering org.<br /><span>Free. Yours to keep.</span>
         </h2>
 
         {/* Audit grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: 1,
-            background: BORDER,
-            border: `1px solid ${BORDER}`,
-          }}
-        >
+        <div className="audit-grid">
           {auditItems.map((item) => (
-            <div
-              key={item.num}
-              style={{ background: SURFACE, padding: 28, transition: 'background 0.2s' }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = '#161616' }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = SURFACE }}
-            >
-              <div style={{ fontSize: 11, color: ACCENT, letterSpacing: '0.1em', marginBottom: 12 }}>
-                {item.num}
-              </div>
-              <h3 style={{ fontFamily: SYNE, fontWeight: 700, fontSize: 16, marginBottom: 8, letterSpacing: -0.3 }}>
-                {item.title}
-              </h3>
-              <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.6 }}>{item.desc}</p>
+            <div key={item.num} className="audit-grid-item">
+              <div className="audit-grid-num">{item.num}</div>
+              <h3 className="audit-grid-title">{item.title}</h3>
+              <p className="audit-grid-desc">{item.desc}</p>
             </div>
           ))}
-
-          {/* Special 6th item */}
-          <div style={{ background: ACCENT_DIM, padding: 28 }}>
-            <div style={{ fontSize: 11, color: ACCENT, letterSpacing: '0.1em', marginBottom: 12 }}>→</div>
-            <h3 style={{ fontFamily: SYNE, fontWeight: 700, fontSize: 16, marginBottom: 8, letterSpacing: -0.3 }}>
-              Delivered as a one-page report
-            </h3>
-            <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.6 }}>
+          <div className="audit-grid-item audit-grid-cta">
+            <div className="audit-grid-num">→</div>
+            <h3 className="audit-grid-title">Delivered as a one-page report</h3>
+            <p className="audit-grid-desc">
               No dashboard to log into. No alerts to configure. One clean document in your inbox before standup.
             </p>
           </div>
         </div>
 
-        {/* ── Report preview ── */}
-        <div
-          style={{
-            background: SURFACE,
-            border: `1px solid ${BORDER}`,
-            borderRadius: 4,
-            overflow: 'hidden',
-            marginTop: 48,
-          }}
-        >
-          {/* Report header */}
-          <div
-            style={{
-              background: '#161616',
-              borderBottom: `1px solid ${BORDER}`,
-              padding: '16px 24px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: 12,
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: DANGER }} />
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff9500' }} />
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: ACCENT }} />
-              <span style={{ fontFamily: SYNE, fontWeight: 700, fontSize: 13, letterSpacing: -0.2 }}>
-                NexFlow Risk Report — Week of Mar 10, 2026
-              </span>
+        {/* Report preview */}
+        <div className="audit-report">
+          <div className="audit-report-header">
+            <div className="audit-report-header-left">
+              <div className="audit-dot" style={{ background: DANGER }} />
+              <div className="audit-dot" style={{ background: '#ff9500' }} />
+              <div className="audit-dot" style={{ background: ACCENT }} />
+              <span className="audit-report-title">NexFlow Risk Report — Week of Mar 10, 2026</span>
             </div>
-            <span style={{ fontSize: 11, color: MUTED }}>Sample output</span>
+            <span className="audit-report-date">Sample output</span>
           </div>
-
-          {/* Report body — risk cards */}
-          <div
-            style={{
-              padding: 24,
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: 16,
-            }}
-            className="audit-report-body"
-          >
+          <div className="audit-report-body">
             {riskCards.map((card) => (
               <div
                 key={card.title}
-                style={{
-                  background: '#0f0f0f',
-                  border: `1px solid ${BORDER}`,
-                  borderLeft: `3px solid ${severityColors[card.severity]}`,
-                  padding: 16,
-                  borderRadius: 2,
-                }}
+                className="audit-risk-card"
+                style={{ borderLeftColor: severityColors[card.severity] }}
               >
-                <div
-                  style={{
-                    fontSize: 10,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    marginBottom: 8,
-                    color: severityColors[card.severity],
-                  }}
-                >
+                <div className="audit-risk-label" style={{ color: severityColors[card.severity] }}>
                   {card.label}
                 </div>
-                <div style={{ fontFamily: SYNE, fontWeight: 600, fontSize: 14, marginBottom: 6, letterSpacing: -0.2 }}>
-                  {card.title}
-                </div>
-                <div style={{ fontSize: 12, color: MUTED, lineHeight: 1.5 }}>{card.desc}</div>
-                <span
-                  style={{
-                    display: 'inline-block',
-                    marginTop: 10,
-                    fontSize: 11,
-                    background: 'rgba(255,255,255,0.04)',
-                    padding: '3px 8px',
-                    borderRadius: 2,
-                    color: '#888',
-                  }}
-                >
-                  {card.eta}
-                </span>
+                <div className="audit-risk-title">{card.title}</div>
+                <div className="audit-risk-desc">{card.desc}</div>
+                <span className="audit-risk-eta">{card.eta}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Divider */}
-      <hr style={{ border: 'none', borderTop: `1px solid ${BORDER}`, margin: 0 }} />
+      <hr className="audit-divider" />
 
       {/* ── THE MATH ── */}
-      <section style={{ maxWidth: 860, margin: '0 auto', padding: '80px 40px' }}>
-        <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: ACCENT, marginBottom: 16 }}>
-          The math
-        </div>
-        <h2 style={{ fontFamily: SYNE, fontWeight: 800, fontSize: 'clamp(26px, 4vw, 38px)', letterSpacing: -1, lineHeight: 1.1, marginBottom: 48 }}>
-          One caught delay pays<br />for <span style={{ color: ACCENT }}>10 years</span> of NexFlow.
+      <section className="audit-section">
+        <div className="audit-section-label">The math</div>
+        <h2 className="audit-h2">
+          One caught delay pays<br />for <span>10 years</span> of NexFlow.
         </h2>
 
-        <div
-          style={{
-            background: SURFACE,
-            border: `1px solid ${BORDER}`,
-            borderLeft: `3px solid ${ACCENT}`,
-            padding: 32,
-          }}
-        >
+        <div className="audit-math-block">
           {mathRows.map((row, i) => (
             <div
               key={row.label}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding: '12px 0',
-                borderBottom: i < mathRows.length - 1 ? `1px solid ${BORDER}` : 'none',
-                fontSize: 14,
-                flexWrap: 'wrap',
-                gap: 8,
-              }}
+              className="audit-math-row"
+              style={{ borderBottom: i < mathRows.length - 1 ? `1px solid ${BORDER}` : 'none' }}
             >
-              <span style={{ color: MUTED }}>{row.label}</span>
+              <span className="audit-math-label">{row.label}</span>
               <span
-                style={{
-                  fontFamily: SYNE,
-                  fontWeight: 700,
-                  color: row.isAccent ? ACCENT : '#f0f0f0',
-                  fontSize: row.isAccent ? 18 : 14,
-                }}
+                className={`audit-math-value ${row.isAccent ? 'accent' : ''}`}
               >
                 {row.value}
               </span>
@@ -652,59 +325,22 @@ export default function AuditPage() {
         </div>
       </section>
 
-      {/* Divider */}
-      <hr style={{ border: 'none', borderTop: `1px solid ${BORDER}`, margin: 0 }} />
+      <hr className="audit-divider" />
 
       {/* ── HOW IT WORKS ── */}
-      <section style={{ maxWidth: 860, margin: '0 auto', padding: '80px 40px' }}>
-        <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: ACCENT, marginBottom: 16 }}>
-          How it works
-        </div>
-        <h2 style={{ fontFamily: SYNE, fontWeight: 800, fontSize: 'clamp(26px, 4vw, 38px)', letterSpacing: -1, lineHeight: 1.1, marginBottom: 48 }}>
-          Three steps.<br /><span style={{ color: ACCENT }}>Report in 48 hours.</span>
+      <section className="audit-section">
+        <div className="audit-section-label">How it works</div>
+        <h2 className="audit-h2">
+          Three steps.<br /><span>Report in 48 hours.</span>
         </h2>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1,
-            background: BORDER,
-            border: `1px solid ${BORDER}`,
-          }}
-        >
+        <div className="audit-steps">
           {steps.map((step) => (
-            <div
-              key={step.num}
-              style={{
-                background: SURFACE,
-                padding: '28px 32px',
-                display: 'grid',
-                gridTemplateColumns: '48px 1fr',
-                gap: 24,
-                alignItems: 'start',
-                transition: 'background 0.2s',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = '#161616' }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = SURFACE }}
-            >
-              <div
-                style={{
-                  fontFamily: SYNE,
-                  fontWeight: 800,
-                  fontSize: 28,
-                  color: BORDER,
-                  lineHeight: 1,
-                  marginTop: 2,
-                }}
-              >
-                {step.num}
-              </div>
+            <div key={step.num} className="audit-step">
+              <div className="audit-step-num">{step.num}</div>
               <div>
-                <h3 style={{ fontFamily: SYNE, fontWeight: 700, fontSize: 18, letterSpacing: -0.3, marginBottom: 6 }}>
-                  {step.title}
-                </h3>
-                <p style={{ fontSize: 13, color: MUTED }}>{step.desc}</p>
+                <h3 className="audit-step-title">{step.title}</h3>
+                <p className="audit-step-desc">{step.desc}</p>
               </div>
             </div>
           ))}
@@ -712,22 +348,16 @@ export default function AuditPage() {
       </section>
 
       {/* ── BOTTOM CTA ── */}
-      <section
-        style={{
-          borderTop: `1px solid ${BORDER}`,
-          padding: '80px 40px',
-          textAlign: 'center',
-        }}
-      >
-        <h2 style={{ fontFamily: SYNE, fontWeight: 800, fontSize: 'clamp(28px, 5vw, 48px)', letterSpacing: -1.5, marginBottom: 16, lineHeight: 1.1 }}>
-          See your risks before<br />your next <span style={{ color: ACCENT }}>sprint review.</span>
+      <section className="audit-bottom-cta">
+        <h2 className="audit-bottom-h2">
+          See your risks before<br />your next <span>sprint review.</span>
         </h2>
-        <p style={{ color: MUTED, fontSize: 14, marginBottom: 40 }}>
+        <p className="audit-bottom-sub">
           Free audit. No commitment. Yours to keep regardless.
         </p>
 
         {heroSubmitted ? (
-          <p style={{ color: ACCENT, fontSize: 14, fontFamily: SYNE, fontWeight: 600 }}>
+          <p className="audit-bottom-done">
             ✓ Your audit is on its way. Check your inbox.
           </p>
         ) : (
@@ -736,45 +366,605 @@ export default function AuditPage() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer
-        style={{
-          borderTop: `1px solid ${BORDER}`,
-          padding: '24px 40px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          fontSize: 12,
-          color: '#444',
-          flexWrap: 'wrap',
-          gap: 12,
-        }}
-      >
-        <Link
-          href="/enterprise"
-          style={{
-            fontFamily: SYNE,
-            fontWeight: 800,
-            fontSize: 15,
-            color: '#f0f0f0',
-            textDecoration: 'none',
-          }}
-        >
-          Nex<span style={{ color: ACCENT }}>Flow</span>
+      <footer className="audit-footer">
+        <Link href="/enterprise" className="audit-footer-logo">
+          Nex<span>Flow</span>
         </Link>
-        <div style={{ display: 'flex', gap: 24 }}>
-          <Link href="/privacy" style={{ color: '#444', textDecoration: 'none' }}>Privacy</Link>
-          <Link href="/terms" style={{ color: '#444', textDecoration: 'none' }}>Terms</Link>
-          <Link href="mailto:arjundixit@nexflowinc.com" style={{ color: '#444', textDecoration: 'none' }}>Contact</Link>
+        <div className="audit-footer-links">
+          <Link href="/privacy">Privacy</Link>
+          <Link href="/terms">Terms</Link>
+          <Link href="mailto:arjundixit@nexflowinc.com">Contact</Link>
         </div>
         <span>© 2026 NexFlow Inc.</span>
       </footer>
 
-      {/* Responsive overrides */}
-      <style jsx>{`
-        @media (max-width: 600px) {
-          .audit-report-body {
-            grid-template-columns: 1fr !important;
+      {/* ── ALL STYLES ── */}
+      <style jsx global>{`
+        /* ── Base ── */
+        .audit-page {
+          background: ${BG};
+          color: #f0f0f0;
+          font-family: ${MONO};
+          font-size: 15px;
+          line-height: 1.6;
+          min-height: 100vh;
+          overflow-x: hidden;
+        }
+
+        .audit-grain {
+          position: fixed;
+          inset: 0;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+          pointer-events: none;
+          z-index: 1000;
+          opacity: 0.4;
+        }
+
+        /* ── Nav ── */
+        .audit-nav {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 20px 40px;
+          border-bottom: 1px solid ${BORDER};
+          position: sticky;
+          top: 0;
+          background: rgba(10,10,10,0.92);
+          backdrop-filter: blur(12px);
+          z-index: 100;
+        }
+
+        .audit-logo {
+          font-family: ${SYNE};
+          font-weight: 800;
+          font-size: 18px;
+          letter-spacing: -0.5px;
+          color: #f0f0f0;
+          text-decoration: none;
+        }
+        .audit-logo span { color: ${ACCENT}; }
+
+        .audit-nav-back {
+          color: ${MUTED};
+          text-decoration: none;
+          font-size: 13px;
+          transition: color 0.2s;
+        }
+        .audit-nav-back:hover { color: #f0f0f0; }
+
+        /* ── Hero ── */
+        .audit-hero {
+          max-width: 860px;
+          margin: 0 auto;
+          padding: 80px 40px 64px;
+          text-align: center;
+        }
+
+        .audit-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: ${ACCENT_DIM};
+          border: 1px solid rgba(0,255,135,0.2);
+          color: ${ACCENT};
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          padding: 6px 14px;
+          border-radius: 2px;
+          margin-bottom: 20px;
+        }
+
+        .audit-badge-dot {
+          width: 6px;
+          height: 6px;
+          background: ${ACCENT};
+          border-radius: 50%;
+          display: inline-block;
+        }
+
+        .audit-icp-line {
+          font-size: 12px;
+          color: #444;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          margin-bottom: 28px;
+        }
+
+        .audit-h1 {
+          font-family: ${SYNE};
+          font-weight: 800;
+          font-size: clamp(32px, 6vw, 62px);
+          line-height: 1.05;
+          letter-spacing: -2px;
+          margin-bottom: 20px;
+        }
+        .audit-h1 em {
+          font-style: normal;
+          color: ${ACCENT};
+        }
+
+        .audit-subhead {
+          font-size: 15px;
+          color: ${MUTED};
+          max-width: 480px;
+          margin: 0 auto 40px;
+          line-height: 1.7;
+        }
+
+        /* ── Form ── */
+        .audit-form-wrap {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          max-width: 440px;
+          margin: 0 auto;
+        }
+
+        .audit-form-row {
+          display: flex;
+          gap: 10px;
+        }
+
+        .audit-input {
+          width: 100%;
+          background: ${SURFACE};
+          border: 1px solid ${BORDER};
+          color: #f0f0f0;
+          font-family: ${MONO};
+          font-size: 14px;
+          padding: 14px 16px;
+          border-radius: 2px;
+          outline: none;
+          transition: border-color 0.2s, box-shadow 0.2s;
+          -webkit-appearance: none;
+        }
+        .audit-input::placeholder { color: #444; }
+        .audit-input:focus {
+          border-color: rgba(0,255,135,0.4);
+          box-shadow: 0 0 0 3px rgba(0,255,135,0.06);
+        }
+
+        .audit-btn-primary {
+          width: 100%;
+          background: ${ACCENT};
+          color: #000;
+          font-family: ${SYNE};
+          font-weight: 700;
+          font-size: 15px;
+          letter-spacing: 0.02em;
+          padding: 16px 24px;
+          border: none;
+          border-radius: 2px;
+          cursor: pointer;
+          transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .audit-btn-primary:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 8px 24px rgba(0,255,135,0.25);
+        }
+        .audit-btn-primary:active { transform: translateY(0); }
+        .audit-btn-primary:disabled { opacity: 0.6; cursor: wait; }
+
+        /* ── Success state ── */
+        .audit-success {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+          padding: 40px 28px;
+          background: ${ACCENT_DIM};
+          border: 1px solid rgba(0,255,135,0.2);
+          border-radius: 4px;
+          max-width: 440px;
+          margin: 0 auto;
+        }
+        .audit-success-icon {
+          width: 48px;
+          height: 48px;
+          background: ${ACCENT};
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #000;
+          font-size: 22px;
+          font-weight: 700;
+        }
+        .audit-success-title {
+          font-family: ${SYNE};
+          font-weight: 700;
+          font-size: 20px;
+          color: #f0f0f0;
+        }
+        .audit-success-desc {
+          font-size: 13px;
+          color: ${MUTED};
+          text-align: center;
+        }
+        .audit-success-btn {
+          background: transparent;
+          border: 1px solid rgba(0,255,135,0.3);
+          color: ${ACCENT};
+          font-family: ${SYNE};
+          font-weight: 600;
+          font-size: 13px;
+          padding: 12px 24px;
+          border-radius: 2px;
+          text-decoration: none;
+          transition: background 0.2s;
+        }
+        .audit-success-btn:hover { background: ${ACCENT_DIM}; }
+
+        /* ── Form note + social proof ── */
+        .audit-form-note {
+          font-size: 12px;
+          color: #444;
+          text-align: center;
+          margin-top: 20px;
+        }
+
+        .audit-social-proof {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+          margin-top: 32px;
+          flex-wrap: wrap;
+        }
+        .audit-proof-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 12px;
+          color: #555;
+        }
+
+        /* ── Divider ── */
+        .audit-divider {
+          border: none;
+          border-top: 1px solid ${BORDER};
+          margin: 0;
+        }
+
+        /* ── Section ── */
+        .audit-section {
+          max-width: 860px;
+          margin: 0 auto;
+          padding: 72px 40px;
+        }
+        .audit-section-label {
+          font-size: 11px;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: ${ACCENT};
+          margin-bottom: 16px;
+        }
+        .audit-h2 {
+          font-family: ${SYNE};
+          font-weight: 800;
+          font-size: clamp(24px, 4vw, 38px);
+          letter-spacing: -1px;
+          line-height: 1.1;
+          margin-bottom: 40px;
+        }
+        .audit-h2 span { color: ${ACCENT}; }
+
+        /* ── Audit grid ── */
+        .audit-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1px;
+          background: ${BORDER};
+          border: 1px solid ${BORDER};
+        }
+        .audit-grid-item {
+          background: ${SURFACE};
+          padding: 28px;
+          transition: background 0.2s;
+        }
+        .audit-grid-item:hover { background: #161616; }
+        .audit-grid-cta {
+          background: ${ACCENT_DIM} !important;
+        }
+        .audit-grid-num {
+          font-size: 11px;
+          color: ${ACCENT};
+          letter-spacing: 0.1em;
+          margin-bottom: 12px;
+        }
+        .audit-grid-title {
+          font-family: ${SYNE};
+          font-weight: 700;
+          font-size: 16px;
+          margin-bottom: 8px;
+          letter-spacing: -0.3px;
+        }
+        .audit-grid-desc {
+          font-size: 13px;
+          color: ${MUTED};
+          line-height: 1.6;
+        }
+
+        /* ── Report preview ── */
+        .audit-report {
+          background: ${SURFACE};
+          border: 1px solid ${BORDER};
+          border-radius: 4px;
+          overflow: hidden;
+          margin-top: 40px;
+        }
+        .audit-report-header {
+          background: #161616;
+          border-bottom: 1px solid ${BORDER};
+          padding: 16px 24px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          flex-wrap: wrap;
+        }
+        .audit-report-header-left {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        .audit-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          flex-shrink: 0;
+        }
+        .audit-report-title {
+          font-family: ${SYNE};
+          font-weight: 700;
+          font-size: 13px;
+          letter-spacing: -0.2px;
+        }
+        .audit-report-date { font-size: 11px; color: ${MUTED}; }
+        .audit-report-body {
+          padding: 24px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+        .audit-risk-card {
+          background: #0f0f0f;
+          border: 1px solid ${BORDER};
+          border-left: 3px solid;
+          padding: 16px;
+          border-radius: 2px;
+        }
+        .audit-risk-label {
+          font-size: 10px;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          margin-bottom: 8px;
+        }
+        .audit-risk-title {
+          font-family: ${SYNE};
+          font-weight: 600;
+          font-size: 14px;
+          margin-bottom: 6px;
+          letter-spacing: -0.2px;
+        }
+        .audit-risk-desc { font-size: 12px; color: ${MUTED}; line-height: 1.5; }
+        .audit-risk-eta {
+          display: inline-block;
+          margin-top: 10px;
+          font-size: 11px;
+          background: rgba(255,255,255,0.04);
+          padding: 3px 8px;
+          border-radius: 2px;
+          color: #888;
+        }
+
+        /* ── Math block ── */
+        .audit-math-block {
+          background: ${SURFACE};
+          border: 1px solid ${BORDER};
+          border-left: 3px solid ${ACCENT};
+          padding: 32px;
+        }
+        .audit-math-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 12px 0;
+          font-size: 14px;
+          gap: 12px;
+        }
+        .audit-math-label { color: ${MUTED}; flex: 1; }
+        .audit-math-value {
+          font-family: ${SYNE};
+          font-weight: 700;
+          white-space: nowrap;
+        }
+        .audit-math-value.accent {
+          color: ${ACCENT};
+          font-size: 18px;
+        }
+
+        /* ── Steps ── */
+        .audit-steps {
+          display: flex;
+          flex-direction: column;
+          gap: 1px;
+          background: ${BORDER};
+          border: 1px solid ${BORDER};
+        }
+        .audit-step {
+          background: ${SURFACE};
+          padding: 28px 32px;
+          display: grid;
+          grid-template-columns: 48px 1fr;
+          gap: 24px;
+          align-items: start;
+          transition: background 0.2s;
+        }
+        .audit-step:hover { background: #161616; }
+        .audit-step-num {
+          font-family: ${SYNE};
+          font-weight: 800;
+          font-size: 28px;
+          color: ${BORDER};
+          line-height: 1;
+          margin-top: 2px;
+        }
+        .audit-step-title {
+          font-family: ${SYNE};
+          font-weight: 700;
+          font-size: 18px;
+          letter-spacing: -0.3px;
+          margin-bottom: 6px;
+        }
+        .audit-step-desc { font-size: 13px; color: ${MUTED}; }
+
+        /* ── Bottom CTA ── */
+        .audit-bottom-cta {
+          border-top: 1px solid ${BORDER};
+          padding: 72px 40px;
+          text-align: center;
+        }
+        .audit-bottom-h2 {
+          font-family: ${SYNE};
+          font-weight: 800;
+          font-size: clamp(26px, 5vw, 48px);
+          letter-spacing: -1.5px;
+          margin-bottom: 16px;
+          line-height: 1.1;
+        }
+        .audit-bottom-h2 span { color: ${ACCENT}; }
+        .audit-bottom-sub {
+          color: ${MUTED};
+          font-size: 14px;
+          margin-bottom: 36px;
+        }
+        .audit-bottom-done {
+          color: ${ACCENT};
+          font-size: 14px;
+          font-family: ${SYNE};
+          font-weight: 600;
+        }
+
+        /* ── Footer ── */
+        .audit-footer {
+          border-top: 1px solid ${BORDER};
+          padding: 24px 40px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-size: 12px;
+          color: #444;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        .audit-footer-logo {
+          font-family: ${SYNE};
+          font-weight: 800;
+          font-size: 15px;
+          color: #f0f0f0;
+          text-decoration: none;
+        }
+        .audit-footer-logo span { color: ${ACCENT}; }
+        .audit-footer-links { display: flex; gap: 24px; }
+        .audit-footer-links a { color: #444; text-decoration: none; }
+        .audit-footer-links a:hover { color: ${MUTED}; }
+
+        /* ── TABLET (≤ 768px) ── */
+        @media (max-width: 768px) {
+          .audit-hero { padding: 60px 24px 48px; }
+          .audit-section { padding: 56px 24px; }
+          .audit-bottom-cta { padding: 56px 24px; }
+          .audit-nav { padding: 16px 24px; }
+          .audit-footer { padding: 20px 24px; }
+
+          .audit-grid {
+            grid-template-columns: repeat(2, 1fr);
           }
+
+          .audit-step {
+            padding: 24px;
+            gap: 16px;
+          }
+
+          .audit-math-block { padding: 24px; }
+
+          .audit-report-header { padding: 12px 16px; }
+          .audit-report-body { padding: 16px; gap: 12px; }
+        }
+
+        /* ── MOBILE (≤ 480px) ── */
+        @media (max-width: 480px) {
+          .audit-hero { padding: 40px 16px 36px; }
+          .audit-section { padding: 48px 16px; }
+          .audit-bottom-cta { padding: 48px 16px; }
+          .audit-nav { padding: 14px 16px; }
+          .audit-footer {
+            padding: 16px;
+            flex-direction: column;
+            text-align: center;
+          }
+
+          .audit-h1 { letter-spacing: -1px; }
+
+          .audit-icp-line { font-size: 10px; margin-bottom: 20px; }
+
+          .audit-form-row {
+            flex-direction: column;
+            gap: 12px;
+          }
+
+          .audit-input {
+            padding: 16px;
+            font-size: 16px; /* prevents iOS zoom */
+          }
+
+          .audit-btn-primary {
+            padding: 18px 24px;
+            font-size: 16px;
+          }
+
+          .audit-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .audit-report-body {
+            grid-template-columns: 1fr;
+          }
+
+          .audit-report-header-left {
+            flex-wrap: wrap;
+          }
+          .audit-report-title {
+            font-size: 11px;
+          }
+
+          .audit-math-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+          }
+          .audit-math-label { font-size: 13px; }
+
+          .audit-step {
+            grid-template-columns: 36px 1fr;
+            padding: 20px 16px;
+            gap: 12px;
+          }
+          .audit-step-num { font-size: 22px; }
+          .audit-step-title { font-size: 16px; }
+
+          .audit-social-proof {
+            flex-direction: column;
+            gap: 12px;
+          }
+
+          .audit-success { padding: 28px 20px; }
+          .audit-form-wrap { max-width: 100%; }
+
+          .audit-grid-item { padding: 20px; }
         }
       `}</style>
     </main>
