@@ -1,12 +1,7 @@
 import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
-
-// Gmail SMTP setup:
-// 1. Go to https://myaccount.google.com/apppasswords
-// 2. Generate an app password for "Mail"
-// 3. Add to .env.local:
-//    GMAIL_USER=your@gmail.com
-//    GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx
+import path from 'path'
+import fs from 'fs'
 
 export async function POST(request: Request) {
   try {
@@ -28,6 +23,10 @@ export async function POST(request: Request) {
         },
       })
 
+      const pdfPath = path.join(process.cwd(), 'assets', 'never-miss-deadline-audit.pdf')
+      const pdfExists = fs.existsSync(pdfPath)
+
+      // 1. Notify you about the new lead
       await transporter.sendMail({
         from: gmailUser,
         to: gmailUser,
@@ -44,6 +43,44 @@ export async function POST(request: Request) {
             <p style="margin-top: 16px; font-size: 12px; color: #999;">Submitted ${new Date().toLocaleString()}</p>
           </div>
         `,
+      })
+
+      // 2. Send the PDF audit doc to the lead
+      await transporter.sendMail({
+        from: `"NexFlow" <${gmailUser}>`,
+        to: email,
+        subject: 'Your Free Engineering Audit Doc',
+        html: `
+          <div style="font-family: -apple-system, sans-serif; max-width: 520px; margin: 0 auto;">
+            <h1 style="font-size: 22px; margin: 0 0 12px;">Hey ${firstName},</h1>
+            <p style="font-size: 15px; color: #333; line-height: 1.6; margin: 0 0 20px;">
+              Thanks for requesting the audit doc. Attached is the full framework we use to identify
+              engineering risks before they cause missed deadlines.
+            </p>
+            <p style="font-size: 15px; color: #333; line-height: 1.6; margin: 0 0 20px;">
+              Inside you'll find the exact signals, metrics, and action plans that help engineering
+              leaders ship on time, every time.
+            </p>
+            <p style="font-size: 15px; color: #333; line-height: 1.6; margin: 0 0 24px;">
+              Want us to run the audit on your team's actual data? We'll analyze 90 days of your
+              GitHub, Jira, and Slack activity and deliver a personalized risk report in 48 hours.
+            </p>
+            <a href="https://cal.com/arjun-dixit-0nwkzi/30min"
+               style="display: inline-block; background: #0f172a; color: #fff; padding: 12px 28px;
+                      border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 15px;">
+              Book a Free Audit Call
+            </a>
+            <p style="margin-top: 32px; font-size: 12px; color: #999;">
+              NexFlow &middot; Engineering Intelligence
+            </p>
+          </div>
+        `,
+        ...(pdfExists && {
+          attachments: [{
+            filename: 'Never-Miss-a-Deadline-Audit.pdf',
+            path: pdfPath,
+          }],
+        }),
       })
     }
 
