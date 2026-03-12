@@ -227,20 +227,9 @@ export default function AuditPage() {
                 No spam. No pitch. Just the audit doc.
               </p>
 
-              <div className="audit-form-trust">
-                {[
-                  'Free PDF, no account needed',
-                  'Sent straight to your inbox',
-                  'No sales call, no strings',
-                ].map((text) => (
-                  <div key={text} className="audit-trust-item">
-                    <svg width="12" height="12" fill="none" stroke={ACCENT} strokeWidth="2" viewBox="0 0 24 24">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    {text}
-                  </div>
-                ))}
-              </div>
+              <p className="audit-form-trust">
+                Free PDF — sent to your inbox instantly
+              </p>
             </div>
           </div>
         </div>
@@ -636,21 +625,10 @@ export default function AuditPage() {
         }
 
         .audit-form-trust {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 16px;
-          margin-top: 14px;
-          padding-top: 14px;
-          border-top: 1px solid ${BORDER};
-          flex-wrap: wrap;
-        }
-        .audit-trust-item {
-          display: flex;
-          align-items: center;
-          gap: 5px;
           font-size: 11px;
           color: #555;
+          text-align: center;
+          margin-top: 8px;
         }
 
         /* ── Divider ── */
@@ -951,8 +929,7 @@ export default function AuditPage() {
           .audit-input { padding: 14px; font-size: 16px; }
           .audit-btn-primary { padding: 16px; font-size: 15px; }
 
-          .audit-form-trust { gap: 10px; }
-          .audit-trust-item { font-size: 10px; }
+          .audit-form-trust { font-size: 10px; }
 
           .audit-form-note { font-size: 10px; margin-top: 10px; }
 
