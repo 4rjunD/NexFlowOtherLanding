@@ -57,7 +57,7 @@ function AuditForm({
         <div className="audit-success-icon">✓</div>
         <h3 className="audit-success-title">Audit doc on its way.</h3>
         <p className="audit-success-desc">
-          Check your inbox — we&apos;ll also send you a sample risk report so you know exactly what NexFlow catches.
+          Check your inbox — the audit doc is on its way. Start using the frameworks with your team today.
         </p>
         <a
           href="https://calendly.com/arjundixit3508/30min"
@@ -65,7 +65,7 @@ function AuditForm({
           rel="noopener noreferrer"
           className="audit-success-btn"
         >
-          Book a walkthrough instead →
+          Want us to run the audit for you? Book a call →
         </a>
       </div>
     )
@@ -122,11 +122,11 @@ function AuditForm({
 
 /* ── Data ── */
 const auditItems = [
-  { num: '01', title: 'PR Velocity Analysis', desc: 'Which PRs are sitting too long, which reviewers are bottlenecks, and where review debt is building up.' },
-  { num: '02', title: 'Sprint Health Score', desc: 'Velocity trends over 90 days, scope creep signals, and which sprints are headed for a miss right now.' },
-  { num: '03', title: 'Blocker Spread Map', desc: 'Blockers about to cascade across teams — caught before they take down two sprints instead of one.' },
-  { num: '04', title: 'Context Switch Load', desc: "Engineers context-switching too much drop 40% in output. We show you who's overloaded before it shows up in velocity." },
-  { num: '05', title: 'Top 3 Risk Flags', desc: 'The three most urgent things in your org right now, ranked by impact, with a recommended action for each.' },
+  { num: '01', title: 'PR Velocity Framework', desc: 'How to spot review bottlenecks, stale PRs, and review debt before they slow your team down.' },
+  { num: '02', title: 'Sprint Health Checklist', desc: 'The signals that predict a sprint miss 2-3 weeks early — velocity trends, scope creep, and carry-over patterns.' },
+  { num: '03', title: 'Blocker Cascade Model', desc: 'A framework for catching blockers that are about to spread across teams — before they take down two sprints instead of one.' },
+  { num: '04', title: 'Context Switch Audit', desc: "How to measure context-switching load and identify engineers at risk of burnout before it shows up in velocity." },
+  { num: '05', title: 'Risk Flag Prioritization', desc: 'How to rank the most urgent risks in your org by impact, plus a template for recommended actions.' },
 ]
 
 const riskCards = [
@@ -189,8 +189,8 @@ export default function AuditPage() {
             </h1>
 
             <p className="audit-subhead">
-              We scan your GitHub, Jira, and Slack and show you exactly which teams
-              are about to miss their deadline. Free, 48-hour turnaround.
+              Get our free audit doc — the exact framework we use to find
+              delivery risks hiding in engineering teams. Yours to keep.
             </p>
 
 {/* (social proof moved into form card) */}
@@ -200,7 +200,7 @@ export default function AuditPage() {
           <div className="audit-hero-right">
             <div className="audit-form-card">
               <p className="audit-form-card-label">
-                For VPs of Eng, CTOs, and engineering leaders
+                Get the free audit doc
               </p>
 
               {heroSubmitted ? (
@@ -229,9 +229,9 @@ export default function AuditPage() {
 
               <div className="audit-form-trust">
                 {[
-                  'Free, yours to keep',
-                  'Covers 90 days of data',
-                  'Delivered in 48 hours',
+                  'Free PDF, no account needed',
+                  'Sent straight to your inbox',
+                  'No sales call, no strings',
                 ].map((text) => (
                   <div key={text} className="audit-trust-item">
                     <svg width="12" height="12" fill="none" stroke={ACCENT} strokeWidth="2" viewBox="0 0 24 24">
@@ -252,7 +252,7 @@ export default function AuditPage() {
       <section className="audit-section">
         <div className="audit-section-label">What you get</div>
         <h2 className="audit-h2">
-          A 5-point risk scan of<br />your engineering org.<br /><span>Free. Yours to keep.</span>
+          What&apos;s inside<br />the audit doc.<br /><span>Free. Yours to keep.</span>
         </h2>
 
         {/* Audit grid */}
@@ -266,9 +266,9 @@ export default function AuditPage() {
           ))}
           <div className="audit-grid-item audit-grid-cta">
             <div className="audit-grid-num">→</div>
-            <h3 className="audit-grid-title">Delivered as a one-page report</h3>
+            <h3 className="audit-grid-title">Ready to use immediately</h3>
             <p className="audit-grid-desc">
-              No dashboard to log into. No alerts to configure. One clean document in your inbox before standup.
+              Actionable frameworks and checklists you can apply to your team this week. No tools required.
             </p>
           </div>
         </div>
