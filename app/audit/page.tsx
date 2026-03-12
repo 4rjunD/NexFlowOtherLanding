@@ -176,60 +176,80 @@ export default function AuditPage() {
 
       {/* ── HERO ── */}
       <section className="audit-hero">
-        {/* Badge */}
-        <div className="audit-badge">
-          <span className="audit-pulse audit-badge-dot" />
-          Free Engineering Risk Audit
+        <div className="audit-hero-grid">
+          {/* Left — copy */}
+          <div className="audit-hero-left">
+            <div className="audit-badge">
+              <span className="audit-pulse audit-badge-dot" />
+              Free Engineering Risk Audit
+            </div>
+
+            <h1 className="audit-h1">
+              Your next missed deadline is <em>already</em> forming.
+            </h1>
+
+            <p className="audit-subhead">
+              We scan your GitHub, Jira, and Slack and show you exactly which teams
+              are about to miss their deadline. Free, 48-hour turnaround.
+            </p>
+
+            {/* Social proof — desktop only (below subhead) */}
+            <div className="audit-social-proof audit-social-desktop">
+              {[
+                'Read-only access, no code seen',
+                '10 min setup, zero eng time',
+                'Report in 48 hours',
+              ].map((text) => (
+                <div key={text} className="audit-proof-item">
+                  <svg width="14" height="14" fill="none" stroke={ACCENT} strokeWidth="2" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  {text}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — form card */}
+          <div className="audit-hero-right">
+            <div className="audit-form-card">
+              <p className="audit-form-card-label">
+                For VPs of Eng, CTOs, and engineering leaders
+              </p>
+
+              {heroSubmitted ? (
+                <div className="audit-success">
+                  <div className="audit-success-icon">✓</div>
+                  <h3 className="audit-success-title">Audit doc on its way.</h3>
+                  <p className="audit-success-desc">
+                    Check your inbox — we&apos;ll also send you a sample risk report so you know exactly what NexFlow catches.
+                  </p>
+                  <a
+                    href="https://calendly.com/arjundixit3508/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="audit-success-btn"
+                  >
+                    Book a walkthrough instead →
+                  </a>
+                </div>
+              ) : (
+                <AuditForm idPrefix="hero" onSuccess={() => setHeroSubmitted(true)} />
+              )}
+
+              <p className="audit-form-note">
+                No spam. No pitch. Just the audit doc.
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* ICP qualifier */}
-        <p className="audit-icp-line">
-          For VPs of Engineering, CTOs, and engineering leaders at growing companies
-        </p>
-
-        {/* Headline */}
-        <h1 className="audit-h1">
-          Your next missed<br />deadline is <em>already</em><br />forming.
-        </h1>
-
-        {/* Subhead — ICP-specific */}
-        <p className="audit-subhead">
-          We scan your GitHub, Jira, and Slack and show you exactly which teams
-          are about to miss their deadline. Free, 48-hour turnaround.
-        </p>
-
-        {/* Form / Success */}
-        {heroSubmitted ? (
-          <div className="audit-success">
-            <div className="audit-success-icon">✓</div>
-            <h3 className="audit-success-title">Audit doc on its way.</h3>
-            <p className="audit-success-desc">
-              Check your inbox — we&apos;ll also send you a sample risk report so you know exactly what NexFlow catches.
-            </p>
-            <a
-              href="https://calendly.com/arjundixit3508/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="audit-success-btn"
-            >
-              Book a walkthrough instead →
-            </a>
-          </div>
-        ) : (
-          <AuditForm idPrefix="hero" onSuccess={() => setHeroSubmitted(true)} />
-        )}
-
-        {/* Form note */}
-        <p className="audit-form-note">
-          No spam. No pitch on the first email. Just the audit doc.
-        </p>
-
-        {/* Social proof */}
-        <div className="audit-social-proof">
+        {/* Social proof — mobile only (below form) */}
+        <div className="audit-social-proof audit-social-mobile">
           {[
-            'Read-only access, no code seen',
-            '10 min setup, zero eng time',
-            'Report in 48 hours',
+            'Read-only, no code seen',
+            '10 min setup',
+            '48-hour report',
           ].map((text) => (
             <div key={text} className="audit-proof-item">
               <svg width="14" height="14" fill="none" stroke={ACCENT} strokeWidth="2" viewBox="0 0 24 24">
@@ -434,10 +454,25 @@ export default function AuditPage() {
 
         /* ── Hero ── */
         .audit-hero {
-          max-width: 860px;
+          max-width: 1060px;
           margin: 0 auto;
-          padding: 80px 40px 64px;
-          text-align: center;
+          padding: 64px 40px 56px;
+        }
+
+        .audit-hero-grid {
+          display: grid;
+          grid-template-columns: 1.15fr 1fr;
+          gap: 48px;
+          align-items: center;
+        }
+
+        .audit-hero-left {
+          text-align: left;
+        }
+
+        .audit-hero-right {
+          display: flex;
+          justify-content: flex-end;
         }
 
         .audit-badge {
@@ -453,7 +488,7 @@ export default function AuditPage() {
           text-transform: uppercase;
           padding: 6px 14px;
           border-radius: 2px;
-          margin-bottom: 20px;
+          margin-bottom: 24px;
         }
 
         .audit-badge-dot {
@@ -464,21 +499,13 @@ export default function AuditPage() {
           display: inline-block;
         }
 
-        .audit-icp-line {
-          font-size: 12px;
-          color: #444;
-          letter-spacing: 0.04em;
-          text-transform: uppercase;
-          margin-bottom: 28px;
-        }
-
         .audit-h1 {
           font-family: ${SYNE};
           font-weight: 800;
-          font-size: clamp(32px, 6vw, 62px);
-          line-height: 1.05;
-          letter-spacing: -2px;
-          margin-bottom: 20px;
+          font-size: clamp(28px, 4vw, 48px);
+          line-height: 1.08;
+          letter-spacing: -1.5px;
+          margin-bottom: 16px;
         }
         .audit-h1 em {
           font-style: normal;
@@ -488,16 +515,38 @@ export default function AuditPage() {
         .audit-subhead {
           font-size: 15px;
           color: ${MUTED};
-          max-width: 480px;
-          margin: 0 auto 40px;
+          max-width: 420px;
+          margin: 0 0 28px;
           line-height: 1.7;
         }
+
+        /* Form card */
+        .audit-form-card {
+          background: ${SURFACE};
+          border: 1px solid ${BORDER};
+          border-radius: 4px;
+          padding: 28px 24px 20px;
+          width: 100%;
+          max-width: 440px;
+        }
+        .audit-form-card-label {
+          font-size: 11px;
+          color: #444;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+
+        /* Social proof visibility toggles */
+        .audit-social-desktop { display: flex; }
+        .audit-social-mobile { display: none; }
 
         /* ── Form ── */
         .audit-form-wrap {
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 10px;
           max-width: 440px;
           margin: 0 auto;
         }
@@ -599,18 +648,16 @@ export default function AuditPage() {
 
         /* ── Form note + social proof ── */
         .audit-form-note {
-          font-size: 12px;
+          font-size: 11px;
           color: #444;
           text-align: center;
-          margin-top: 20px;
+          margin-top: 14px;
         }
 
         .audit-social-proof {
           display: flex;
           align-items: center;
-          justify-content: center;
           gap: 20px;
-          margin-top: 32px;
           flex-wrap: wrap;
         }
         .audit-proof-item {
@@ -872,99 +919,98 @@ export default function AuditPage() {
         .audit-footer-links a { color: #444; text-decoration: none; }
         .audit-footer-links a:hover { color: ${MUTED}; }
 
-        /* ── TABLET (≤ 768px) ── */
+        /* ── TABLET (≤ 768px) — stack hero ── */
         @media (max-width: 768px) {
-          .audit-hero { padding: 60px 24px 48px; }
-          .audit-section { padding: 56px 24px; }
-          .audit-bottom-cta { padding: 56px 24px; }
-          .audit-nav { padding: 16px 24px; }
-          .audit-footer { padding: 20px 24px; }
+          .audit-hero { padding: 36px 20px 28px; }
+          .audit-hero-grid {
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+          .audit-hero-left { text-align: center; }
+          .audit-hero-right { justify-content: center; }
+          .audit-subhead { margin: 0 auto 20px; }
+          .audit-h1 { font-size: clamp(26px, 5vw, 40px); letter-spacing: -1px; }
 
-          .audit-grid {
-            grid-template-columns: repeat(2, 1fr);
+          .audit-social-desktop { display: none; }
+          .audit-social-mobile {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
           }
 
-          .audit-step {
-            padding: 24px;
-            gap: 16px;
+          .audit-form-card {
+            max-width: 100%;
+            padding: 24px 20px 16px;
           }
 
+          .audit-section { padding: 56px 20px; }
+          .audit-bottom-cta { padding: 56px 20px; }
+          .audit-nav { padding: 16px 20px; }
+          .audit-footer { padding: 20px; }
+
+          .audit-grid { grid-template-columns: repeat(2, 1fr); }
+
+          .audit-step { padding: 24px; gap: 16px; }
           .audit-math-block { padding: 24px; }
-
           .audit-report-header { padding: 12px 16px; }
           .audit-report-body { padding: 16px; gap: 12px; }
         }
 
-        /* ── MOBILE (≤ 480px) ── */
+        /* ── MOBILE (≤ 480px) — form visible immediately ── */
         @media (max-width: 480px) {
-          .audit-hero { padding: 40px 16px 36px; }
-          .audit-section { padding: 48px 16px; }
-          .audit-bottom-cta { padding: 48px 16px; }
-          .audit-nav { padding: 14px 16px; }
+          .audit-hero { padding: 20px 16px 16px; }
+          .audit-hero-grid { gap: 16px; }
+          .audit-h1 { font-size: 26px; letter-spacing: -0.8px; margin-bottom: 10px; }
+          .audit-subhead { font-size: 13px; margin-bottom: 0; }
+          .audit-badge { margin-bottom: 12px; font-size: 10px; padding: 5px 10px; }
+
+          .audit-form-card { padding: 16px 14px 12px; }
+          .audit-form-card-label { font-size: 10px; margin-bottom: 12px; }
+
+          .audit-form-row { flex-direction: column; gap: 8px; }
+          .audit-form-wrap { gap: 8px; }
+          .audit-input { padding: 14px; font-size: 16px; }
+          .audit-btn-primary { padding: 16px; font-size: 15px; }
+
+          .audit-social-mobile {
+            flex-direction: row;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 12px;
+          }
+          .audit-proof-item { font-size: 10px; gap: 4px; }
+          .audit-proof-item svg { width: 12px; height: 12px; }
+
+          .audit-form-note { font-size: 10px; margin-top: 10px; }
+
+          .audit-section { padding: 40px 16px; }
+          .audit-bottom-cta { padding: 40px 16px; }
+          .audit-nav { padding: 12px 16px; }
           .audit-footer {
             padding: 16px;
             flex-direction: column;
             text-align: center;
           }
 
-          .audit-h1 { letter-spacing: -1px; }
+          .audit-grid { grid-template-columns: 1fr; }
+          .audit-grid-item { padding: 20px; }
 
-          .audit-icp-line { font-size: 10px; margin-bottom: 20px; }
+          .audit-report-body { grid-template-columns: 1fr; }
+          .audit-report-header-left { flex-wrap: wrap; }
+          .audit-report-title { font-size: 11px; }
 
-          .audit-form-row {
-            flex-direction: column;
-            gap: 12px;
-          }
-
-          .audit-input {
-            padding: 16px;
-            font-size: 16px; /* prevents iOS zoom */
-          }
-
-          .audit-btn-primary {
-            padding: 18px 24px;
-            font-size: 16px;
-          }
-
-          .audit-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .audit-report-body {
-            grid-template-columns: 1fr;
-          }
-
-          .audit-report-header-left {
-            flex-wrap: wrap;
-          }
-          .audit-report-title {
-            font-size: 11px;
-          }
-
-          .audit-math-row {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 4px;
-          }
+          .audit-math-row { flex-direction: column; align-items: flex-start; gap: 4px; }
           .audit-math-label { font-size: 13px; }
 
-          .audit-step {
-            grid-template-columns: 36px 1fr;
-            padding: 20px 16px;
-            gap: 12px;
-          }
+          .audit-step { grid-template-columns: 36px 1fr; padding: 20px 16px; gap: 12px; }
           .audit-step-num { font-size: 22px; }
           .audit-step-title { font-size: 16px; }
 
-          .audit-social-proof {
-            flex-direction: column;
-            gap: 12px;
-          }
-
-          .audit-success { padding: 28px 20px; }
+          .audit-success { padding: 24px 16px; }
           .audit-form-wrap { max-width: 100%; }
 
-          .audit-grid-item { padding: 20px; }
+          .audit-h2 { font-size: clamp(22px, 5vw, 32px); margin-bottom: 28px; }
+          .audit-bottom-h2 { font-size: clamp(24px, 5vw, 40px); }
         }
       `}</style>
     </main>
