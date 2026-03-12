@@ -1,64 +1,55 @@
 import { NextResponse } from 'next/server'
+import nodemailer from 'nodemailer'
 
-// To set up Slack webhook:
-// 1. Go to https://api.slack.com/apps → Create New App → From Scratch
-// 2. Enable "Incoming Webhooks" → Add New Webhook to Workspace
-// 3. Pick the channel you want notifications in
-// 4. Copy the webhook URL
-// 5. Add to .env.local: SLACK_WEBHOOK_URL=https://hooks.slack.com/services/...
+// Gmail SMTP setup:
+// 1. Go to https://myaccount.google.com/apppasswords
+// 2. Generate an app password for "Mail"
+// 3. Add to .env.local:
+//    GMAIL_USER=your@gmail.com
+//    GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const { firstName, company, email, phone } = body
+    const { firstName, company, email, phone } = await request.json()
 
-    if (!firstName || !email) {
-      return NextResponse.json({ error: 'Name and email are required' }, { status: 400 })
+    if (!firstName || !email || !company || !phone) {
+      return NextResponse.json({ error: 'All fields are required' }, { status: 400 })
     }
 
-    const webhookUrl = process.env.SLACK_WEBHOOK_URL
+    const gmailUser = process.env.GMAIL_USER
+    const gmailPass = process.env.GMAIL_APP_PASSWORD
 
-    if (webhookUrl) {
-      const slackMessage = {
-        blocks: [
-          {
-            type: 'header',
-            text: {
-              type: 'plain_text',
-              text: 'New Audit Lead',
-              emoji: true,
-            },
-          },
-          {
-            type: 'section',
-            fields: [
-              { type: 'mrkdwn', text: `*Name:*\n${firstName}` },
-              { type: 'mrkdwn', text: `*Company:*\n${company || 'Not provided'}` },
-              { type: 'mrkdwn', text: `*Email:*\n${email}` },
-              { type: 'mrkdwn', text: `*Phone:*\n${phone || 'Not provided'}` },
-            ],
-          },
-          {
-            type: 'context',
-            elements: [
-              {
-                type: 'mrkdwn',
-                text: `Submitted at ${new Date().toISOString()}`,
-              },
-            ],
-          },
-        ],
-      }
+    if (gmailUser && gmailPass) {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: gmailUser,
+          pass: gmailPass,
+        },
+      })
 
-      await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(slackMessage),
+      await transporter.sendMail({
+        from: gmailUser,
+        to: gmailUser,
+        subject: `New Audit Lead: ${firstName} from ${company}`,
+        html: `
+          <div style="font-family: -apple-system, sans-serif; max-width: 480px;">
+            <h2 style="margin: 0 0 16px; font-size: 20px;">New Audit Lead</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr><td style="padding: 8px 0; color: #666; width: 80px;">Name</td><td style="padding: 8px 0; font-weight: 600;">${firstName}</td></tr>
+              <tr><td style="padding: 8px 0; color: #666;">Company</td><td style="padding: 8px 0; font-weight: 600;">${company}</td></tr>
+              <tr><td style="padding: 8px 0; color: #666;">Email</td><td style="padding: 8px 0;"><a href="mailto:${email}">${email}</a></td></tr>
+              <tr><td style="padding: 8px 0; color: #666;">Phone</td><td style="padding: 8px 0;"><a href="tel:${phone}">${phone}</a></td></tr>
+            </table>
+            <p style="margin-top: 16px; font-size: 12px; color: #999;">Submitted ${new Date().toLocaleString()}</p>
+          </div>
+        `,
       })
     }
 
     return NextResponse.json({ success: true })
-  } catch {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  } catch (error) {
+    console.error('Email send error:', error)
+    return NextResponse.json({ error: 'Failed to send notification' }, { status: 500 })
   }
 }

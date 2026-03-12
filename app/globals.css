@@ -149,6 +149,13 @@ html {
   font-style: italic;
 }
 
+/* ── Audit page pulse animation ── */
+@keyframes audit-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+.audit-pulse { animation: audit-pulse 2s infinite; }
+
 /* ── Blog card hover ── */
 .nf-blog-card {
   transition: box-shadow 0.2s, border-color 0.2s;
