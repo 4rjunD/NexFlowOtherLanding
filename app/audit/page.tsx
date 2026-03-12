@@ -425,7 +425,7 @@ export default function AuditPage() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 20px 40px;
+          padding: 14px 40px;
           border-bottom: 1px solid ${BORDER};
           position: sticky;
           top: 0;
@@ -454,15 +454,15 @@ export default function AuditPage() {
 
         /* ── Hero ── */
         .audit-hero {
-          max-width: 1060px;
+          max-width: 1100px;
           margin: 0 auto;
-          padding: 64px 40px 56px;
+          padding: 36px 40px 28px;
         }
 
         .audit-hero-grid {
           display: grid;
-          grid-template-columns: 1.15fr 1fr;
-          gap: 48px;
+          grid-template-columns: 1.3fr 1fr;
+          gap: 40px;
           align-items: center;
         }
 
@@ -486,9 +486,9 @@ export default function AuditPage() {
           font-weight: 500;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          padding: 6px 14px;
+          padding: 5px 12px;
           border-radius: 2px;
-          margin-bottom: 24px;
+          margin-bottom: 16px;
         }
 
         .audit-badge-dot {
@@ -502,10 +502,10 @@ export default function AuditPage() {
         .audit-h1 {
           font-family: ${SYNE};
           font-weight: 800;
-          font-size: clamp(28px, 4vw, 48px);
-          line-height: 1.08;
-          letter-spacing: -1.5px;
-          margin-bottom: 16px;
+          font-size: clamp(26px, 3vw, 38px);
+          line-height: 1.1;
+          letter-spacing: -1.2px;
+          margin-bottom: 12px;
         }
         .audit-h1 em {
           font-style: normal;
@@ -513,11 +513,10 @@ export default function AuditPage() {
         }
 
         .audit-subhead {
-          font-size: 15px;
+          font-size: 14px;
           color: ${MUTED};
-          max-width: 420px;
-          margin: 0 0 28px;
-          line-height: 1.7;
+          margin: 0 0 20px;
+          line-height: 1.6;
         }
 
         /* Form card */
@@ -525,16 +524,16 @@ export default function AuditPage() {
           background: ${SURFACE};
           border: 1px solid ${BORDER};
           border-radius: 4px;
-          padding: 28px 24px 20px;
+          padding: 24px 22px 16px;
           width: 100%;
-          max-width: 440px;
+          max-width: 420px;
         }
         .audit-form-card-label {
-          font-size: 11px;
+          font-size: 10px;
           color: #444;
           letter-spacing: 0.04em;
           text-transform: uppercase;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
           text-align: center;
         }
 
@@ -562,8 +561,8 @@ export default function AuditPage() {
           border: 1px solid ${BORDER};
           color: #f0f0f0;
           font-family: ${MONO};
-          font-size: 14px;
-          padding: 14px 16px;
+          font-size: 13px;
+          padding: 12px 14px;
           border-radius: 2px;
           outline: none;
           transition: border-color 0.2s, box-shadow 0.2s;
@@ -581,9 +580,9 @@ export default function AuditPage() {
           color: #000;
           font-family: ${SYNE};
           font-weight: 700;
-          font-size: 15px;
+          font-size: 14px;
           letter-spacing: 0.02em;
-          padding: 16px 24px;
+          padding: 14px 24px;
           border: none;
           border-radius: 2px;
           cursor: pointer;
